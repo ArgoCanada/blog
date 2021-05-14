@@ -4,15 +4,15 @@
       "path": "about.html",
       "title": "About",
       "author": [],
-      "contents": "\nThis site is an unofficial collection of posts related to the development of software to support the Argo international research program.\n\n\n\n",
-      "last_modified": "2021-05-14T16:36:06+00:00"
+      "contents": "\nThis site is an unofficial collection of posts related to the development of software to support the Argo international research program. Several projects related to this blog include argoFloats, argodata, and bgcArgoDMQC.\n\n\n\n",
+      "last_modified": "2021-05-14T16:43:31+00:00"
     },
     {
       "path": "index.html",
       "title": "Argo Canada Development Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-05-14T16:36:07+00:00"
+      "last_modified": "2021-05-14T16:43:32+00:00"
     }
   ],
   "collections": ["posts/posts.json"]
