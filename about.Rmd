@@ -1,9 +1,10 @@
 ---
-title: "About this blog"
-description: |
-  Some additional details about the blog
+title: "About"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+
+This site is an unofficial collection of posts related to the development of software to support the [Argo international research program](https://argo.ucsd.edu/).
