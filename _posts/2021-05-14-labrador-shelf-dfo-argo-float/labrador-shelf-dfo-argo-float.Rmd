@@ -25,6 +25,7 @@ The float, with WMO ID 4902426, executed 389 total profiles, surviving a winter 
 A summary of the data found in the combined profile file `4902426_prof.nc` is provided below (using the [R oce](https://dankelley.github.io/oce/) package developed by myself and Dan Kelley). Another approach, which permits individual access to the single-profile files provided on the Argo DAC, is to use the *in development* (but quite mature) [`argoFloats`](https://argocanada.github.io/argoFloats/index.html) package.
 
 To see a crude map of the float profile locations:
+
 ```{r}
 library(oce)
 a <- read.oce('4902426_prof.nc')
@@ -32,6 +33,7 @@ plot(a)
 ```
 
 For a quick "section"-style plot of the temperature, salinity, and density data:
+
 ```{r}
 s <- as.section(handleFlags(a)) # convert the float object to a section object,
                                 # applying the argo QC flags
