@@ -1,5 +1,7 @@
 ---
 title: "A Questionable Interpolation"
+description: |
+  A few floats with interpolated positions
 author:
   - name: Dewey Dunnington
     url: https://github.com/paleolimbot
