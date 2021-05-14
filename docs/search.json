@@ -2,18 +2,17 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "About",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-05-14T13:35:12+00:00"
+      "contents": "\nThis site is an unofficial collection of posts related to the development of software to support the Argo international research program.\n\n\n\n",
+      "last_modified": "2021-05-14T15:10:12+00:00"
     },
     {
       "path": "index.html",
-      "title": "My Blog",
+      "title": "Argo Canada Development Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-05-14T13:35:13+00:00"
+      "last_modified": "2021-05-14T15:10:13+00:00"
     }
   ],
   "collections": ["posts/posts.json"]

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Argo Canada Development Blog</title>
+    <link>https://argocanada.github.io/blog/</link>
+    <atom:link href="https://argocanada.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Argo Canada Development Blog
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Fri, 14 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>A Questionable Interpolation</title>
+      <dc:creator>Dewey Dunnington</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation</link>
+      <description>A few floats with interpolated positions</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation</guid>
+      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation/a-questionable-interpolation_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+  </channel>
+</rss>
