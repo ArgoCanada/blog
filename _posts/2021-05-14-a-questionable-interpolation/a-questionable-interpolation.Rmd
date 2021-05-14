@@ -1,0 +1,71 @@
+---
+title: "A Questionable Interpolation"
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 05-14-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+# keep warnings out of the post
+library(argoFloats)
+library(dplyr)
+library(argodata)
+
+temp_argo <- tempfile()
+dir.create(temp_argo)
+options(argoFloats.destdir = temp_argo)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+These floats were [first posted](https://github.com/ArgoCanada/argoFloats/issues/224) about by [Jaimie Harbin](https://github.com/j-harbin), who noted that some interpolations are particularly questionable. This affects Canadian waters more so than others as we have a lot of ice (which prevents floats from communicating their position) and a complex coastline (which the default linear interpolation frequently crosses).
+
+```{r}
+library(argoFloats)
+index1 <- subset(getIndex(), ID = '6902728')
+plot(index1) 
+```
+
+```{r}
+bindex <- subset(getIndex(filename = 'bgc'), ID = '6902967')
+plot(bindex)
+```
+
+These points are documented as "interpolated" in the individual .nc files, identified as the `POSITION_QC` variable having a value of 8.
+
+```{r}
+library(argodata)
+library(dplyr)
+library(ggplot2)
+
+profiles <- bind_rows(
+  argo_global_bio_prof(),
+  argo_global_prof()
+) %>%
+  argo_filter_float(c(6902967, 6902728)) %>%
+  argo_prof_prof() %>%
+  group_by(date_location, latitude, longitude) %>%
+  slice(1) %>%
+  ungroup()
+
+ggplot(profiles, aes(longitude, latitude)) +
+  geom_point(aes(col = position_qc)) +
+  theme_void()
+```
+
+More detail about the profile positions:
+
+```{r, layout="l-body-outset"}
+rmarkdown::paged_table(profiles)
+```
+
+
+```{r, include = FALSE}
+# clean up topo files so they don't end up on GitHub
+unlink(list.files(".", "^topo", full.names = T))
+```
