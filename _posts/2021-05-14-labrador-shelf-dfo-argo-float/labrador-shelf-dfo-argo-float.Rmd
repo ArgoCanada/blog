@@ -1,0 +1,43 @@
+---
+title: "Labrador Shelf DFO Argo Float"
+description: |
+  A quick overview of a DFO Argo float that survived a winter drifting under the ice on the Labrador Shelf
+author:
+  - name: Clark Richards
+date: 05-14-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, dev = "png", dev.args = list(type = "cairo-png"))
+```
+
+## Introduction
+
+In July 2017, A DFO Argo float (of NOVA type, containing a pumped SBE CTD) was deployed on the Labrador Shelf, as part of an exercises related to the DFO/ECCC/DND CONCEPTS program (Canadian Operational Network of Coupled Environmental PredicTion Systems). The float was programmed to execute daily profiles between the surface and the bottom until it exhausted its batteries.
+
+The float, with WMO ID 4902426, executed 389 total profiles, surviving a winter season under the ice. Float data and trajectory can be explored through the EuroArgo "Fleet monitoring" site, found at: [https://fleetmonitoring.euro-argo.eu/float/4902426](https://fleetmonitoring.euro-argo.eu/float/4902426), or by downloading the netCDF files directly from [https://data-argo.ifremer.fr/dac/meds/4902426/](https://data-argo.ifremer.fr/dac/meds/4902426/)
+
+## Data summary
+
+A summary of the data found in the combined profile file `4902426_prof.nc` is provided below (using the [R oce](https://dankelley.github.io/oce/) package developed by myself and Dan Kelley). Another approach, which permits individual access to the single-profile files provided on the Argo DAC, is to use the *in development* (but quite mature) [`argoFloats`](https://argocanada.github.io/argoFloats/index.html) package.
+
+To see a crude map of the float profile locations:
+```{r}
+library(oce)
+a <- read.oce('4902426_prof.nc')
+plot(a)
+```
+
+For a quick "section"-style plot of the temperature, salinity, and density data:
+```{r}
+s <- as.section(handleFlags(a)) # convert the float object to a section object,
+                                # applying the argo QC flags
+library(cmocean) # for nice colormaps
+plot(s, which='temperature', xtype='time', ztype='image', col=cmocean('thermal'))
+plot(s, which='salinity', xtype='time', ztype='image', col=cmocean('haline'))
+plot(s, which='sigmaTheta', xtype='time', ztype='image', col=cmocean('dense'))
+```
+
