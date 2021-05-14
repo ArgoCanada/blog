@@ -7,4 +7,4 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-This site is an unofficial collection of posts related to the development of software to support the [Argo international research program](https://argo.ucsd.edu/).
+This site is an unofficial collection of posts related to the development of software to support the [Argo international research program](https://argo.ucsd.edu/). Several projects related to this blog include [argoFloats](https://github.com/ArgoCanada/argoFloats), [argodata](https://github.com/ArgoCanada/argodata), and [bgcArgoDMQC](https://github.com/ArgoCanada/bgcArgoDMQC).
