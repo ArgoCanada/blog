@@ -20,10 +20,21 @@ jobs:
         shell: Rscript {0}
 
       - name: Render Site
-        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
-
-      - name: Commit results
         run: |
+          rmarkdown::render_site(encoding = "UTF-8")
+        shell: Rscript {0}
+
+      - name: Checkout the gh-pages branch
+        uses: actions/checkout@master
+        with:
+          ref: gh-pages
+          path: pages-clone
+
+      - name: Deploy source package
+        if: success()
+        run: |
+          cp -rf docs/* pages-clone/
+          cd pages-clone
           git add -A
           git commit -m 'Rebuild site' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
