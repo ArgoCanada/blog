@@ -1,6 +1,8 @@
 on:
   push:
     branches: master
+  pull_request:
+    branches: master
 
 name: Render & Deploy Site
 
@@ -19,19 +21,20 @@ jobs:
           install.packages("distill")
         shell: Rscript {0}
 
-      - name: Render Site
+      - name: Render site
         run: |
           rmarkdown::render_site(encoding = "UTF-8")
         shell: Rscript {0}
 
       - name: Checkout the gh-pages branch
+        if: success() && (github.ref == 'refs/heads/master')
         uses: actions/checkout@master
         with:
           ref: gh-pages
           path: pages-clone
 
-      - name: Deploy source package
-        if: success()
+      - name: Deploy site to the gh-pages branch
+        if: success() && (github.ref == 'refs/heads/master')
         run: |
           cp -rf docs/* pages-clone/
           cd pages-clone
