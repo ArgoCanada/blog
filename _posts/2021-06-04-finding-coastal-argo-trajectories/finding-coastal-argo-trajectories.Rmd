@@ -1,0 +1,129 @@
+---
+title: "Finding Coastal Argo Trajectories"
+description: "Complex subsets of Argo profiles using argodata and s2"
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 06-04-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(s2)
+library(argodata)
+library(s2plot)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This post is a demonstration of getting a complex subset of Argo profiles. For a paper we're working on, we need a collection of *long*, *well-characterized*, *coastal* Argo float trajectories. For the purposes of the post, I'm going to define *long* as >500 km in length and containing more than 100 locations, *well-characterized* as a maximum of 100 km between profiles, and *coastal* as >80% of locations within 400 km of the coast. These criteria aren't trivial to calculate!
+
+To go about this, I'm going to use the [argodata](https://github.com/ArgoCanada/argodata), [s2](https://github.com/r-spatial/s2), and [tidyverse](https://tidyverse.org) packages. The [s2plot](https://github.com/paleolimbot/s2plot) package is experimental but helps visualize the results of the subset.
+
+```{r}
+library(tidyverse)
+library(s2)
+library(argodata) # remotes::install_github("ArgoCanada/argodata")
+library(s2plot) # remotes::install_github("paleolimbot/s2plot")
+```
+
+We're interested in trajectories, but we also don't want to download and read every single trajectory file in Argo! The profile index contains best-guess profile locations and so I'll use it here to approximate the trajectories for the purposes of selecting representative floats. In argodata, this is available from `argo_global_prof()`, but we'll also need to create the s2 objects tha represent the point location. There's a few invalid nodata values that we also have to consider, and I use `argo_extract_path_info()` to pull the float and cycle information out of the filename.
+
+```{r}
+prof <- argo_global_prof() %>% 
+  mutate(
+    longitude = if_else(longitude %in% c(-999.999, -99.999), NA_real_, longitude),
+    latitude = na_if(latitude, -99.999),
+    geog = s2_geog_point(longitude, latitude)
+  ) %>%
+  filter(is.finite(longitude), is.finite(latitude)) %>% 
+  argo_extract_path_info()
+
+prof %>% 
+  select(file_float, file_cycle, geog)
+```
+
+For the *coastal* subset we need some information that we don't have. While [argoFloats](https://github.com/ArgoCanada/argoFloats) and argodata have built-in functions to subset by distance from a point or line, distance from a polygon is complicated, and even more complicated if that polygon is on the sphere. The s2 package contains a version of the [Natural Earth 1:10,000,000 countries data set)](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/), which we can aggregate to form a definition of "land".
+
+```{r}
+land <- s2_data_countries() %>%
+  s2_union_agg()
+```
+
+The s2 package has a dedicated function for "distance within"; however, if we use it here it takes an unreasonable amount of time on the ~2.5 million profiles in Argo. We can simplify the definition of "within 400 km of land" using `s2_buffer_cells()` with a low `min_level`.
+
+```{r}
+land_400km_approx <- land %>% 
+  s2_buffer_cells(400 * 1000, min_level = 3)
+```
+
+Using the land to preselect profiles that *might* be within 400 km before computing the exact subset saves almost half an hour of computation time here.
+
+```{r}
+prof_coastal <- prof %>%
+  filter(s2_intersects(geog, land_400km_approx)) %>% 
+  filter(s2_dwithin(geog, land, distance = 400 * 1000))
+```
+
+With a visual check, it looks like this worked!
+
+```{r}
+s2plot(land_400km_approx)
+s2plot(land, add = T, border = "blue")
+s2plot(prof_coastal$geog, add = T, pch = 16, cex = 0.5)
+```
+
+We also need a few more pieces of information for our *long* and *well-characterized* criteria. First, we need to sort by float and cycle and compute distances between successive cycles.
+
+```{r}
+prof_coastal_traj <- prof %>%
+  arrange(file_float, file_cycle) %>% 
+  # only use the coastal subset
+  mutate(
+    is_coastal = file %in% prof_coastal$file
+  ) %>% 
+  # takes care of duplicate profiles that have a realtime
+  # and delayed profile in the index.
+  group_by(file_float, file_cycle) %>%
+  slice(1) %>%
+  # compute distance between adjacent profiles
+  group_by(file_float) %>% 
+  mutate(
+    dist_from_last = s2_distance(geog, lag(geog))
+  )
+```
+
+Now we can apply our criteria. I'm using a [grouped filter](https://r4ds.had.co.nz/transform.html#grouped-mutates-and-filters) here so that I can use aggregation functions (like `sum()`, `max()`, and `n()`) but retain all the profile information from which the information was calculated. More than 100 profiles per float becomes `n() > 100`, >500 km in length becomes `sum(dist_from_last) > (500 * 1000)`, 80% of profiles within 400 km of the coast becomes `(sum(is_coastal) / n()) > 0.8`, and maximum distance of 100 km between profiles becomes `max(dist_from_last) < (100 * 1000)`.
+
+```{r, warning=FALSE}
+prof_coastal_traj_filter <- prof_coastal_traj %>% 
+  group_by(file_float) %>% 
+  filter(
+    n() > 100,
+    sum(dist_from_last, na.rm = TRUE) > (500 * 1000),
+    (sum(is_coastal) / n()) > 0.8,
+    max(dist_from_last, na.rm = TRUE) < (100 * 1000)
+  )
+
+n_distinct(prof_coastal_traj_filter$file_float)
+```
+
+From these criteria, we get 664 floats! That's a little lower than I was hoping for, so for the actual paper we'll probably relax those numbers a little so that we have ~1,000 floats to work with. Once again, a visual check:
+
+```{r}
+s2plot(
+  land,
+  projection = s2plot_projection_orthographic(s2_geog_point(-40, 10))
+)
+
+prof_coastal_traj_filter %>% 
+  group_by(file_float) %>%
+  summarise(traj = s2_make_line(longitude, latitude)) %>% 
+  pull() %>% 
+  s2plot(add = T, col = "blue")
+```
+
+
