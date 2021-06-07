@@ -1,0 +1,34 @@
+---
+title: "An Argo Loop-the-Loop"
+description: |
+  Two floats that do a near-perfect loop-the-loop
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 06-07-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+library(argoFloats)
+temp_cache <- tempfile()
+dir.create(temp_cache)
+options(argoFloats.destdir = temp_cache)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In writing the [last post](/blog/posts/2021-06-04-finding-coastal-argo-trajectories/), two floats were identified ([coriolis/6902966](https://data-argo.ifremer.fr/dac/coriolis/6902966/) and [coriolis/6902957](https://data-argo.ifremer.fr/dac/coriolis/6902957/)) that do an almost perfect loop-the-loop off the coast of Brazil!
+
+```{r}
+library(argoFloats)
+full_index <- getIndex()
+float1 <- subset(full_index, ID = 6902966)
+float2 <- subset(full_index, ID = 6902957)
+
+plot(merge(float1, float2))
+lines(float1@data$index[c("longitude", "latitude")])
+lines(float2@data$index[c("longitude", "latitude")])
+```
