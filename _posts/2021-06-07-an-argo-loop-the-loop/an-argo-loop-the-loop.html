@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png","topo_62.11W_51.79W_6.7N_12.31N_2min.nc","topo_62.41W_51.49W_7.1N_12.01N_2min.nc"]}
+  {"type":"character","attributes":{},"value":["an-argo-loop-the-loop_files/anchor-4.2.2/anchor.min.js","an-argo-loop-the-loop_files/bowser-1.9.3/bowser.min.js","an-argo-loop-the-loop_files/distill-2.2.21/template.v2.js","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-3-1.png","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-4-1.gif","an-argo-loop-the-loop_files/jquery-1.11.3/jquery.min.js","an-argo-loop-the-loop_files/popper-2.6.0/popper.min.js","an-argo-loop-the-loop_files/tippy-6.2.7/tippy-bundle.umd.min.js","an-argo-loop-the-loop_files/tippy-6.2.7/tippy-light-border.css","an-argo-loop-the-loop_files/tippy-6.2.7/tippy.css","an-argo-loop-the-loop_files/tippy-6.2.7/tippy.umd.min.js","an-argo-loop-the-loop_files/webcomponents-2.0.0/webcomponents.js","argoFloats-cache/ar_index_global_prof.rda","topo_62.11W_51.79W_6.7N_12.31N_2min.nc","topo_62.41W_51.49W_7.1N_12.01N_2min.nc"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1492,6 +1492,192 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
+<p>The first question we might want to ask is <em>why!?</em>. Eddies are common in ocean currents but it seems like an awfully big coincidence that these two floats did the exact same loop-the-loop if they weren’t in the same eddy at the same time. Using <a href="https://github.com/ArgoCanada/argodata">argodata</a>, we can investigate some of the details. I’ll also use the <a href="https://tidyverse.org/">tidyverse</a> for plotting and data frame manipulation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ArgoCanada/argodata'>argodata</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The first question we might want to ask is: were these floats in the same place at the same time? We can plot the dates to see if they are at least cycling at the same time:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prof</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_global_meta.html'>argo_global_prof</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_filter.html'>argo_filter_float</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6902966</span>, <span class='fl'>6902957</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_path_info.html'>argo_extract_path_info</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>prof</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>file_float</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>It looks like they are! Using <a href="https://gganimate.com">gganimate</a>, we can do a quick visual check if they also align in space.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>prof</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>longitude</span>, <span class='va'>latitude</span>, group <span class='op'>=</span> <span class='va'>file_float</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_path</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>gganimate</span><span class='fu'>::</span><span class='fu'><a href='https://gganimate.com/reference/transition_reveal.html'>transition_reveal</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"{ frame_along }"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-4-1.gif" /><!-- --></p>
+</div>
+<p>It looks like they were released at the same time right next to each other, which explains why they tracked so closely (and why they get farther apart as they move west).</p>
+<p>Another curiosity is the distance between profiles, which changes a few times over the course of the float’s lifetime. We could just measure the time between profiles, but to see what the float <em>intended</em> to do we can also check the configuration parameters. In argodata these are available via <code>argo_meta_config_param()</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>meta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_global_meta.html'>argo_global_meta</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_filter.html'>argo_filter_float</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6902966</span>, <span class='fl'>6902957</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>meta</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_meta.html'>argo_meta_config_param</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_path_info.html'>argo_extract_path_info</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>file_float</span>, <span class='va'>n_missions</span>, <span class='va'>config_parameter_name</span>, <span class='va'>config_parameter_value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>n_missions</span>, values_from <span class='op'>=</span> <span class='va'>config_parameter_value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">file_float</th>
+<th style="text-align: left;">config_parameter_name</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">6902957</td>
+<td style="text-align: left;">CONFIG_CycleTime_hours</td>
+<td style="text-align: right;">26.5</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902957</td>
+<td style="text-align: left;">CONFIG_ParkPressure_dbar</td>
+<td style="text-align: right;">200.0</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6902957</td>
+<td style="text-align: left;">CONFIG_ProfilePressure_dbar</td>
+<td style="text-align: right;">1000.0</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902957</td>
+<td style="text-align: left;">CONFIG_DescentToParkPresSamplingTime_seconds</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6902957</td>
+<td style="text-align: left;">CONFIG_Direction_NUMBER</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_CycleTime_hours</td>
+<td style="text-align: right;">38.5</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_ParkPressure_dbar</td>
+<td style="text-align: right;">200.0</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_ProfilePressure_dbar</td>
+<td style="text-align: right;">1000.0</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_SurfaceTime_HH</td>
+<td style="text-align: right;">15.0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_DescentToParkPresSamplingTime_seconds</td>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_InAirMeasurementPeriodicity_NUMBER</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6902966</td>
+<td style="text-align: left;">CONFIG_Direction_NUMBER</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It looks like these floats were set to sample rapidly (every 24 hours) and changed a few times over the course of the float lifespan. This explains the loop-the-loop more convincingly as an eddy as the usual float cycling time of 10 days would mean it was a very slow eddy (credit to Clark Richards for that observation!).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
