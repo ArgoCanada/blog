@@ -13,8 +13,12 @@ output:
 
 
 ```{r setup, include=FALSE}
+library(tidyverse)
+library(argodata)
+theme_set(theme_bw())
+
 library(argoFloats)
-temp_cache <- tempfile()
+temp_cache <- "argoFloats-cache"
 dir.create(temp_cache)
 options(argoFloats.destdir = temp_cache)
 knitr::opts_chunk$set(echo = TRUE)
@@ -32,3 +36,49 @@ plot(merge(float1, float2))
 lines(float1@data$index[c("longitude", "latitude")])
 lines(float2@data$index[c("longitude", "latitude")])
 ```
+
+The first question we might want to ask is *why!?*. Eddies are common in ocean currents but it seems like an awfully big coincidence that these two floats did the exact same loop-the-loop if they weren't in the same eddy at the same time. Using [argodata](https://github.com/ArgoCanada/argodata), we can investigate some of the details. I'll also use the [tidyverse](https://tidyverse.org/) for plotting and data frame manipulation.
+
+```{r}
+library(tidyverse)
+library(argodata)
+```
+
+The first question we might want to ask is: were these floats in the same place at the same time? We can plot the dates to see if they are at least cycling at the same time:
+
+```{r}
+prof <- argo_global_prof() %>%
+  argo_filter_float(c(6902966, 6902957)) %>% 
+  argo_extract_path_info()
+
+ggplot(prof, aes(date, file_float)) +
+  geom_point()
+```
+
+It looks like they are! Using [gganimate](https://gganimate.com), we can do a quick visual check if they also align in space.
+
+```{r}
+ggplot(prof, aes(longitude, latitude, group = file_float)) +
+  geom_path() +
+  geom_point() +
+  gganimate::transition_reveal(date) +
+  labs(title = "{ frame_along }")
+```
+
+It looks like they were released at the same time right next to each other, which explains why they tracked so closely (and why they get farther apart as they move west).
+
+Another curiosity is the distance between profiles, which changes a few times over the course of the float's lifetime. We could just measure the time between profiles, but to see what the float *intended* to do we can also check the configuration parameters. In argodata these are available via `argo_meta_config_param()`:
+
+```{r}
+meta <- argo_global_meta() %>% 
+  argo_filter_float(c(6902966, 6902957))
+
+meta %>% 
+  argo_meta_config_param() %>% 
+  argo_extract_path_info() %>% 
+  select(file_float, n_missions, config_parameter_name, config_parameter_value) %>% 
+  pivot_wider(names_from = n_missions, values_from = config_parameter_value) %>% 
+  knitr::kable()
+```
+
+It looks like these floats were set to sample rapidly (every 24 hours) and changed a few times over the course of the float lifespan. This explains the loop-the-loop more convincingly as an eddy as the usual float cycling time of 10 days would mean it was a very slow eddy (credit to Clark Richards for that observation!).
