@@ -1,0 +1,154 @@
+---
+title: "Checking Argo Files"
+description: |
+  How to run the Argo file checker on any platform
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 06-23-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In preparation for writing some real-time quality control code, the question arose of how to check modified Argo files to make sure that they conform to the specification in the [Argo User's Manual](https://doi.org/10.13155/29825). The [official tool is hosted on Ifremer](https://doi.org/10.17882/45538) and is written in Java. When the latest version is downloaded you can run a shell command that will check one or more files. Running a `bash` shell, this can be done in a few lines:
+
+``` bash
+# download and unpack the tool in the current working directory
+curl https://www.seanoe.org/data/00344/45538/data/83774.tar.gz | tar -xz
+
+# set the working directory
+cd format_control_1-17
+
+# download a test Argo file to check
+curl -o R4902533_001.nc \
+    https://data-argo.ifremer.fr/dac/meds/4902533/profiles/R4902533_001.nc
+
+# ...and check it
+java -cp ./resources:./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar \
+    -Dapplication.properties=application.properties \
+    -Dfile.encoding=UTF8 \
+    oco.FormatControl \
+    R4902533_001.nc
+```
+
+    <?xml version="1.0"?>
+    <coriolis_function_report>
+            <function>CO-03-08-03</function>
+            <comment>Control file data format</comment>
+            <date>23/06/2021 12:50:59</date>
+            <application_version>1.17</application_version>
+            <netcdf_file>R4902533_001.nc</netcdf_file>
+            <rules_file>Argo_Prof_c_v3.1_AUM_3.1_20201104.xml</rules_file>
+            <title>Argo float vertical profile</title>
+            <user_manual_version>3.1</user_manual_version>
+            <data_type>Argo profile</data_type>
+            <format_version>3.1</format_version>
+            <file_error>The variable "LATITUDE" is not correct: attribute "reference" forbidden</file_error>
+            <file_error>The variable "LATITUDE" is not correct: attribute "coordinate_reference_frame" forbidden</file_error>
+            <file_error>The variable "LONGITUDE" is not correct: attribute "reference" forbidden</file_error>
+            <file_error>The variable "LONGITUDE" is not correct: attribute "coordinate_reference_frame" forbidden</file_error>
+            <file_error>The optional variable "PRES" is not correct: attribut "coordinate_reference_frame" forbidden</file_error>
+            <file_error>The value of the attribute of variable "PRES_ADJUSTED:axis" is not correct: "Z" expected</file_error>
+            <file_compliant>no</file_compliant>
+            <status>ok</status>
+    </coriolis_function_report>
+
+
+If you're on Windows and you're running in PowerShell or good ol' `cmd.exe`, you can just run `command.bat  R4902533_001.nc` (although you'll need to download and extract the tool separately); a shell wrapper for Linux is also distributed but appears to hard-code the location of `java` to the developer's computer so you won't be able to run it without some modification. If you're on Windows and running Git Bash, you'll need to replace the `:` separating the class paths with `\;` because that's how the Java interpreter expects paths to be separated on Windows (and because `;` is a special character in `bash` so you need to escape it with `\`).
+
+If you're writing QC code in Python you can run the tool directly using the `subprocess` module from the standard library.
+
+``` python
+import subprocess
+import os
+import tempfile
+
+# handle the platform-dependence of the class-path separator
+if os.name == 'nt':
+    classpath_sep = ';'
+else:
+    classpath_sep = ':'
+
+class_path_rel = ('./resources', './jar/formatcheckerClassic-1.17-jar-with-dependencies.jar')
+class_path = classpath_sep.join(class_path_rel)
+
+# construct arguments as a list()
+args = [
+    'java', '-cp', class_path,
+    '-Dapplication.properties=application.properties',
+    '-Dfile.encoding=UTF8',
+    'oco.FormatControl',
+    'R4902533_001.nc'
+]
+
+result = subprocess.run(args, cwd='format_control_1-17', capture_output=True)
+result.check_returncode()
+```
+
+This will run the tool and check for a non-zero status code (e.g., `java` fails to start). The bytes of the xml are available as `result.stdout` (if you want to output directly to stdout you can do so by omitting `capture_output=True`). You can then parse the results using the `xml.etree.ElementTree` class:
+
+``` python
+from xml.etree import ElementTree
+import io
+
+root = ElementTree.parse(io.BytesIO(result.stdout)).getroot()
+errors = [el.text for el in root.findall('file_error')]
+errors
+```
+
+    ['The variable "LATITUDE" is not correct: attribute "reference" forbidden',
+     'The variable "LATITUDE" is not correct: attribute "coordinate_reference_frame" forbidden',
+     'The variable "LONGITUDE" is not correct: attribute "reference" forbidden',
+     'The variable "LONGITUDE" is not correct: attribute "coordinate_reference_frame" forbidden',
+     'The optional variable "PRES" is not correct: attribut "coordinate_reference_frame" forbidden',
+     'The value of the attribute of variable "PRES_ADJUSTED:axis" is not correct: "Z" expected']
+
+You can use a similar trick to run and parse the results in R with the help of the [processx](https://processx.r-lib.org/) and [xml2](https://xml2.r-lib.org/) packages.
+
+```{r}
+classpath_sep <- if (Sys.info()["sysname"] == "Windows") ";" else ":"
+classpath <- paste(
+  "./resources",
+  "./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar",
+  sep = classpath_sep
+)
+
+args <- c(
+  "-cp", classpath,
+  "-Dapplication.properties=application.properties",
+  "-Dfile.encoding=UTF8",
+  "oco.FormatControl",
+  "R4902533_001.nc"
+)
+result <- processx::run("java", args, wd = "format_control_1-17")
+
+root <- xml2::read_xml(result$stdout)
+errors <- xml2::xml_text(xml2::xml_find_all(root, "file_error"))
+errors
+```
+
+There are some complexities that aren't handled by the simple cases above. The tool and/or the rules used to determine what constitutes a `<file_error>` are updated several times a year and keeping the tool up-to-date requires a manual check if it's installed above. These bits of code also assume that when you type `java` at a terminal that you actually get a Java interpreter! This is not always the case and configuring a Java VM can be complex.
+
+To solve these issues I put together a proof-of-concept [Python tool](https://github.com/paleolimbot/docker-images/blob/main/argo-checker/argo-checker.py) + [Docker image](https://github.com/paleolimbot/docker-images/tree/main/argo-checker#argo-checker) that boil the above steps down to a one-liner:
+
+``` bash
+# once per computer: docker pull paleolimbot/argo-checker
+curl -s https://data-argo.ifremer.fr/dac/meds/4902533/profiles/R4902533_001.nc | \
+    docker run --rm paleolimbot/argo-checker --update check > result.xml
+```
+
+    Searching for installed tool in '/argo-checker'
+    Installed tool found at '/argo-checker/tool_83774'.
+    Checking for newer version, as requested...
+    Checking for latest tool at <https://doi.org/10.17882/45538>...
+    Latest tool source is located at <https://www.seanoe.org/data/00344/45538/data/83774.tar.gz>.
+    Version is latest version.
+    Running 'java -cp ./resources:./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar -Dapplication.properties=application.properties -Dfile.encoding=UTF8 oco.FormatControl /tmp/tmpytrg3qyn.nc'
+
+You can then process 'result.xml' using whatever tool you'd like! Probably a more robust option would be to rewrite the Java tool in Python, but that's a battle for another day.
