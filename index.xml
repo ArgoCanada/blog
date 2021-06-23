@@ -7,7 +7,15 @@
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Checking Argo Files</title>
+      <dc:creator>Dewey Dunnington</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files</link>
+      <description>How to run the Argo file checker on any platform</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files</guid>
+      <pubDate>Wed, 23 Jun 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>An Argo Loop-the-Loop</title>
       <dc:creator>Dewey Dunnington</dc:creator>
