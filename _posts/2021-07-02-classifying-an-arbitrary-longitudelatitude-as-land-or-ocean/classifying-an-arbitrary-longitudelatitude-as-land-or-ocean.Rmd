@@ -1,0 +1,157 @@
+---
+title: "Classifying an arbitrary longitude/latitude as 'land' or 'ocean'"
+description: |
+  Computational approaches for the "point on land" test.
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 07-02-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+library(argodata)
+library(sf)
+library(geos)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+One of the named quality control tests that Argo profile longitude/latitude measurements must undergo is the "Position on land" test. All data assembly centres have their own implementation of this test. However, in migrating some code between languages I noted some IT challenges that may pop up with several approaches (notably, those that require a Python PROJ, GDAL, or GEOS install). This post is going through some options for how to implement that test in both Python and R with varying levels of dependencies. I'll use the [argodata](https://github.com/ArgoCanada/argodata) to load all the profile locations which I'll use to test the various approaches.
+
+```{r}
+library(argodata)
+prof <- argo_global_prof()
+```
+
+
+## Use a vector definition of 'land' in R
+
+This the the most obvious choice and probably the way that the test is implemented most frequently. The question does arise, though, as to where one gets the polygons for "land". I would suggest using the [Natural Earth 1:10,000,000 ocean data set](https://www.naturalearthdata.com/downloads/10m-physical-vectors/) because it has a clear source/version history and has a reasonable file size for the kinds of accuracy that we need. Most floats are deployed in water over 1000 m deep and aren't so close to the coat that a higher resolution data set would improve the accuracy of the test. If you need a higher resolution you can use the [Global Administration Database](https://gadm.org/data.html) which also has a clear source/version history (but much larger file sizes).
+
+
+```{r, eval=FALSE}
+# download/unzip 1:10,000,000 oceans
+curl::curl_download(
+  "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip",
+  "ne_10m_ocean.zip"
+)
+unzip("ne_10m_ocean.zip", exdir = ".")
+```
+
+In R the easiest way to go about this is to use the [sf package](https://r-spatial.github.io/sf/), which you will need to load the files distributed by Natural Earth or GADM. Because of a recent update to sf, you have to omit the CRS values so that the longitude/latitude values are treated as Cartesian. Because the ocean data set was prepared for this use-case in mind, this isn't a problem.
+
+```{r}
+library(sf)
+ocean <- read_sf("ne_10m_ocean.shp") %>% 
+  st_set_crs(NA)
+plot(ocean$geometry, col = "lightblue")
+```
+
+If you want to check "is this point in the ocean", you can use `st_intersects()`. 
+
+```{r}
+profiles <- data.frame(
+  id = "prof1",
+  longitude = c(-65, -60),
+  latitude = c(45, 45)
+)
+
+profiles_sf <- st_as_sf(
+  profiles,
+  coords = c("longitude", "latitude")
+)
+
+st_intersects(profiles_sf, ocean, sparse = FALSE)
+```
+
+The file size of the shapefile is about 6 MB unzipped, which is fairly reasonable. If you're in an IT environment where installing R and R packages from CRAN is easy and you can maintain a recent GEOS/PROJ/GDAL stack, you're good to go! If you can install packages but can't maintain a system library stack, you can use the above as a "prep script" and distribute a [well-known binary](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) representation of the ocean polygon with your code. You can then use the [geos package](https://github.com/paleolimbot/geos).
+
+```{r}
+# in some preparation script...
+ocean_wkb <- st_as_binary(ocean$geometry)
+saveRDS(ocean_wkb, "ne_10m_ocean.WKB.rds")
+
+# in your production code
+library(geos)
+ocean <- geos_read_wkb(readRDS("ne_10m_ocean.WKB.rds"))
+geos_intersects_any(
+  geos_make_point(profiles$longitude, profiles$latitude),
+  ocean
+)
+```
+
+## Use a raster definition of 'land'
+
+Another option is to use a raster mask (zero or one values) to implement the point-on-land test. The nice part about this is that all you need is the NetCDF library installed (and you were never going to get away with an Argo QC package without it). There is no pre-computed land raster mask available but you can compute one reasonably easily using the [ETOPO1](https://www.ngdc.noaa.gov/mgg/global/). I'm going to prep the NetCDF using the [stars package](https://r-spatial.github.io/stars) starting from the grid-registered GeoTIFF version of the ETOPO1 data set.
+
+```{r, eval=FALSE}
+curl::curl_download(
+  "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/georeferenced_tiff/ETOPO1_Ice_g_geotiff.zip",
+  "ETOPO1_Ice_g_geotiff.zip"
+)
+
+unzip("ETOPO1_Ice_g_geotiff.zip", exdir = ".")
+```
+
+I'm using a GeoTIFF version because it's a little easier to load into R. The stars package takes care of the details but we do need to create the vector of latitude/longitude cell minimum values ourselves. The magic `1/60` here is one arc minute (the resolution of the data set).
+
+```{r}
+grid <- stars::read_stars("ETOPO1_Ice_g_geotiff.tif", proxy = FALSE)
+is_land <- grid > 0
+```
+
+I'm using [ncdf4](https://cran.r-project.org/package=ncdf4) to write this but you can (and probably should) use the [RNetCDF](https://github.com/mjwoods/RNetCDF) package because it's more actively maintained and, in some cases, much faster. Note that the y values are in reverse order (north to south).
+
+```{r}
+library(ncdf4)
+
+dim_x <- ncdim_def("longitude", "degrees", seq(-180, 180, by = 1/60) - 1/60 / 2)
+dim_y <- ncdim_def("latitude", "degrees", rev(seq(-90, 90, by = 1/60) - 1/60 / 2))
+var_land <- ncvar_def(
+  "is_land", "boolean", 
+  list(dim_x, dim_y),
+  prec = "byte", compression = 9
+)
+
+nc <- nc_create("ETOPO1_is_land.nc", vars = list(var_land))
+ncvar_put(nc, var_land, vals = is_land[[1]])
+nc_close(nc)
+```
+
+I turned the compression up big time here because the original grid was 400 MB! That's unrealistic in terms of data distribution alongside code and way bigger than our compressed WKB version of the Natural Earth ocean boundaries (~3 MB). Compressed the file is just under 1 MB (!!!). To extract a longitude/latitude 'is land' value you have to do a tiny bit of math to find the cell index you're after and then read the value of that cell.
+
+```{r}
+nc <- nc_open("ETOPO1_is_land.nc")
+lon_values <- nc$dim$longitude$vals
+lat_values <- nc$dim$latitude$vals
+
+cell_x <- vapply(profiles$longitude, function(lon) which.min(abs(lon - lon_values)), integer(1))
+cell_y <- vapply(profiles$latitude, function(lat) which.min(abs(lat - lat_values)), integer(1))
+
+prof_is_land <- integer(nrow(profiles))
+for (i in seq_along(prof_is_land)) {
+  prof_is_land[i] = ncvar_get(
+    nc, "is_land",
+    start = c(cell_x[i], cell_y[i]),
+    count = c(1, 1)
+  )
+}
+
+nc_close(nc)
+
+prof_is_land
+```
+
+Let's plot the results to see what we're up against!
+
+```{r}
+plot(st_as_sfc(ocean), xlim = c(-70, -60), ylim = c(41, 49))
+points(profiles[c("longitude", "latitude")], pch = ifelse(prof_is_land, 16, 1))
+```
+
+## Python implementation
+
+Both approaches can be implemented in Python, including the data preparation step (although I think this is easier in R for both). In particular, the NetCDF version results in a small (1 MB), distributable data file that can be included in a Python package and read via netCDF4 or other NetCDF backend. This doesn't require a GEOS system install and might be eaiser to convince IT folks to work with.
