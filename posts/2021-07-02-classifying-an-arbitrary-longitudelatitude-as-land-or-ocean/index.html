@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -86,47 +86,53 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>Argo Canada Development Blog: Checking Argo Files</title>
+<title>Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as 'land' or 'ocean'</title>
 
-<meta property="description" itemprop="description" content="How to run the Argo file checker on any platform"/>
+<meta property="description" itemprop="description" content="Computational approaches for the &quot;point on land&quot; test."/>
 
-<link rel="canonical" href="https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"/>
+<link rel="canonical" href="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-06-23"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-06-23"/>
+<meta property="article:published" itemprop="datePublished" content="2021-07-02"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-07-02"/>
 <meta name="article:author" content="Dewey Dunnington"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Argo Canada Development Blog: Checking Argo Files"/>
+<meta property="og:title" content="Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as &#39;land&#39; or &#39;ocean&#39;"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="How to run the Argo file checker on any platform"/>
-<meta property="og:url" content="https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"/>
+<meta property="og:description" content="Computational approaches for the &quot;point on land&quot; test."/>
+<meta property="og:url" content="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"/>
+<meta property="og:image" content="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png"/>
+<meta property="og:image:width" content="1248"/>
+<meta property="og:image:height" content="768"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Argo Canada Development Blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
-<meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="Argo Canada Development Blog: Checking Argo Files"/>
-<meta property="twitter:description" content="How to run the Argo file checker on any platform"/>
-<meta property="twitter:url" content="https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"/>
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as &#39;land&#39; or &#39;ocean&#39;"/>
+<meta property="twitter:description" content="Computational approaches for the &quot;point on land&quot; test."/>
+<meta property="twitter:url" content="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"/>
+<meta property="twitter:image" content="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png"/>
+<meta property="twitter:image:width" content="1248"/>
+<meta property="twitter:image:height" content="768"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="Argo Canada Development Blog: Checking Argo Files"/>
-<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"/>
-<meta name="citation_online_date" content="2021/06/23"/>
-<meta name="citation_publication_date" content="2021/06/23"/>
+<meta name="citation_title" content="Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as &#39;land&#39; or &#39;ocean&#39;"/>
+<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"/>
+<meta name="citation_online_date" content="2021/07/02"/>
+<meta name="citation_publication_date" content="2021/07/02"/>
 <meta name="citation_author" content="Dewey Dunnington"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Checking Argo Files"]},{"type":"character","attributes":{},"value":["How to run the Argo file checker on any platform"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Dewey Dunnington"]},{"type":"character","attributes":{},"value":["https://github.com/paleolimbot"]}]}]},{"type":"character","attributes":{},"value":["06-23-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Classifying an arbitrary longitude/latitude as 'land' or 'ocean'"]},{"type":"character","attributes":{},"value":["Computational approaches for the \"point on land\" test."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Dewey Dunnington"]},{"type":"character","attributes":{},"value":["https://github.com/paleolimbot"]}]}]},{"type":"character","attributes":{},"value":["07-02-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["checking-argo-files_files/anchor-4.2.2/anchor.min.js","checking-argo-files_files/bowser-1.9.3/bowser.min.js","checking-argo-files_files/distill-2.2.21/template.v2.js","checking-argo-files_files/jquery-1.11.3/jquery.min.js","checking-argo-files_files/popper-2.6.0/popper.min.js","checking-argo-files_files/tippy-6.2.7/tippy-bundle.umd.min.js","checking-argo-files_files/tippy-6.2.7/tippy-light-border.css","checking-argo-files_files/tippy-6.2.7/tippy.css","checking-argo-files_files/tippy-6.2.7/tippy.umd.min.js","checking-argo-files_files/webcomponents-2.0.0/webcomponents.js","format_control_1-17/API/formatchecker-1.17-jar-with-dependencies.jar","format_control_1-17/API/formatchecker-1.17.jar","format_control_1-17/API/LIB/with_netcdfAll/junit.jar","format_control_1-17/API/LIB/with_netcdfAll/log4j-1.2.17.jar","format_control_1-17/API/LIB/with_netcdfAll/netcdfAll-4.6.11.jar","format_control_1-17/API/LIB/with_netcdfAll/slf4j-log4j12-1.7.25.jar","format_control_1-17/API/LIB/with_netcdfAll/xercesImpl.jar","format_control_1-17/API/LIB/without_netcdfAll/cdm-4.5.5.jar","format_control_1-17/API/LIB/without_netcdfAll/httpservices-4.5.5.jar","format_control_1-17/API/LIB/without_netcdfAll/junit-4.11.jar","format_control_1-17/API/LIB/without_netcdfAll/log4j-1.2.17.jar","format_control_1-17/API/LIB/without_netcdfAll/slf4j-api-1.7.7.jar","format_control_1-17/API/LIB/without_netcdfAll/slf4j-log4j12-1.7.25.jar","format_control_1-17/API/LIB/without_netcdfAll/xercesImpl-2.11.0.jar","format_control_1-17/API/LIB/without_netcdfAll/xml-apis-1.4.01.jar","format_control_1-17/API/README-API.txt","format_control_1-17/API/TestFormatControl.java","format_control_1-17/control.bat","format_control_1-17/control.csh","format_control_1-17/jar/formatcheckerClassic-1.17-jar-with-dependencies.jar","format_control_1-17/R4902533_001.nc","format_control_1-17/resources/application.properties","format_control_1-17/resources/RULES/Argo_Meta_v3.1_AUM_3.1_20150820.xml","format_control_1-17/resources/RULES/Argo_Prof_b_v3.1_AUM_3.1_20150820.xml","format_control_1-17/resources/RULES/Argo_Prof_c_v3.1_AUM_3.1_20201104.xml","format_control_1-17/resources/RULES/Argo_Tech_v3.1_AUM_3.1_20150820.xml","format_control_1-17/resources/RULES/Argo_Traj_b_v3.1_AUM_3.1_20150820.xml","format_control_1-17/resources/RULES/Argo_Traj_c_v3.1_AUM_3.1_20201104.xml","format_control_1-17/resources/RULES/Argo_TrajectoryV3.0_AUM3.03.xml","format_control_1-17/resources/RULES/Copernicus_CF-1.6_Copernicus-InSituTAC-FormatManual-1.0_Copernicus-InSituTAC-SRD-1.4_Copernicus-InSituTAC-ParametersList-3.1.0_20191125.xml","format_control_1-17/resources/RULES/Copernicus_CF-1.6_Copernicus-InSituTAC-FormatManual-1.4_Copernicus-InSituTAC-SRD-1.41_Copernicus-InSituTAC-ParametersList-3.2.0_20200615.xml","format_control_1-17/resources/RULES/Copernicus_CF-1.6_Copernicus-InSituTAC-FormatManual-1.41_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210315.xml","format_control_1-17/resources/RULES/Copernicus_CF-1.6_Copernicus-InSituTAC-FormatManual-1.42_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210505.xml","format_control_1-17/resources/RULES/Copernicus_CF-1.6_OceanSITES-1.2_Copernicus-InSituTAC-SRD-1.4_Copernicus-InSituTAC-ParametersList-3.1.0_20191120.xml","format_control_1-17/resources/RULES/Copernicus_Marine_gridded_data_20190208.xml","format_control_1-17/resources/RULES/Copernicus_RV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.0_Copernicus-InSituTAC-SRD-1.4_Copernicus-InSituTAC-ParametersList-3.1.0_20200323.xml","format_control_1-17/resources/RULES/Copernicus_RV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.4_Copernicus-InSituTAC-SRD-1.41_Copernicus-InSituTAC-ParametersList-3.2.0_20201013.xml","format_control_1-17/resources/RULES/Copernicus_RV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.41_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210315.xml","format_control_1-17/resources/RULES/Copernicus_RV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.42_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210505.xml","format_control_1-17/resources/RULES/Copernicus_TV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.0_Copernicus-InSituTAC-SRD-1.4_Copernicus-InSituTAC-ParametersList-3.1.0_20200323.xml","format_control_1-17/resources/RULES/Copernicus_TV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.4_Copernicus-InSituTAC-SRD-1.41_Copernicus-InSituTAC-ParametersList-3.2.0_20201006.xml","format_control_1-17/resources/RULES/Copernicus_TV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.41_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210315.xml","format_control_1-17/resources/RULES/Copernicus_TV_CF-1.6_Copernicus-InSituTAC-FormatManual-1.42_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210505.xml","format_control_1-17/resources/RULES/Copernicus_WS_CF-1.6_Copernicus-InSituTAC-FormatManual-1.0_Copernicus-InSituTAC-SRD-1.4_Copernicus-InSituTAC-ParametersList-3.1.0_20201110.xml","format_control_1-17/resources/RULES/Copernicus_WS_CF-1.6_Copernicus-InSituTAC-FormatManual-1.4_Copernicus-InSituTAC-SRD-1.41_Copernicus-InSituTAC-ParametersList-3.2.0_20200921.xml","format_control_1-17/resources/RULES/Copernicus_WS_CF-1.6_Copernicus-InSituTAC-FormatManual-1.41_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210315.xml","format_control_1-17/resources/RULES/Copernicus_WS_CF-1.6_Copernicus-InSituTAC-FormatManual-1.42_Copernicus-InSituTAC-SRD-1.5_Copernicus-InSituTAC-ParametersList-3.2.0_20210505.xml","format_control_1-17/resources/RULES/Cora_Profiles_V4.2.xml","format_control_1-17/resources/RULES/EGO_V1.0_20150820.xml","format_control_1-17/resources/RULES/EGO_V1.2_20180207.xml","format_control_1-17/resources/RULES/EGO_V1.3_20190307.xml","format_control_1-17/resources/RULES/EGO_V1.4_20201103.xml","format_control_1-17/resources/RULES/OceanSitesv1.1.xml","format_control_1-17/resources/RULES/OceanSitesv1.1_profile.xml","format_control_1-17/resources/RULES/OceanSitesv1.1_time-series.xml","format_control_1-17/resources/RULES/OceanSitesv1.2.xml","format_control_1-17/resources/RULES/OceanSitesv1.2_profile.xml","format_control_1-17/resources/RULES/OceanSitesv1.2_time-series.xml","format_control_1-17/resources/RULES/OceanSitesv1.3_time-series_20181210.xml","format_control_1-17/resources/RULES/oco_oriented_grid_1.2.xml","format_control_1-17/resources/RULES/oco_oriented_grid_1.3.1.xml","format_control_1-17/resources/RULES/oco_oriented_grid_1.3.xml","format_control_1-17/resources/RULES/oco_spectra_1D_1.1.xml","format_control_1-17/resources/RULES/oco_spectra_2D_1.1.xml","format_control_1-17/resources/RULES/oco_straight_grid_1.2.xml","format_control_1-17/resources/RULES/oco_straight_grid_1.3.xml","format_control_1-17/resources/RULES/oco_straight_grid_1.4.xml","format_control_1-17/resources/RULES/Validator1.10.xsd","result.xml"]}
+  {"type":"character","attributes":{},"value":["classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-10-1.png","classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png","ETOPO1_Ice_c_geotiff.tif","ETOPO1_Ice_c_geotiff.zip","ETOPO1_Ice_g_gdal.tif","ETOPO1_Ice_g_geotiff.tif","ETOPO1_Ice_g_geotiff.zip","ETOPO1_is_land.nc","ne_10m_ocean.cpg","ne_10m_ocean.dbf","ne_10m_ocean.prj","ne_10m_ocean.README.html","ne_10m_ocean.shp","ne_10m_ocean.shx","ne_10m_ocean.VERSION.txt","ne_10m_ocean.zip"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2050,6 +2056,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2070,7 +2077,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Checking Argo Files","description":"How to run the Argo file checker on any platform","authors":[{"author":"Dewey Dunnington","authorURL":"https://github.com/paleolimbot","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-23T00:00:00.000-04:00","citationText":"Dunnington, 2021"}
+{"title":"Classifying an arbitrary longitude/latitude as 'land' or 'ocean'","description":"Computational approaches for the \"point on land\" test.","authors":[{"author":"Dewey Dunnington","authorURL":"https://github.com/paleolimbot","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-02T00:00:00.000-04:00","citationText":"Dunnington, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2093,141 +2100,168 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Checking Argo Files</h1>
+<h1>Classifying an arbitrary longitude/latitude as ‘land’ or ‘ocean’</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>How to run the Argo file checker on any platform</p></p>
+<p><p>Computational approaches for the “point on land” test.</p></p>
 </div>
 
 <div class="d-byline">
   Dewey Dunnington <a href="https://github.com/paleolimbot" class="uri">https://github.com/paleolimbot</a> 
   
-<br/>06-23-2021
+<br/>07-02-2021
 </div>
 
 <div class="d-article">
-<p>In preparation for writing some real-time quality control code, the question arose of how to check modified Argo files to make sure that they conform to the specification in the <a href="https://doi.org/10.13155/29825">Argo User’s Manual</a>. The <a href="https://doi.org/10.17882/45538">official tool is hosted on Ifremer</a> and is written in Java. When the latest version is downloaded you can run a shell command that will check one or more files. Running a <code>bash</code> shell, this can be done in a few lines:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># download and unpack the tool in the current working directory</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">curl</span> https://www.seanoe.org/data/00344/45538/data/83774.tar.gz <span class="kw">|</span> <span class="fu">tar</span> -xz</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># set the working directory</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="bu">cd</span> format_control_1-17</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># download a test Argo file to check</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="ex">curl</span> -o R4902533_001.nc \</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    https://data-argo.ifremer.fr/dac/meds/4902533/profiles/R4902533_001.nc</span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># ...and check it</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="ex">java</span> -cp ./resources:./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar \</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    -Dapplication.properties=application.properties \</span>
-<span id="cb1-14"><a href="#cb1-14"></a>    -Dfile.encoding=UTF8 \</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    oco.FormatControl \</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    R4902533_001.nc</span></code></pre></div>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;coriolis_function_report&gt;
-        &lt;function&gt;CO-03-08-03&lt;/function&gt;
-        &lt;comment&gt;Control file data format&lt;/comment&gt;
-        &lt;date&gt;23/06/2021 12:50:59&lt;/date&gt;
-        &lt;application_version&gt;1.17&lt;/application_version&gt;
-        &lt;netcdf_file&gt;R4902533_001.nc&lt;/netcdf_file&gt;
-        &lt;rules_file&gt;Argo_Prof_c_v3.1_AUM_3.1_20201104.xml&lt;/rules_file&gt;
-        &lt;title&gt;Argo float vertical profile&lt;/title&gt;
-        &lt;user_manual_version&gt;3.1&lt;/user_manual_version&gt;
-        &lt;data_type&gt;Argo profile&lt;/data_type&gt;
-        &lt;format_version&gt;3.1&lt;/format_version&gt;
-        &lt;file_error&gt;The variable &quot;LATITUDE&quot; is not correct: attribute &quot;reference&quot; forbidden&lt;/file_error&gt;
-        &lt;file_error&gt;The variable &quot;LATITUDE&quot; is not correct: attribute &quot;coordinate_reference_frame&quot; forbidden&lt;/file_error&gt;
-        &lt;file_error&gt;The variable &quot;LONGITUDE&quot; is not correct: attribute &quot;reference&quot; forbidden&lt;/file_error&gt;
-        &lt;file_error&gt;The variable &quot;LONGITUDE&quot; is not correct: attribute &quot;coordinate_reference_frame&quot; forbidden&lt;/file_error&gt;
-        &lt;file_error&gt;The optional variable &quot;PRES&quot; is not correct: attribut &quot;coordinate_reference_frame&quot; forbidden&lt;/file_error&gt;
-        &lt;file_error&gt;The value of the attribute of variable &quot;PRES_ADJUSTED:axis&quot; is not correct: &quot;Z&quot; expected&lt;/file_error&gt;
-        &lt;file_compliant&gt;no&lt;/file_compliant&gt;
-        &lt;status&gt;ok&lt;/status&gt;
-&lt;/coriolis_function_report&gt;</code></pre>
-<p>If you’re on Windows and you’re running in PowerShell or good ol’ <code>cmd.exe</code>, you can just run <code>command.bat  R4902533_001.nc</code> (although you’ll need to download and extract the tool separately); a shell wrapper for Linux is also distributed but appears to hard-code the location of <code>java</code> to the developer’s computer so you won’t be able to run it without some modification. If you’re on Windows and running Git Bash, you’ll need to replace the <code>:</code> separating the class paths with <code>\;</code> because that’s how the Java interpreter expects paths to be separated on Windows (and because <code>;</code> is a special character in <code>bash</code> so you need to escape it with <code>\</code>).</p>
-<p>If you’re writing QC code in Python you can run the tool directly using the <code>subprocess</code> module from the standard library.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> subprocess</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> os</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> tempfile</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># handle the platform-dependence of the class-path separator</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="cf">if</span> os.name <span class="op">==</span> <span class="st">&#39;nt&#39;</span>:</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    classpath_sep <span class="op">=</span> <span class="st">&#39;;&#39;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="cf">else</span>:</span>
-<span id="cb3-9"><a href="#cb3-9"></a>    classpath_sep <span class="op">=</span> <span class="st">&#39;:&#39;</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a></span>
-<span id="cb3-11"><a href="#cb3-11"></a>class_path_rel <span class="op">=</span> (<span class="st">&#39;./resources&#39;</span>, <span class="st">&#39;./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar&#39;</span>)</span>
-<span id="cb3-12"><a href="#cb3-12"></a>class_path <span class="op">=</span> classpath_sep.join(class_path_rel)</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co"># construct arguments as a list()</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a>args <span class="op">=</span> [</span>
-<span id="cb3-16"><a href="#cb3-16"></a>    <span class="st">&#39;java&#39;</span>, <span class="st">&#39;-cp&#39;</span>, class_path,</span>
-<span id="cb3-17"><a href="#cb3-17"></a>    <span class="st">&#39;-Dapplication.properties=application.properties&#39;</span>,</span>
-<span id="cb3-18"><a href="#cb3-18"></a>    <span class="st">&#39;-Dfile.encoding=UTF8&#39;</span>,</span>
-<span id="cb3-19"><a href="#cb3-19"></a>    <span class="st">&#39;oco.FormatControl&#39;</span>,</span>
-<span id="cb3-20"><a href="#cb3-20"></a>    <span class="st">&#39;R4902533_001.nc&#39;</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a>]</span>
-<span id="cb3-22"><a href="#cb3-22"></a></span>
-<span id="cb3-23"><a href="#cb3-23"></a>result <span class="op">=</span> subprocess.run(args, cwd<span class="op">=</span><span class="st">&#39;format_control_1-17&#39;</span>, capture_output<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-24"><a href="#cb3-24"></a>result.check_returncode()</span></code></pre></div>
-<p>This will run the tool and check for a non-zero status code (e.g., <code>java</code> fails to start). The bytes of the xml are available as <code>result.stdout</code> (if you want to output directly to stdout you can do so by omitting <code>capture_output=True</code>). You can then parse the results using the <code>xml.etree.ElementTree</code> class:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">from</span> xml.etree <span class="im">import</span> ElementTree</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> io</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a>root <span class="op">=</span> ElementTree.parse(io.BytesIO(result.stdout)).getroot()</span>
-<span id="cb4-5"><a href="#cb4-5"></a>errors <span class="op">=</span> [el.text <span class="cf">for</span> el <span class="kw">in</span> root.findall(<span class="st">&#39;file_error&#39;</span>)]</span>
-<span id="cb4-6"><a href="#cb4-6"></a>errors</span></code></pre></div>
-<pre><code>[&#39;The variable &quot;LATITUDE&quot; is not correct: attribute &quot;reference&quot; forbidden&#39;,
- &#39;The variable &quot;LATITUDE&quot; is not correct: attribute &quot;coordinate_reference_frame&quot; forbidden&#39;,
- &#39;The variable &quot;LONGITUDE&quot; is not correct: attribute &quot;reference&quot; forbidden&#39;,
- &#39;The variable &quot;LONGITUDE&quot; is not correct: attribute &quot;coordinate_reference_frame&quot; forbidden&#39;,
- &#39;The optional variable &quot;PRES&quot; is not correct: attribut &quot;coordinate_reference_frame&quot; forbidden&#39;,
- &#39;The value of the attribute of variable &quot;PRES_ADJUSTED:axis&quot; is not correct: &quot;Z&quot; expected&#39;]</code></pre>
-<p>You can use a similar trick to run and parse the results in R with the help of the <a href="https://processx.r-lib.org/">processx</a> and <a href="https://xml2.r-lib.org/">xml2</a> packages.</p>
+<p>One of the named quality control tests that Argo profile longitude/latitude measurements must undergo is the “Position on land” test. All data assembly centres have their own implementation of this test. However, in migrating some code between languages I noted some IT challenges that may pop up with several approaches (notably, those that require a Python PROJ, GDAL, or GEOS install). This post is going through some options for how to implement that test in both Python and R with varying levels of dependencies. I’ll use the <a href="https://github.com/ArgoCanada/argodata">argodata</a> to load all the profile locations which I’ll use to test the various approaches.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>classpath_sep</span> <span class='op'>&lt;-</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.info.html'>Sys.info</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='st'>"sysname"</span><span class='op'>]</span> <span class='op'>==</span> <span class='st'>"Windows"</span><span class='op'>)</span> <span class='st'>";"</span> <span class='kw'>else</span> <span class='st'>":"</span>
-<span class='va'>classpath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span>
-  <span class='st'>"./resources"</span>,
-  <span class='st'>"./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar"</span>,
-  sep <span class='op'>=</span> <span class='va'>classpath_sep</span>
-<span class='op'>)</span>
-
-<span class='va'>args</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"-cp"</span>, <span class='va'>classpath</span>,
-  <span class='st'>"-Dapplication.properties=application.properties"</span>,
-  <span class='st'>"-Dfile.encoding=UTF8"</span>,
-  <span class='st'>"oco.FormatControl"</span>,
-  <span class='st'>"R4902533_001.nc"</span>
-<span class='op'>)</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>processx</span><span class='fu'>::</span><span class='fu'><a href='http://processx.r-lib.org/reference/run.html'>run</a></span><span class='op'>(</span><span class='st'>"java"</span>, <span class='va'>args</span>, wd <span class='op'>=</span> <span class='st'>"format_control_1-17"</span><span class='op'>)</span>
-
-<span class='va'>root</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>$</span><span class='va'>stdout</span><span class='op'>)</span>
-<span class='va'>errors</span> <span class='op'>&lt;-</span> <span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_text.html'>xml_text</a></span><span class='op'>(</span><span class='fu'>xml2</span><span class='fu'>::</span><span class='fu'><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>root</span>, <span class='st'>"file_error"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>errors</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ArgoCanada/argodata'>argodata</a></span><span class='op'>)</span>
+<span class='va'>prof</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_global_meta.html'>argo_global_prof</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;The variable \&quot;LATITUDE\&quot; is not correct: attribute \&quot;reference\&quot; forbidden&quot;                     
-[2] &quot;The variable \&quot;LATITUDE\&quot; is not correct: attribute \&quot;coordinate_reference_frame\&quot; forbidden&quot;    
-[3] &quot;The variable \&quot;LONGITUDE\&quot; is not correct: attribute \&quot;reference\&quot; forbidden&quot;                    
-[4] &quot;The variable \&quot;LONGITUDE\&quot; is not correct: attribute \&quot;coordinate_reference_frame\&quot; forbidden&quot;   
-[5] &quot;The optional variable \&quot;PRES\&quot; is not correct: attribut \&quot;coordinate_reference_frame\&quot; forbidden&quot;
-[6] &quot;The value of the attribute of variable \&quot;PRES_ADJUSTED:axis\&quot; is not correct: \&quot;Z\&quot; expected&quot;    </code></pre>
 </div>
-<p>There are some complexities that aren’t handled by the simple cases above. The tool and/or the rules used to determine what constitutes a <code>&lt;file_error&gt;</code> are updated several times a year and keeping the tool up-to-date requires a manual check if it’s installed above. These bits of code also assume that when you type <code>java</code> at a terminal that you actually get a Java interpreter! This is not always the case and configuring a Java VM can be complex.</p>
-<p>To solve these issues I put together a proof-of-concept <a href="https://github.com/paleolimbot/docker-images/blob/main/argo-checker/argo-checker.py">Python tool</a> + <a href="https://github.com/paleolimbot/docker-images/tree/main/argo-checker#argo-checker">Docker image</a> that boil the above steps down to a one-liner:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># once per computer: docker pull paleolimbot/argo-checker</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="ex">curl</span> -s https://data-argo.ifremer.fr/dac/meds/4902533/profiles/R4902533_001.nc <span class="kw">|</span> <span class="kw">\</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>    <span class="ex">docker</span> run --rm paleolimbot/argo-checker --update check <span class="op">&gt;</span> result.xml</span></code></pre></div>
-<pre><code>Searching for installed tool in &#39;/argo-checker&#39;
-Installed tool found at &#39;/argo-checker/tool_83774&#39;.
-Checking for newer version, as requested...
-Checking for latest tool at &lt;https://doi.org/10.17882/45538&gt;...
-Latest tool source is located at &lt;https://www.seanoe.org/data/00344/45538/data/83774.tar.gz&gt;.
-Version is latest version.
-Running &#39;java -cp ./resources:./jar/formatcheckerClassic-1.17-jar-with-dependencies.jar -Dapplication.properties=application.properties -Dfile.encoding=UTF8 oco.FormatControl /tmp/tmpytrg3qyn.nc&#39;</code></pre>
-<p>You can then process ‘result.xml’ using whatever tool you’d like! Probably a more robust option would be to rewrite the Java tool in Python, but that’s a battle for another day.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="use-a-vector-definition-of-land-in-r">Use a vector definition of ‘land’ in R</h2>
+<p>This the the most obvious choice and probably the way that the test is implemented most frequently. The question does arise, though, as to where one gets the polygons for “land”. I would suggest using the <a href="https://www.naturalearthdata.com/downloads/10m-physical-vectors/">Natural Earth 1:10,000,000 ocean data set</a> because it has a clear source/version history and has a reasonable file size for the kinds of accuracy that we need. Most floats are deployed in water over 1000 m deep and aren’t so close to the coat that a higher resolution data set would improve the accuracy of the test. If you need a higher resolution you can use the <a href="https://gadm.org/data.html">Global Administration Database</a> which also has a clear source/version history (but much larger file sizes).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># download/unzip 1:10,000,000 oceans</span>
+<span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/curl_download.html'>curl_download</a></span><span class='op'>(</span>
+  <span class='st'>"https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip"</span>,
+  <span class='st'>"ne_10m_ocean.zip"</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"ne_10m_ocean.zip"</span>, exdir <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In R the easiest way to go about this is to use the <a href="https://r-spatial.github.io/sf/">sf package</a>, which you will need to load the files distributed by Natural Earth or GADM. Because of a recent update to sf, you have to omit the CRS values so that the longitude/latitude values are treated as Cartesian. Because the ocean data set was prepared for this use-case in mind, this isn’t a problem.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
+<span class='va'>ocean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>read_sf</a></span><span class='op'>(</span><span class='st'>"ne_10m_ocean.shp"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_set_crs</a></span><span class='op'>(</span><span class='cn'>NA</span><span class='op'>)</span>
+<span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>ocean</span><span class='op'>$</span><span class='va'>geometry</span>, col <span class='op'>=</span> <span class='st'>"lightblue"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>If you want to check “is this point in the ocean”, you can use <code>st_intersects()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>profiles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  id <span class='op'>=</span> <span class='st'>"prof1"</span>,
+  longitude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>65</span>, <span class='op'>-</span><span class='fl'>60</span><span class='op'>)</span>,
+  latitude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>45</span>, <span class='fl'>45</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>profiles_sf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span>
+  <span class='va'>profiles</span>,
+  coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"longitude"</span>, <span class='st'>"latitude"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_binary_pred.html'>st_intersects</a></span><span class='op'>(</span><span class='va'>profiles_sf</span>, <span class='va'>ocean</span>, sparse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>      [,1]
+[1,] FALSE
+[2,]  TRUE</code></pre>
+</div>
+<p>The file size of the shapefile is about 6 MB unzipped, which is fairly reasonable. If you’re in an IT environment where installing R and R packages from CRAN is easy and you can maintain a recent GEOS/PROJ/GDAL stack, you’re good to go! If you can install packages but can’t maintain a system library stack, you can use the above as a “prep script” and distribute a <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary">well-known binary</a> representation of the ocean polygon with your code. You can then use the <a href="https://github.com/paleolimbot/geos">geos package</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># in some preparation script...</span>
+<span class='va'>ocean_wkb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_binary.html'>st_as_binary</a></span><span class='op'>(</span><span class='va'>ocean</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>ocean_wkb</span>, <span class='st'>"ne_10m_ocean.WKB.rds"</span><span class='op'>)</span>
+
+<span class='co'># in your production code</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://paleolimbot.github.io/geos/'>geos</a></span><span class='op'>)</span>
+<span class='va'>ocean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://paleolimbot.github.io/geos/reference/geos_read_wkt.html'>geos_read_wkb</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='st'>"ne_10m_ocean.WKB.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://paleolimbot.github.io/geos/reference/geos_disjoint_matrix.html'>geos_intersects_any</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://paleolimbot.github.io/geos/reference/geos_make_point.html'>geos_make_point</a></span><span class='op'>(</span><span class='va'>profiles</span><span class='op'>$</span><span class='va'>longitude</span>, <span class='va'>profiles</span><span class='op'>$</span><span class='va'>latitude</span><span class='op'>)</span>,
+  <span class='va'>ocean</span>
+<span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] FALSE  TRUE</code></pre>
+</div>
+<h2 id="use-a-raster-definition-of-land">Use a raster definition of ‘land’</h2>
+<p>Another option is to use a raster mask (zero or one values) to implement the point-on-land test. The nice part about this is that all you need is the NetCDF library installed (and you were never going to get away with an Argo QC package without it). There is no pre-computed land raster mask available but you can compute one reasonably easily using the <a href="https://www.ngdc.noaa.gov/mgg/global/">ETOPO1</a>. I’m going to prep the NetCDF using the <a href="https://r-spatial.github.io/stars">stars package</a> starting from the grid-registered GeoTIFF version of the ETOPO1 data set.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/curl_download.html'>curl_download</a></span><span class='op'>(</span>
+  <span class='st'>"https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/georeferenced_tiff/ETOPO1_Ice_g_geotiff.zip"</span>,
+  <span class='st'>"ETOPO1_Ice_g_geotiff.zip"</span>
+<span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span><span class='st'>"ETOPO1_Ice_g_geotiff.zip"</span>, exdir <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>I’m using a GeoTIFF version because it’s a little easier to load into R. The stars package takes care of the details but we do need to create the vector of latitude/longitude cell minimum values ourselves. The magic <code>1/60</code> here is one arc minute (the resolution of the data set).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'>stars</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/stars/reference/read_stars.html'>read_stars</a></span><span class='op'>(</span><span class='st'>"ETOPO1_Ice_g_geotiff.tif"</span>, proxy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>is_land</span> <span class='op'>&lt;-</span> <span class='va'>grid</span> <span class='op'>&gt;</span> <span class='fl'>0</span>
+</code></pre>
+</div>
+</div>
+<p>I’m using <a href="https://cran.r-project.org/package=ncdf4">ncdf4</a> to write this but you can (and probably should) use the <a href="https://github.com/mjwoods/RNetCDF">RNetCDF</a> package because it’s more actively maintained and, in some cases, much faster. Note that the y values are in reverse order (north to south).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://cirrus.ucsd.edu/~pierce/ncdf'>ncdf4</a></span><span class='op'>)</span>
+
+<span class='va'>dim_x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ncdim_def.html'>ncdim_def</a></span><span class='op'>(</span><span class='st'>"longitude"</span>, <span class='st'>"degrees"</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>180</span>, <span class='fl'>180</span>, by <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>60</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>dim_y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ncdim_def.html'>ncdim_def</a></span><span class='op'>(</span><span class='st'>"latitude"</span>, <span class='st'>"degrees"</span>, <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>90</span>, <span class='fl'>90</span>, by <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>60</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>var_land</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ncvar_def.html'>ncvar_def</a></span><span class='op'>(</span>
+  <span class='st'>"is_land"</span>, <span class='st'>"boolean"</span>, 
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>dim_x</span>, <span class='va'>dim_y</span><span class='op'>)</span>,
+  prec <span class='op'>=</span> <span class='st'>"byte"</span>, compression <span class='op'>=</span> <span class='fl'>9</span>
+<span class='op'>)</span>
+
+<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_create.html'>nc_create</a></span><span class='op'>(</span><span class='st'>"ETOPO1_is_land.nc"</span>, vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>var_land</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ancvar_put.html'>ncvar_put</a></span><span class='op'>(</span><span class='va'>nc</span>, <span class='va'>var_land</span>, vals <span class='op'>=</span> <span class='va'>is_land</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_close.html'>nc_close</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>I turned the compression up big time here because the original grid was 400 MB! That’s unrealistic in terms of data distribution alongside code and way bigger than our compressed WKB version of the Natural Earth ocean boundaries (~3 MB). Compressed the file is just under 1 MB (!!!). To extract a longitude/latitude ‘is land’ value you have to do a tiny bit of math to find the cell index you’re after and then read the value of that cell.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_open.html'>nc_open</a></span><span class='op'>(</span><span class='st'>"ETOPO1_is_land.nc"</span><span class='op'>)</span>
+<span class='va'>lon_values</span> <span class='op'>&lt;-</span> <span class='va'>nc</span><span class='op'>$</span><span class='va'>dim</span><span class='op'>$</span><span class='va'>longitude</span><span class='op'>$</span><span class='va'>vals</span>
+<span class='va'>lat_values</span> <span class='op'>&lt;-</span> <span class='va'>nc</span><span class='op'>$</span><span class='va'>dim</span><span class='op'>$</span><span class='va'>latitude</span><span class='op'>$</span><span class='va'>vals</span>
+
+<span class='va'>cell_x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>profiles</span><span class='op'>$</span><span class='va'>longitude</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>lon</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.min</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>lon</span> <span class='op'>-</span> <span class='va'>lon_values</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>cell_y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='va'>profiles</span><span class='op'>$</span><span class='va'>latitude</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>lat</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.min</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>lat</span> <span class='op'>-</span> <span class='va'>lat_values</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>prof_is_land</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>profiles</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>prof_is_land</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>prof_is_land</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ncvar_get.html'>ncvar_get</a></span><span class='op'>(</span>
+    <span class='va'>nc</span>, <span class='st'>"is_land"</span>,
+    start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cell_x</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, <span class='va'>cell_y</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>,
+    count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_close.html'>nc_close</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span>
+
+<span class='va'>prof_is_land</span>
+</code></pre>
+</div>
+<pre><code>[1] 1 0</code></pre>
+</div>
+<p>Let’s plot the results to see what we’re up against!</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sfc.html'>st_as_sfc</a></span><span class='op'>(</span><span class='va'>ocean</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>70</span>, <span class='op'>-</span><span class='fl'>60</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>41</span>, <span class='fl'>49</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>profiles</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"longitude"</span>, <span class='st'>"latitude"</span><span class='op'>)</span><span class='op'>]</span>, pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>prof_is_land</span>, <span class='fl'>16</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<h2 id="python-implementation">Python implementation</h2>
+<p>Both approaches can be implemented in Python, including the data preparation step (although I think this is easier in R for both). In particular, the NetCDF version results in a small (1 MB), distributable data file that can be included in a Python package and read via netCDF4 or other NetCDF backend. This doesn’t require a GEOS system install and might be eaiser to convince IT folks to work with.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2242,12 +2276,12 @@ Running &#39;java -cp ./resources:./jar/formatcheckerClassic-1.17-jar-with-depen
 <div class="appendix-bottom">
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Dunnington (2021, June 23). Argo Canada Development Blog: Checking Argo Files. Retrieved from https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/</pre>
+  <pre class="citation-appendix short">Dunnington (2021, July 2). Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as 'land' or 'ocean'. Retrieved from https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/</pre>
   <p>BibTeX citation</p>
-  <pre class="citation-appendix long">@misc{dunnington2021checking,
+  <pre class="citation-appendix long">@misc{dunnington2021classifying,
   author = {Dunnington, Dewey},
-  title = {Argo Canada Development Blog: Checking Argo Files},
-  url = {https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files/},
+  title = {Argo Canada Development Blog: Classifying an arbitrary longitude/latitude as 'land' or 'ocean'},
+  url = {https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/},
   year = {2021}
 }</pre>
 </div>

@@ -7,7 +7,16 @@
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 23 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Classifying an arbitrary longitude/latitude as 'land' or 'ocean'</title>
+      <dc:creator>Dewey Dunnington</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</link>
+      <description>Computational approaches for the "point on land" test.</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</guid>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Checking Argo Files</title>
       <dc:creator>Dewey Dunnington</dc:creator>
