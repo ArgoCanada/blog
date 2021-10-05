@@ -5,7 +5,7 @@
 [![Render & Deploy Site](https://github.com/ArgoCanada/blog/actions/workflows/render-distill.yaml/badge.svg?branch=master)](https://github.com/ArgoCanada/blog/actions/workflows/render-distill.yaml)
 <!-- badges: end -->
 
-The goal of the [Argo Canada Development Blog](https://argocanada.github.io/blog/) is to provide a venue for communicating chunks of code related to Argo development to facilitate synergy between various Argo development projects. To contribute to the blog:
+The goal of the [Argo Canada Development Blog](https://argocanada.github.io/blog/) is to provide a venue for communicating chunks of code related to Argo development to facilitate synergy between various Argo development projects. To contribute to the blog
 
 1. [Fork this repository](https://github.com/ArgoCanada/blog/fork)
 2. Clone to create a local copy.
