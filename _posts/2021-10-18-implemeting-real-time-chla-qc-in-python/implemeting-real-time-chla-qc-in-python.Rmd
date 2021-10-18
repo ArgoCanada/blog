@@ -1,0 +1,17 @@
+---
+title: "Implemeting real-time CHLA QC in Python"
+description: |
+  A reference implementation of forthcoming CHLA real-time QC
+author:
+  - name: Dewey Dunnington
+    url: https://github.com/paleolimbot
+date: 10-18-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
