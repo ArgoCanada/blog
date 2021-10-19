@@ -1,21 +1,3 @@
----
-title: "Implemeting real-time CHLA QC in Python"
-description: |
-  A reference implementation of forthcoming CHLA real-time QC
-author:
-  - name: Dewey Dunnington
-    url: https://github.com/paleolimbot
-date: 10-18-2021
-output:
-  distill::distill_article:
-    self_contained: false
----
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
-
 This post is a rough guide to implementing real-time adjustments to CHLA values in Argo NetCDF files. The real-time adjustments are relatively new and reflect a balance between simplicity and completeness, with the understanding that delayed-mode QC will be more robust and incorporate more float-specific considerations. In case it's not clear, nothing in this post should be construed as a definitive QC implementation and should be subject to considerable testing prior to deployment as actual live QC.
 
 To implement the tests on existing ArgoNetCDF files in Python, we'll use the [argopandas](https://github.com/ArgoCanada/argopandas) package (to list float profiles and do some basic interaction with Argo NetCDF files) and [gsw](https://teos-10.github.io/GSW-Python/) (to perform seawater calculations required for some of the checks). We'll also use [pandas](https://pandas.pydata.org/) data frames and [numpy](https://numpy.org/) arrays to marshal the generic data handling and [matplotlib](https://matplotlib.org/) to plot as we go along.
