@@ -1,0 +1,3375 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+<title>Argo Canada Development Blog: Implemeting real-time CHLA QC in Python</title>
+
+<meta property="description" itemprop="description" content="A reference implementation of forthcoming CHLA real-time QC"/>
+
+<link rel="canonical" href="https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2021-10-18"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-10-18"/>
+<meta name="article:author" content="Dewey Dunnington"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Argo Canada Development Blog: Implemeting real-time CHLA QC in Python"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="A reference implementation of forthcoming CHLA real-time QC"/>
+<meta property="og:url" content="https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Argo Canada Development Blog"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:title" content="Argo Canada Development Blog: Implemeting real-time CHLA QC in Python"/>
+<meta property="twitter:description" content="A reference implementation of forthcoming CHLA real-time QC"/>
+<meta property="twitter:url" content="https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"/>
+
+<!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+<meta name="citation_title" content="Argo Canada Development Blog: Implemeting real-time CHLA QC in Python"/>
+<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"/>
+<meta name="citation_online_date" content="2021/10/18"/>
+<meta name="citation_publication_date" content="2021/10/18"/>
+<meta name="citation_author" content="Dewey Dunnington"/>
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Implemeting real-time CHLA QC in Python"]},{"type":"character","attributes":{},"value":["A reference implementation of forthcoming CHLA real-time QC"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Dewey Dunnington"]},{"type":"character","attributes":{},"value":["https://github.com/paleolimbot"]}]}]},{"type":"character","attributes":{},"value":["10-18-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["post.ipynb","post_files/post_14_2.png","post_files/post_23_1.png","profiles/BR6904117_001.nc","profiles/BR6904117_001D.nc","profiles/BR6904117_002.nc","profiles/BR6904117_002D.nc","profiles/BR6904117_003.nc","profiles/BR6904117_003D.nc","profiles/BR6904117_004.nc","profiles/BR6904117_004D.nc","profiles/BR6904117_005.nc","profiles/BR6904117_005D.nc","profiles/BR6904117_006.nc","profiles/BR6904117_006D.nc","profiles/BR6904117_007.nc","profiles/BR6904117_007D.nc","profiles/BR6904117_008.nc","profiles/BR6904117_008D.nc","profiles/BR6904117_009.nc","profiles/BR6904117_009D.nc","profiles/BR6904117_010.nc","profiles/BR6904117_010D.nc","profiles/BR6904117_011.nc","profiles/BR6904117_011D.nc","profiles/BR6904117_012.nc","profiles/BR6904117_012D.nc","profiles/BR6904117_013.nc","profiles/BR6904117_013D.nc","profiles/BR6904117_014.nc","profiles/BR6904117_014D.nc","profiles/BR6904117_015.nc","profiles/BR6904117_015D.nc","profiles/BR6904117_016.nc","profiles/BR6904117_016D.nc","profiles/BR6904117_017.nc","profiles/BR6904117_017D.nc","profiles/BR6904117_018.nc","profiles/BR6904117_018D.nc","profiles/BR6904117_019.nc","profiles/BR6904117_019D.nc","profiles/BR6904117_020.nc","profiles/BR6904117_020D.nc","profiles/BR6904117_021.nc","profiles/BR6904117_021D.nc","profiles/BR6904117_022.nc","profiles/BR6904117_022D.nc","profiles/BR6904117_023.nc","profiles/BR6904117_023D.nc","profiles/BR6904117_024.nc","profiles/BR6904117_024D.nc","profiles/BR6904117_025.nc","profiles/BR6904117_025D.nc","profiles/BR6904117_026.nc","profiles/BR6904117_026D.nc","profiles/BR6904117_027.nc","profiles/BR6904117_027D.nc","profiles/BR6904117_028.nc","profiles/BR6904117_028D.nc","profiles/BR6904117_029.nc","profiles/BR6904117_029D.nc","profiles/BR6904117_030.nc","profiles/BR6904117_030D.nc","profiles/BR6904117_031.nc","profiles/BR6904117_031D.nc","profiles/BR6904117_032.nc","profiles/BR6904117_032D.nc","profiles/BR6904117_033.nc","profiles/BR6904117_033D.nc","profiles/BR6904117_034.nc","profiles/BR6904117_034D.nc","profiles/BR6904117_035.nc","profiles/BR6904117_035D.nc","profiles/BR6904117_036.nc","profiles/BR6904117_036D.nc","profiles/BR6904117_037.nc","profiles/BR6904117_037D.nc","profiles/BR6904117_038.nc","profiles/BR6904117_038D.nc","profiles/BR6904117_039.nc","profiles/BR6904117_039D.nc","profiles/BR6904117_040.nc","profiles/BR6904117_040D.nc","profiles/BR6904117_041.nc","profiles/BR6904117_041D.nc","profiles/BR6904117_042.nc","profiles/BR6904117_042D.nc","profiles/BR6904117_043.nc","profiles/BR6904117_043D.nc","profiles/BR6904117_044.nc","profiles/BR6904117_044D.nc","profiles/BR6904117_045.nc","profiles/BR6904117_045D.nc","profiles/BR6904117_046.nc","profiles/BR6904117_046D.nc","profiles/BR6904117_047.nc","profiles/BR6904117_047D.nc","profiles/BR6904117_048.nc","profiles/BR6904117_048D.nc","profiles/BR6904117_049.nc","profiles/BR6904117_049D.nc","profiles/BR6904117_050.nc","profiles/BR6904117_050D.nc","profiles/BR6904117_051.nc","profiles/BR6904117_051D.nc","profiles/BR6904117_052.nc","profiles/BR6904117_052D.nc","profiles/BR6904117_053.nc","profiles/BR6904117_053D.nc","profiles/BR6904117_054.nc","profiles/BR6904117_054D.nc","profiles/BR6904117_055.nc","profiles/BR6904117_055D.nc","profiles/BR6904117_056.nc","profiles/BR6904117_056D.nc","profiles/BR6904117_057.nc","profiles/BR6904117_057D.nc","profiles/BR6904117_058.nc","profiles/BR6904117_058D.nc","profiles/BR6904117_059.nc","profiles/BR6904117_059D.nc","profiles/BR6904117_060.nc","profiles/BR6904117_060D.nc","profiles/BR6904117_061.nc","profiles/BR6904117_061D.nc","profiles/BR6904117_062.nc","profiles/BR6904117_062D.nc","profiles/BR6904117_063.nc","profiles/BR6904117_063D.nc","profiles/BR6904117_064.nc","profiles/BR6904117_064D.nc","profiles/BR6904117_065.nc","profiles/BR6904117_065D.nc","profiles/BR6904117_066.nc","profiles/BR6904117_066D.nc","profiles/BR6904117_067.nc","profiles/BR6904117_067D.nc","profiles/BR6904117_068.nc","profiles/BR6904117_068D.nc","profiles/BR6904117_069.nc","profiles/BR6904117_069D.nc","profiles/BR6904117_070.nc","profiles/BR6904117_070D.nc","profiles/BR6904117_071.nc","profiles/BR6904117_071D.nc","profiles/BR6904117_072.nc","profiles/BR6904117_072D.nc","profiles/BR6904117_073.nc","profiles/BR6904117_073D.nc","profiles/BR6904117_074.nc","profiles/BR6904117_074D.nc","profiles/BR6904117_075.nc","profiles/BR6904117_075D.nc","profiles/BR6904117_076.nc","profiles/BR6904117_076D.nc","profiles/BR6904117_077.nc","profiles/BR6904117_077D.nc","profiles/BR6904117_078.nc","profiles/BR6904117_078D.nc","profiles/BR6904117_079.nc","profiles/BR6904117_079D.nc","profiles/BR6904117_080.nc","profiles/BR6904117_080D.nc","profiles/BR6904117_081.nc","profiles/BR6904117_081D.nc","profiles/BR6904117_082.nc","profiles/BR6904117_082D.nc","profiles/BR6904117_083.nc","profiles/BR6904117_083D.nc","profiles/BR6904117_084.nc","profiles/BR6904117_084D.nc","profiles/BR6904117_085.nc","profiles/BR6904117_085D.nc","profiles/BR6904117_086.nc","profiles/BR6904117_086D.nc","profiles/BR6904117_087.nc","profiles/BR6904117_087D.nc","profiles/BR6904117_088.nc","profiles/BR6904117_088D.nc","profiles/BR6904117_089.nc","profiles/BR6904117_089D.nc","profiles/BR6904117_090.nc","profiles/BR6904117_090D.nc","profiles/BR6904117_091.nc","profiles/BR6904117_091D.nc","profiles/BR6904117_092.nc","profiles/BR6904117_092D.nc","profiles/BR6904117_093.nc","profiles/BR6904117_093D.nc","profiles/BR6904117_094.nc","profiles/BR6904117_094D.nc","profiles/BR6904117_095.nc","profiles/BR6904117_095D.nc","profiles/BR6904117_096.nc","profiles/BR6904117_096D.nc","profiles/BR6904117_097.nc","profiles/BR6904117_097D.nc","profiles/BR6904117_098.nc","profiles/BR6904117_098D.nc","profiles/BR6904117_099.nc","profiles/BR6904117_099D.nc","profiles/BR6904117_100.nc","profiles/BR6904117_100D.nc","profiles/BR6904117_101.nc","profiles/BR6904117_101D.nc","profiles/BR6904117_102.nc","profiles/BR6904117_102D.nc","profiles/BR6904117_103.nc","profiles/BR6904117_103D.nc","profiles/BR6904117_104.nc","profiles/BR6904117_104D.nc","profiles/BR6904117_105.nc","profiles/BR6904117_105D.nc","profiles/BR6904117_106.nc","profiles/BR6904117_106D.nc","profiles/BR6904117_107.nc","profiles/BR6904117_107D.nc","profiles/BR6904117_108.nc","profiles/BR6904117_108D.nc","profiles/BR6904117_109.nc","profiles/BR6904117_109D.nc","profiles/BR6904117_110.nc","profiles/BR6904117_110D.nc","profiles/BR6904117_111.nc","profiles/BR6904117_111D.nc","profiles/BR6904117_112.nc","profiles/BR6904117_112D.nc","profiles/BR6904117_113.nc","profiles/BR6904117_113D.nc","profiles/BR6904117_114.nc","profiles/BR6904117_114D.nc","profiles/BR6904117_115.nc","profiles/BR6904117_115D.nc","profiles/BR6904117_116.nc","profiles/BR6904117_116D.nc","profiles/BR6904117_117.nc","profiles/BR6904117_117D.nc","profiles/BR6904117_118.nc","profiles/BR6904117_118D.nc","profiles/BR6904117_119.nc","profiles/BR6904117_119D.nc","profiles/BR6904117_120.nc","profiles/BR6904117_120D.nc","profiles/BR6904117_121.nc","profiles/BR6904117_121D.nc","profiles/BR6904117_122.nc","profiles/BR6904117_122D.nc","profiles/BR6904117_123.nc","profiles/BR6904117_123D.nc","profiles/BR6904117_124.nc","profiles/BR6904117_124D.nc","profiles/BR6904117_125.nc","profiles/BR6904117_125D.nc","profiles/BR6904117_126.nc","profiles/BR6904117_126D.nc","profiles/BR6904117_127.nc","profiles/BR6904117_127D.nc","profiles/BR6904117_128.nc","profiles/BR6904117_128D.nc","profiles/BR6904117_129.nc","profiles/BR6904117_129D.nc","profiles/BR6904117_130.nc","profiles/BR6904117_130D.nc","profiles/BR6904117_131.nc","profiles/BR6904117_131D.nc","profiles/BR6904117_132.nc","profiles/BR6904117_132D.nc","profiles/BR6904117_133.nc","profiles/BR6904117_133D.nc","profiles/BR6904117_134.nc","profiles/BR6904117_134D.nc","profiles/BR6904117_135.nc","profiles/BR6904117_135D.nc","profiles/BR6904117_136.nc","profiles/BR6904117_136D.nc","profiles/BR6904117_137.nc","profiles/BR6904117_137D.nc","profiles/BR6904117_138.nc","profiles/BR6904117_138D.nc","profiles/BR6904117_139.nc","profiles/BR6904117_139D.nc","profiles/BR6904117_140.nc","profiles/BR6904117_140D.nc","profiles/BR6904117_141.nc","profiles/BR6904117_141D.nc","profiles/BR6904117_142.nc","profiles/BR6904117_142D.nc","profiles/BR6904117_143.nc","profiles/BR6904117_143D.nc","profiles/BR6904117_144.nc","profiles/BR6904117_144D.nc","profiles/BR6904117_145.nc","profiles/BR6904117_145D.nc","profiles/BR6904117_146.nc","profiles/BR6904117_146D.nc","profiles/BR6904117_147.nc","profiles/BR6904117_147D.nc","profiles/BR6904117_148.nc","profiles/BR6904117_148D.nc","profiles/BR6904117_149.nc","profiles/BR6904117_149D.nc","profiles/BR6904117_150.nc","profiles/BR6904117_150D.nc","profiles/BR6904117_151.nc","profiles/BR6904117_151D.nc","profiles/BR6904117_152.nc","profiles/BR6904117_152D.nc","profiles/BR6904117_153.nc","profiles/BR6904117_153D.nc","profiles/BR6904117_154.nc","profiles/BR6904117_154D.nc","profiles/BR6904117_155.nc","profiles/BR6904117_155D.nc","profiles/BR6904117_156.nc","profiles/BR6904117_156D.nc","profiles/BR6904117_157.nc","profiles/BR6904117_157D.nc","profiles/BR6904117_158.nc","profiles/BR6904117_158D.nc","profiles/BR6904117_159.nc","profiles/BR6904117_159D.nc","profiles/BR6904117_160.nc","profiles/BR6904117_160D.nc","profiles/BR6904117_161.nc","profiles/BR6904117_161D.nc","profiles/BR6904117_162.nc","profiles/BR6904117_162D.nc","profiles/BR6904117_163.nc","profiles/BR6904117_163D.nc","profiles/BR6904117_164.nc","profiles/BR6904117_164D.nc","profiles/BR6904117_165.nc","profiles/BR6904117_165D.nc","profiles/BR6904117_166.nc","profiles/BR6904117_166D.nc","profiles/BR6904117_167.nc","profiles/BR6904117_167D.nc","profiles/BR6904117_168.nc","profiles/BR6904117_168D.nc","profiles/BR6904117_169.nc","profiles/BR6904117_169D.nc","profiles/BR6904117_170.nc","profiles/BR6904117_170D.nc","profiles/BR6904117_171.nc","profiles/BR6904117_171D.nc","profiles/R6904117_001.nc","profiles/R6904117_001D.nc","profiles/R6904117_002.nc","profiles/R6904117_002D.nc","profiles/R6904117_003.nc","profiles/R6904117_003D.nc","profiles/R6904117_004.nc","profiles/R6904117_004D.nc","profiles/R6904117_005.nc","profiles/R6904117_005D.nc","profiles/R6904117_006.nc","profiles/R6904117_006D.nc","profiles/R6904117_007.nc","profiles/R6904117_007D.nc","profiles/R6904117_008.nc","profiles/R6904117_008D.nc","profiles/R6904117_009.nc","profiles/R6904117_009D.nc","profiles/R6904117_010.nc","profiles/R6904117_010D.nc","profiles/R6904117_011.nc","profiles/R6904117_011D.nc","profiles/R6904117_012.nc","profiles/R6904117_012D.nc","profiles/R6904117_013.nc","profiles/R6904117_013D.nc","profiles/R6904117_014.nc","profiles/R6904117_014D.nc","profiles/R6904117_015.nc","profiles/R6904117_015D.nc","profiles/R6904117_016.nc","profiles/R6904117_016D.nc","profiles/R6904117_017.nc","profiles/R6904117_017D.nc","profiles/R6904117_018.nc","profiles/R6904117_018D.nc","profiles/R6904117_019.nc","profiles/R6904117_019D.nc","profiles/R6904117_020.nc","profiles/R6904117_020D.nc","profiles/R6904117_021.nc","profiles/R6904117_021D.nc","profiles/R6904117_022.nc","profiles/R6904117_022D.nc","profiles/R6904117_023.nc","profiles/R6904117_023D.nc","profiles/R6904117_024.nc","profiles/R6904117_024D.nc","profiles/R6904117_025.nc","profiles/R6904117_025D.nc","profiles/R6904117_026.nc","profiles/R6904117_026D.nc","profiles/R6904117_027.nc","profiles/R6904117_027D.nc","profiles/R6904117_028.nc","profiles/R6904117_028D.nc","profiles/R6904117_029.nc","profiles/R6904117_029D.nc","profiles/R6904117_030.nc","profiles/R6904117_030D.nc","profiles/R6904117_031.nc","profiles/R6904117_031D.nc","profiles/R6904117_032.nc","profiles/R6904117_032D.nc","profiles/R6904117_033.nc","profiles/R6904117_033D.nc","profiles/R6904117_034.nc","profiles/R6904117_034D.nc","profiles/R6904117_035.nc","profiles/R6904117_035D.nc","profiles/R6904117_036.nc","profiles/R6904117_036D.nc","profiles/R6904117_037.nc","profiles/R6904117_037D.nc","profiles/R6904117_038.nc","profiles/R6904117_038D.nc","profiles/R6904117_039.nc","profiles/R6904117_039D.nc","profiles/R6904117_040.nc","profiles/R6904117_040D.nc","profiles/R6904117_041.nc","profiles/R6904117_041D.nc","profiles/R6904117_042.nc","profiles/R6904117_042D.nc","profiles/R6904117_043.nc","profiles/R6904117_043D.nc","profiles/R6904117_044.nc","profiles/R6904117_044D.nc","profiles/R6904117_045.nc","profiles/R6904117_045D.nc","profiles/R6904117_046.nc","profiles/R6904117_046D.nc","profiles/R6904117_047.nc","profiles/R6904117_047D.nc","profiles/R6904117_048.nc","profiles/R6904117_048D.nc","profiles/R6904117_049.nc","profiles/R6904117_049D.nc","profiles/R6904117_050.nc","profiles/R6904117_050D.nc","profiles/R6904117_051.nc","profiles/R6904117_051D.nc","profiles/R6904117_052.nc","profiles/R6904117_052D.nc","profiles/R6904117_053.nc","profiles/R6904117_053D.nc","profiles/R6904117_054.nc","profiles/R6904117_054D.nc","profiles/R6904117_055.nc","profiles/R6904117_055D.nc","profiles/R6904117_056.nc","profiles/R6904117_056D.nc","profiles/R6904117_057.nc","profiles/R6904117_057D.nc","profiles/R6904117_058.nc","profiles/R6904117_058D.nc","profiles/R6904117_059.nc","profiles/R6904117_059D.nc","profiles/R6904117_060.nc","profiles/R6904117_060D.nc","profiles/R6904117_061.nc","profiles/R6904117_061D.nc","profiles/R6904117_062.nc","profiles/R6904117_062D.nc","profiles/R6904117_063.nc","profiles/R6904117_063D.nc","profiles/R6904117_064.nc","profiles/R6904117_064D.nc","profiles/R6904117_065.nc","profiles/R6904117_065D.nc","profiles/R6904117_066.nc","profiles/R6904117_066D.nc","profiles/R6904117_067.nc","profiles/R6904117_067D.nc","profiles/R6904117_068.nc","profiles/R6904117_068D.nc","profiles/R6904117_069.nc","profiles/R6904117_069D.nc","profiles/R6904117_070.nc","profiles/R6904117_070D.nc","profiles/R6904117_071.nc","profiles/R6904117_071D.nc","profiles/R6904117_072.nc","profiles/R6904117_072D.nc","profiles/R6904117_073.nc","profiles/R6904117_073D.nc","profiles/R6904117_074.nc","profiles/R6904117_074D.nc","profiles/R6904117_075.nc","profiles/R6904117_075D.nc","profiles/R6904117_076.nc","profiles/R6904117_076D.nc","profiles/R6904117_077.nc","profiles/R6904117_077D.nc","profiles/R6904117_078.nc","profiles/R6904117_078D.nc","profiles/R6904117_079.nc","profiles/R6904117_079D.nc","profiles/R6904117_080.nc","profiles/R6904117_080D.nc","profiles/R6904117_081.nc","profiles/R6904117_081D.nc","profiles/R6904117_082.nc","profiles/R6904117_082D.nc","profiles/R6904117_083.nc","profiles/R6904117_083D.nc","profiles/R6904117_084.nc","profiles/R6904117_084D.nc","profiles/R6904117_085.nc","profiles/R6904117_085D.nc","profiles/R6904117_086.nc","profiles/R6904117_086D.nc","profiles/R6904117_087.nc","profiles/R6904117_087D.nc","profiles/R6904117_088.nc","profiles/R6904117_088D.nc","profiles/R6904117_089.nc","profiles/R6904117_089D.nc","profiles/R6904117_090.nc","profiles/R6904117_090D.nc","profiles/R6904117_091.nc","profiles/R6904117_091D.nc","profiles/R6904117_092.nc","profiles/R6904117_092D.nc","profiles/R6904117_093.nc","profiles/R6904117_093D.nc","profiles/R6904117_094.nc","profiles/R6904117_094D.nc","profiles/R6904117_095.nc","profiles/R6904117_095D.nc","profiles/R6904117_096.nc","profiles/R6904117_096D.nc","profiles/R6904117_097.nc","profiles/R6904117_097D.nc","profiles/R6904117_098.nc","profiles/R6904117_098D.nc","profiles/R6904117_099.nc","profiles/R6904117_099D.nc","profiles/R6904117_100.nc","profiles/R6904117_100D.nc","profiles/R6904117_101.nc","profiles/R6904117_101D.nc","profiles/R6904117_102.nc","profiles/R6904117_102D.nc","profiles/R6904117_103.nc","profiles/R6904117_103D.nc","profiles/R6904117_104.nc","profiles/R6904117_104D.nc","profiles/R6904117_105.nc","profiles/R6904117_105D.nc","profiles/R6904117_106.nc","profiles/R6904117_106D.nc","profiles/R6904117_107.nc","profiles/R6904117_107D.nc","profiles/R6904117_108.nc","profiles/R6904117_108D.nc","profiles/R6904117_109.nc","profiles/R6904117_109D.nc","profiles/R6904117_110.nc","profiles/R6904117_110D.nc","profiles/R6904117_111.nc","profiles/R6904117_111D.nc","profiles/R6904117_112.nc","profiles/R6904117_112D.nc","profiles/R6904117_113.nc","profiles/R6904117_113D.nc","profiles/R6904117_114.nc","profiles/R6904117_114D.nc","profiles/R6904117_115.nc","profiles/R6904117_115D.nc","profiles/R6904117_116.nc","profiles/R6904117_116D.nc","profiles/R6904117_117.nc","profiles/R6904117_117D.nc","profiles/R6904117_118.nc","profiles/R6904117_118D.nc","profiles/R6904117_119.nc","profiles/R6904117_119D.nc","profiles/R6904117_120.nc","profiles/R6904117_120D.nc","profiles/R6904117_121.nc","profiles/R6904117_121D.nc","profiles/R6904117_122.nc","profiles/R6904117_122D.nc","profiles/R6904117_123.nc","profiles/R6904117_123D.nc","profiles/R6904117_124.nc","profiles/R6904117_124D.nc","profiles/R6904117_125.nc","profiles/R6904117_125D.nc","profiles/R6904117_126.nc","profiles/R6904117_126D.nc","profiles/R6904117_127.nc","profiles/R6904117_127D.nc","profiles/R6904117_128.nc","profiles/R6904117_128D.nc","profiles/R6904117_129.nc","profiles/R6904117_129D.nc","profiles/R6904117_130.nc","profiles/R6904117_130D.nc","profiles/R6904117_131.nc","profiles/R6904117_131D.nc","profiles/R6904117_132.nc","profiles/R6904117_132D.nc","profiles/R6904117_133.nc","profiles/R6904117_133D.nc","profiles/R6904117_134.nc","profiles/R6904117_134D.nc","profiles/R6904117_135.nc","profiles/R6904117_135D.nc","profiles/R6904117_136.nc","profiles/R6904117_136D.nc","profiles/R6904117_137.nc","profiles/R6904117_137D.nc","profiles/R6904117_138.nc","profiles/R6904117_138D.nc","profiles/R6904117_139.nc","profiles/R6904117_139D.nc","profiles/R6904117_140.nc","profiles/R6904117_140D.nc","profiles/R6904117_141.nc","profiles/R6904117_141D.nc","profiles/R6904117_142.nc","profiles/R6904117_142D.nc","profiles/R6904117_143.nc","profiles/R6904117_143D.nc","profiles/R6904117_144.nc","profiles/R6904117_144D.nc","profiles/R6904117_145.nc","profiles/R6904117_145D.nc","profiles/R6904117_146.nc","profiles/R6904117_146D.nc","profiles/R6904117_147.nc","profiles/R6904117_147D.nc","profiles/R6904117_148.nc","profiles/R6904117_148D.nc","profiles/R6904117_149.nc","profiles/R6904117_149D.nc","profiles/R6904117_150.nc","profiles/R6904117_150D.nc","profiles/R6904117_151.nc","profiles/R6904117_151D.nc","profiles/R6904117_152.nc","profiles/R6904117_152D.nc","profiles/R6904117_153.nc","profiles/R6904117_153D.nc","profiles/R6904117_154.nc","profiles/R6904117_154D.nc","profiles/R6904117_155.nc","profiles/R6904117_155D.nc","profiles/R6904117_156.nc","profiles/R6904117_156D.nc","profiles/R6904117_157.nc","profiles/R6904117_157D.nc","profiles/R6904117_158.nc","profiles/R6904117_158D.nc","profiles/R6904117_159.nc","profiles/R6904117_159D.nc","profiles/R6904117_160.nc","profiles/R6904117_160D.nc","profiles/R6904117_161.nc","profiles/R6904117_161D.nc","profiles/R6904117_162.nc","profiles/R6904117_162D.nc","profiles/R6904117_163.nc","profiles/R6904117_163D.nc","profiles/R6904117_164.nc","profiles/R6904117_164D.nc","profiles/R6904117_165.nc","profiles/R6904117_165D.nc","profiles/R6904117_166.nc","profiles/R6904117_166D.nc","profiles/R6904117_167.nc","profiles/R6904117_167D.nc","profiles/R6904117_168.nc","profiles/R6904117_168D.nc","profiles/R6904117_169.nc","profiles/R6904117_169D.nc","profiles/R6904117_170.nc","profiles/R6904117_170D.nc","profiles/R6904117_171.nc","profiles/R6904117_171D.nc"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Implemeting real-time CHLA QC in Python","description":"A reference implementation of forthcoming CHLA real-time QC","authors":[{"author":"Dewey Dunnington","authorURL":"https://github.com/paleolimbot","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-18T00:00:00.000+00:00","citationText":"Dunnington, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="../../index.html" class="title">Argo Canada Development Blog</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Home</a>
+<a href="../../about.html">About</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Implemeting real-time CHLA QC in Python</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>A reference implementation of forthcoming CHLA real-time QC</p></p>
+</div>
+
+<div class="d-byline">
+  Dewey Dunnington <a href="https://github.com/paleolimbot" class="uri">https://github.com/paleolimbot</a> 
+  
+<br/>10-18-2021
+</div>
+
+<div class="d-article">
+<p>This post is a rough guide to implementing real-time adjustments to CHLA values in Argo NetCDF files. The real-time adjustments are relatively new and reflect a balance between simplicity and completeness, with the understanding that delayed-mode QC will be more robust and incorporate more float-specific considerations. In case it’s not clear, nothing in this post should be construed as a definitive QC implementation and should be subject to considerable testing prior to deployment as actual live QC.</p>
+<p>To implement the tests on existing ArgoNetCDF files in Python, we’ll use the <a href="https://github.com/ArgoCanada/argopandas">argopandas</a> package (to list float profiles and do some basic interaction with Argo NetCDF files) and <a href="https://teos-10.github.io/GSW-Python/">gsw</a> (to perform seawater calculations required for some of the checks). We’ll also use <a href="https://pandas.pydata.org/">pandas</a> data frames and <a href="https://numpy.org/">numpy</a> arrays to marshal the generic data handling and <a href="https://matplotlib.org/">matplotlib</a> to plot as we go along.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install argopandas gsw matplotlib</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># conda install -c conda-forge argopandas gsw matplotlib</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> argopandas <span class="im">as</span> argo</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gsw</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
+<h3 id="example-data">Example data</h3>
+<p>We’ll need some data to practice with, too. As an example, I’ll use all the profiles from float 6904117. It’s probably best to use a fresh cache for every Python session (the default), but for the purposes of rendering this post I’ll use a local cache to avoid downloading the files everytime I render it.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>profiles <span class="op">=</span> argo.prof <span class="op">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    .subset_float(<span class="dv">6904117</span>) <span class="op">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    .subset_direction(<span class="st">&#39;ascending&#39;</span>) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>bgc_profiles <span class="op">=</span> argo.bio_prof <span class="op">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    .subset_float(<span class="dv">6904117</span>) <span class="op">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    .subset_direction(<span class="st">&#39;ascending&#39;</span>)</span></code></pre></div>
+<pre><code>Downloading &#39;https://data-argo.ifremer.fr/ar_index_global_prof.txt.gz&#39;
+Downloading &#39;https://data-argo.ifremer.fr/argo_bio-profile_index.txt.gz&#39;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>profiles</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+file
+</th>
+<th>
+date
+</th>
+<th>
+latitude
+</th>
+<th>
+longitude
+</th>
+<th>
+ocean
+</th>
+<th>
+profiler_type
+</th>
+<th>
+institution
+</th>
+<th>
+date_update
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+1826644
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_001.nc
+</td>
+<td>
+2021-02-03 12:42:43+00:00
+</td>
+<td>
+57.295
+</td>
+<td>
+19.963
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-09-14 15:09:29+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826646
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_002.nc
+</td>
+<td>
+2021-02-05 00:55:14+00:00
+</td>
+<td>
+57.251
+</td>
+<td>
+19.854
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-09-14 15:09:42+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826648
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_003.nc
+</td>
+<td>
+2021-02-06 12:42:44+00:00
+</td>
+<td>
+57.165
+</td>
+<td>
+19.849
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-09-14 15:09:52+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826650
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_004.nc
+</td>
+<td>
+2021-02-08 00:59:14+00:00
+</td>
+<td>
+57.136
+</td>
+<td>
+19.973
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-09-14 15:10:04+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826652
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_005.nc
+</td>
+<td>
+2021-02-09 12:44:44+00:00
+</td>
+<td>
+57.163
+</td>
+<td>
+20.046
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-09-14 15:10:15+00:00
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+1826978
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_168.nc
+</td>
+<td>
+2021-10-12 12:26:21+00:00
+</td>
+<td>
+57.789
+</td>
+<td>
+19.844
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-10-12 16:43:24+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826980
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_169.nc
+</td>
+<td>
+2021-10-14 00:28:17+00:00
+</td>
+<td>
+57.828
+</td>
+<td>
+19.870
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-10-14 04:40:19+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826982
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_170.nc
+</td>
+<td>
+2021-10-15 12:30:17+00:00
+</td>
+<td>
+57.816
+</td>
+<td>
+19.850
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-10-15 17:48:45+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826984
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_171.nc
+</td>
+<td>
+2021-10-17 00:29:12+00:00
+</td>
+<td>
+57.831
+</td>
+<td>
+19.861
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-10-17 04:40:26+00:00
+</td>
+</tr>
+<tr>
+<th>
+1826986
+</th>
+<td>
+coriolis/6904117/profiles/R6904117_172.nc
+</td>
+<td>
+2021-10-18 13:12:23+00:00
+</td>
+<td>
+57.825
+</td>
+<td>
+19.852
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+2021-10-18 16:39:57+00:00
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+172 rows × 8 columns
+</p>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bgc_profiles</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+file
+</th>
+<th>
+date
+</th>
+<th>
+latitude
+</th>
+<th>
+longitude
+</th>
+<th>
+ocean
+</th>
+<th>
+profiler_type
+</th>
+<th>
+institution
+</th>
+<th>
+parameters
+</th>
+<th>
+parameter_data_mode
+</th>
+<th>
+date_update
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+172309
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_001.nc
+</td>
+<td>
+2021-02-03 12:42:43+00:00
+</td>
+<td>
+57.295
+</td>
+<td>
+19.963
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-09-14 15:09:29+00:00
+</td>
+</tr>
+<tr>
+<th>
+172311
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_002.nc
+</td>
+<td>
+2021-02-05 00:55:14+00:00
+</td>
+<td>
+57.251
+</td>
+<td>
+19.854
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-09-14 15:09:42+00:00
+</td>
+</tr>
+<tr>
+<th>
+172313
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_003.nc
+</td>
+<td>
+2021-02-06 12:42:44+00:00
+</td>
+<td>
+57.165
+</td>
+<td>
+19.849
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-09-14 15:09:52+00:00
+</td>
+</tr>
+<tr>
+<th>
+172315
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_004.nc
+</td>
+<td>
+2021-02-08 00:59:14+00:00
+</td>
+<td>
+57.136
+</td>
+<td>
+19.973
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-09-14 15:10:04+00:00
+</td>
+</tr>
+<tr>
+<th>
+172317
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_005.nc
+</td>
+<td>
+2021-02-09 12:44:44+00:00
+</td>
+<td>
+57.163
+</td>
+<td>
+20.046
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-09-14 15:10:15+00:00
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+172643
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_168.nc
+</td>
+<td>
+2021-10-12 12:26:21+00:00
+</td>
+<td>
+57.789
+</td>
+<td>
+19.844
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-10-12 16:43:24+00:00
+</td>
+</tr>
+<tr>
+<th>
+172645
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_169.nc
+</td>
+<td>
+2021-10-14 00:28:17+00:00
+</td>
+<td>
+57.828
+</td>
+<td>
+19.870
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-10-14 04:40:19+00:00
+</td>
+</tr>
+<tr>
+<th>
+172647
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_170.nc
+</td>
+<td>
+2021-10-15 12:30:17+00:00
+</td>
+<td>
+57.816
+</td>
+<td>
+19.850
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-10-15 17:48:45+00:00
+</td>
+</tr>
+<tr>
+<th>
+172649
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_171.nc
+</td>
+<td>
+2021-10-17 00:29:12+00:00
+</td>
+<td>
+57.831
+</td>
+<td>
+19.861
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-10-17 04:40:26+00:00
+</td>
+</tr>
+<tr>
+<th>
+172651
+</th>
+<td>
+coriolis/6904117/profiles/BR6904117_172.nc
+</td>
+<td>
+2021-10-18 13:12:23+00:00
+</td>
+<td>
+57.825
+</td>
+<td>
+19.852
+</td>
+<td>
+A
+</td>
+<td>
+834
+</td>
+<td>
+IF
+</td>
+<td>
+MTIME PRES C1PHASE_DOXY C2PHASE_DOXY TEMP_DOXY…
+</td>
+<td>
+RRRRRARRRRRRRRRRRARRRRRRRRAR
+</td>
+<td>
+2021-10-18 16:39:57+00:00
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+172 rows × 10 columns
+</p>
+</div>
+<h3 id="the-recipe">The recipe</h3>
+<p>As I understand it, this is what has to happen to the real-time measurements during the CHLA processing:</p>
+<ul>
+<li><code>CHLA</code> values whose flags are unset are flagged as <code>Flag.PROBABLY_BAD</code></li>
+<li><code>CHLA_ADJUSTED</code> values whose flags are unset are flagged as <code>Flag.GOOD</code></li>
+<li>Apply global range test (flag for <code>CHLA</code> and <code>CHLA_ADJUSTED</code> set to <code>Flag.BAD</code> for CHLA values outside the range -0.1 to 100)</li>
+<li>Apply the “dark correction” to <code>CHLA</code> values:
+<ul>
+<li>Read the <code>SCIENTIFIC_CALIB_COEFFICIENT</code> variable for the CHLA profile and parse the <code>FLOAT_DARK</code>, and <code>FLOAT_DARK_QC</code> values. It is likely that <code>FLOAT_DARK_QC</code> doesn’t exist in any files yet, so default to <code>Flag.NO_QC</code>. For profiles that haven’t gone through 5 cycles deeper than the “mixed layer depth”, there should be a <code>PRELIM_DARK</code> variable in <code>SCIENTIFIC_CALIB_COEFFICIENT</code></li>
+<li>If <code>FLOAT_DARK</code> exists, apply the equation <code>CHLA_ADJUSTED = ((FLUORESCENCE_CHLA-FLOAT_DARK)*SCALE_CHLA)/2</code>.</li>
+<li>If it doesn’t, calculate try to calculate <code>PRELIM_DARK</code> and look for 4 previous instances of <code>PRELIM_DARK</code> with which <code>FLOAT_DARK/_QC</code> should be calculated. If there are 5 <code>PRELIM_DARK</code> values, calculate <code>FLOAT_DARK/_QC</code> and use that. If there aren’t calculate the adjusted value using <code>PRELIM_DARK</code>.</li>
+</ul></li>
+<li>Apply the non-photochemical quenching correction (NPC) to the value calculated by the dark correction. This is the correction for the upper portion of the ocean whereby phytoplankton have a reduced response to UV light because they have already been exposed to it from the sun.</li>
+</ul>
+<p>A few of these steps have details that need to be expanded upon, so let’s do those first</p>
+<h3 id="qc-flags">QC Flags</h3>
+<p>In addition to computing adjusted realtime values, the QC checks for CHLA also flag some values using the Argo flag scheme. One of the challeneges in doing this is that you don’t want to make a data point look “better” by assigning a QC flag (e.g., flag a value as “probably bad” when it’s already been flagged as “bad”). This logic was implemented by the experimental <a href="https://github.com/euroargodev/argortqcpy">argortqcpy</a> package (<a href="https://github.com/euroargodev/argortqcpy/blame/main/argortqcpy/checks.py">here</a>) and I’ve modified it slightly to get all of the flag logic in one happy Python class:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Flag:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Flags for check output. These values are valid values of the</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    ``qc`` and ``adjusted_qc`` attributes of a</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    :class:`~medsrtqc.core.Trace` object. Utility functions are</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    provided as static methods to get the name or value of a flag</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    or to update flag values ensuring that values that are already</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    marked at a &quot;worse&quot; QC level are not inadvertently changed.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> label(flag):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;Return the label of a QC flag&quot;&quot;&quot;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> Flag._names[flag]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> value(label):</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;Return the value of a QC flag&quot;&quot;&quot;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> value, lab <span class="kw">in</span> Flag._names.items():</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> label <span class="op">==</span> lab:</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> value</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">KeyError</span>(<span class="ss">f&quot;&#39;</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">&#39; is not the name of a QC flag&quot;</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update_safely(qc, to, where<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">        Safely update ``qc`` to the value ``to``. Values that are</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">        already marked at a &quot;worse&quot; QC level are not modified.</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">        &quot;&quot;&quot;</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        where <span class="op">=</span> <span class="bu">slice</span>(<span class="va">None</span>) <span class="cf">if</span> where <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> where</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        flags <span class="op">=</span> qc[where]</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> overridable_flag <span class="kw">in</span> Flag._precedence[to]:</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>            flags[flags <span class="op">==</span> overridable_flag] <span class="op">=</span> to</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        qc[where] <span class="op">=</span> flags</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    NO_QC <span class="op">=</span> b<span class="st">&#39;0&#39;</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    GOOD <span class="op">=</span> b<span class="st">&#39;1&#39;</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    PROBABLY_GOOD <span class="op">=</span> b<span class="st">&#39;2&#39;</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    PROBABLY_BAD <span class="op">=</span> b<span class="st">&#39;3&#39;</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    BAD <span class="op">=</span> b<span class="st">&#39;4&#39;</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    CHANGED <span class="op">=</span> b<span class="st">&#39;5&#39;</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;6&#39; not used</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;7&#39; not used</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    ESTIMATED <span class="op">=</span> b<span class="st">&#39;8&#39;</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    MISSING <span class="op">=</span> b<span class="st">&#39;9&#39;</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    FILL_VALUE <span class="op">=</span> b<span class="st">&#39;&#39;</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    _names <span class="op">=</span> {</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        NO_QC: <span class="st">&#39;NO_QC&#39;</span>,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        GOOD: <span class="st">&#39;GOOD&#39;</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>        PROBABLY_GOOD: <span class="st">&#39;PROBABLY_GOOD&#39;</span>,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        PROBABLY_BAD: <span class="st">&#39;PROBABLY_BAD&#39;</span>,</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        BAD: <span class="st">&#39;BAD&#39;</span>,</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        CHANGED: <span class="st">&#39;CHANGED&#39;</span>,</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        ESTIMATED: <span class="st">&#39;ESTIMATED&#39;</span>,</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        MISSING: <span class="st">&#39;MISSING&#39;</span>,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        FILL_VALUE: <span class="st">&#39;FILL_VALUE&#39;</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    _precedence <span class="op">=</span> {</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        NO_QC: <span class="bu">set</span>(),</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        GOOD: {</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        PROBABLY_GOOD: {</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>            GOOD,</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            CHANGED,</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>        PROBABLY_BAD: {</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>            GOOD,</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>            PROBABLY_GOOD,</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>            CHANGED,</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>        BAD: {</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>            GOOD,</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>            PROBABLY_GOOD,</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>            CHANGED,</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>            PROBABLY_BAD,</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>        CHANGED: {</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>        ESTIMATED: {</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>            GOOD,</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>            PROBABLY_GOOD,</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>        MISSING: {</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>            NO_QC,</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<h3 id="parsing-scientific_calib_coefficient">Parsing SCIENTIFIC_CALIB_COEFFICIENT</h3>
+<p>This variable in the NetCDF files looks like this:</p>
+<pre><code>DARK_CHLA = 47, SCALE_CHLA = 0.0073</code></pre>
+<p>and is in string form. It can be parsed by splitting a few times to return a <code>dict()</code> and reconstituted by pasting together a few times.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_scientific_calib_coefficient(val):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> val.split(<span class="st">&#39;,&#39;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span>  [part.split(<span class="st">&#39;=&#39;</span>) <span class="cf">for</span> part <span class="kw">in</span> parts]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k.strip(): <span class="bu">float</span>(v.strip()) <span class="cf">for</span> k, v <span class="kw">in</span> vals}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unparse_calib_coefficient(coefs):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&#39;, &#39;</span>.join(<span class="ss">f&#39;</span><span class="sc">{k}</span><span class="ss"> = </span><span class="sc">{v}</span><span class="ss">&#39;</span> <span class="cf">for</span> k, v <span class="kw">in</span> coefs.items())</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> parse_scientific_calib_coefficient(<span class="st">&#39;DARK_CHLA = 47, SCALE_CHLA = 0.0073&#39;</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(coefs)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>coefs[<span class="st">&#39;SOMETHING_ELSE&#39;</span>] <span class="op">=</span> <span class="fl">1.23</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>unparse_calib_coefficient(coefs)</span></code></pre></div>
+<pre><code>{&#39;DARK_CHLA&#39;: 47.0, &#39;SCALE_CHLA&#39;: 0.0073}
+
+
+
+
+
+&#39;DARK_CHLA = 47.0, SCALE_CHLA = 0.0073, SOMETHING_ELSE = 1.23&#39;</code></pre>
+<h3 id="the-mixed-layer-depth">The mixed layer depth</h3>
+<p>As I understand it, there are as many ways to calculate the mixed layer depth as there are oceanographers. The following is an implementation based on the guidance provided in the draft CHLA QC document. I’m using <code>plt</code> as an argument here so that you can debug this stuff interactively (but skip installing matplotlib in production). The gist is that it looks for density changes &gt; 0.03 below 10 dbar.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gsw</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_mixed_layer_depth(pres, temp, psal, longitude<span class="op">=</span><span class="dv">0</span>, latitude<span class="op">=</span><span class="dv">0</span>, plt<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    abs_salinity <span class="op">=</span> gsw.SA_from_SP(psal, pres, longitude, latitude)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    conservative_temp <span class="op">=</span> gsw.CT_from_t(abs_salinity, temp, pres)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    density <span class="op">=</span> gsw.sigma0(abs_salinity, conservative_temp)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> plt:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        plt.plot(density, pres)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        plt.gca().invert_yaxis()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        plt.gca().set_xlabel(<span class="st">&#39;sigma0&#39;</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    mixed_layer_start <span class="op">=</span> (np.diff(density) <span class="op">&gt;</span> <span class="fl">0.03</span>) <span class="op">&amp;</span> (pres[:<span class="op">-</span><span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">10</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> np.<span class="bu">any</span>(mixed_layer_start):</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Can&#39;t determine mixed layer depth (no density changes &gt; 0.03 below 10 dbar)</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    mixed_layer_start_index <span class="op">=</span> np.where(mixed_layer_start)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    mixed_layer_depth <span class="op">=</span> pres[mixed_layer_start_index]</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> plt:</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        plt.gca().axhline(y <span class="op">=</span> mixed_layer_depth, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mixed_layer_depth</span></code></pre></div>
+<p>It’s a little easier to parameterize this in terms of a <code>NetCDFWrapper</code> object since that’s what we get handed.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_mixed_layer_depth_nc(nc_core, plt<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&#39;PRES&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc_core.variables <span class="kw">or</span> <span class="op">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;TEMP&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc_core.variables <span class="kw">or</span> <span class="op">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;PSAL&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc_core.variables:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> nc_core[<span class="st">&#39;PRES&#39;</span>][:][<span class="dv">0</span>]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">=</span> nc_core[<span class="st">&#39;TEMP&#39;</span>][:][<span class="dv">0</span>]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    psal <span class="op">=</span> nc_core[<span class="st">&#39;PSAL&#39;</span>][:][<span class="dv">0</span>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&#39;LONGITUDE&#39;</span> <span class="kw">in</span> nc_core.variables <span class="kw">and</span> <span class="st">&#39;LATITUDE&#39;</span> <span class="kw">in</span> nc_core.variables:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        longitude <span class="op">=</span> nc_core[<span class="st">&#39;LONGITUDE&#39;</span>][:][<span class="dv">0</span>]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        latitude <span class="op">=</span> nc_core[<span class="st">&#39;LATITUDE&#39;</span>][:][<span class="dv">0</span>]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        longitude <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        latitude <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> calc_mixed_layer_depth(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        pres, temp, psal, </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        longitude<span class="op">=</span>longitude,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        latitude<span class="op">=</span>latitude, </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        plt<span class="op">=</span>plt)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>calc_mixed_layer_depth_nc(</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    argo.nc(<span class="st">&#39;dac/&#39;</span> <span class="op">+</span> profiles.reset_index().<span class="bu">file</span>[<span class="dv">0</span>]), </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    plt<span class="op">=</span>plt)</span></code></pre></div>
+<pre><code>Downloading &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles/R6904117_001.nc&#39;
+
+
+
+
+
+60.5</code></pre>
+<figure>
+<img src="post_files/post_14_2.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<h3 id="calculating-float_dark">Calculating FLOAT_DARK</h3>
+<p>The guidance on calculating <code>PRELIM_DARK</code> is that it’s the minimum <code>CHLA</code> value below the mixed layer depth boundary. In Python:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_prelim_dark(pres, chla, mixed_layer_depth):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mixed_layer_depth <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    chla_filter <span class="op">=</span> chla[(pres <span class="op">&gt;</span> mixed_layer_depth) <span class="op">&amp;</span> <span class="op">~</span>np.isnan(chla)]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(chla_filter) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> chla_filter.<span class="bu">min</span>()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p>Because no <code>PRELIM_DARK</code> values have been calculated since the spec is new, we need something to do this too. Again, it’s a little easier below if we parameterize this in terms of a <code>NetCDFWrapper</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_prelim_dark_nc(nc_bgc, nc_core):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&#39;CHLA&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc_bgc.variables <span class="kw">or</span> <span class="st">&#39;PRES&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc_bgc.variables:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">KeyError</span>(<span class="ss">f&quot;&#39;CHLA&#39; or &#39;PRES&#39; not found&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we need a mixed layer depth for this calculation</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    mixed_layer_depth <span class="op">=</span> calc_mixed_layer_depth_nc(nc_core)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mixed_layer_depth <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    chla_prof_i <span class="op">=</span> nc_bgc.param[nc_bgc.param.STATION_PARAMETERS.<span class="bu">str</span>.strip() <span class="op">==</span> <span class="st">&#39;CHLA&#39;</span>] <span class="op">\</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        .reset_index() <span class="op">\</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        .iloc[<span class="dv">0</span>] <span class="op">\</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        .N_PROF</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> nc_bgc[<span class="st">&#39;PRES&#39;</span>][:][chla_prof_i]</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    chla <span class="op">=</span> nc_bgc[<span class="st">&#39;CHLA&#39;</span>][:][chla_prof_i]</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> calc_prelim_dark(pres, chla, mixed_layer_depth)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>calc_prelim_dark_nc(</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    argo.nc(<span class="st">&#39;dac/&#39;</span> <span class="op">+</span> bgc_profiles.reset_index().<span class="bu">file</span>[<span class="dv">0</span>]),</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    argo.nc(<span class="st">&#39;dac/&#39;</span> <span class="op">+</span> profiles.reset_index().<span class="bu">file</span>[<span class="dv">0</span>]))</span></code></pre></div>
+<pre><code>Downloading &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles/BR6904117_001.nc&#39;
+
+
+
+
+
+0.2263</code></pre>
+<p>Calculating <code>FLOAT_DARK</code> is a little more involved and it’s where we’ll make use of our float/cycle index that we created earlier. We need to start from the first NetCDF file for the float and collect any <code>PRELIM_DARK</code> values from <code>SCIENTIFIC_CALIB_COEFFICIENT</code> that might have been calculated. If there were 3 or fewer, we do nothing. If there are exactly 4, we add our <code>PRELIM_DARK</code> that we just calculated, calculate the mean of the values, and use that. The <code>FLOAT_DARK_QC</code> gets added based on the standard deviation of the <code>PRELIM_DARK</code> values.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accumulate_prelim_dark(bio_prof_files):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    prelim_dark <span class="op">=</span> []</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nc <span class="kw">in</span> argo.nc(bio_prof_files):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        coefs_df <span class="op">=</span> nc.calib[nc.calib.PARAMETER.<span class="bu">str</span>.strip() <span class="op">==</span> <span class="st">&#39;CHLA&#39;</span>] <span class="op">\</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            .<span class="bu">filter</span>([<span class="st">&#39;SCIENTIFIC_CALIB_COEFFICIENT&#39;</span>])</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(coefs_df) <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> <span class="st">&#39;SCIENTIFIC_CALIB_COEFFICIENT&#39;</span> <span class="kw">not</span> <span class="kw">in</span> coefs_df:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        coefs <span class="op">=</span> parse_scientific_calib_coefficient(coefs_df.iloc[<span class="dv">0</span>][<span class="dv">0</span>])</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">&#39;PRELIM_DARK&#39;</span> <span class="kw">not</span> <span class="kw">in</span> coefs:</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        prelim_dark.append(coefs[<span class="st">&#39;PRELIM_DARK&#39;</span>])</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(prelim_dark)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>accumulate_prelim_dark([<span class="st">&#39;dac/&#39;</span> <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> bgc_profiles.head(<span class="dv">10</span>).<span class="bu">file</span>])</span></code></pre></div>
+<pre><code>Downloading 9 files from &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles&#39;
+
+
+
+
+
+array([], dtype=float64)</code></pre>
+<p>An empty result here is expected since the scheme was just invented.</p>
+<h3 id="the-whole-game">The whole game</h3>
+<p>The rest is not very oceanographic but does involve navigating the structure of BGC variables’ encoding in Argo profile NetCDFs. First, we get a <code>NetCDFWrapper</code> handle and a local filename to the .nc file. In argopandas, a <code>NetCDFWrapper</code> is a thin wrapper around a <code>netCDF4.Dataset</code> that implements a few common accessors in addition to the most common accessors for the dataset (notably, <code>obj.variables</code> and <code>obj['variable name']</code>).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nc_filename <span class="op">=</span> argo.filename(<span class="st">&#39;dac/coriolis/6904117/profiles/BR6904117_171.nc&#39;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>nc_core_filename <span class="op">=</span> argo.filename(<span class="st">&#39;dac/coriolis/6904117/profiles/R6904117_171.nc&#39;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> argo.nc(nc_filename)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>nc_core <span class="op">=</span> argo.nc(nc_core_filename)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure we&#39;ve got a CHLA variable</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">&#39;CHLA&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc.variables <span class="kw">or</span> <span class="st">&#39;PRES&#39;</span> <span class="kw">not</span> <span class="kw">in</span> nc.variables:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">KeyError</span>(<span class="ss">f&quot;&#39;CHLA&#39; or &#39;PRES&#39; not found in &#39;</span><span class="sc">{</span>nc_filename<span class="sc">}</span><span class="ss">&#39;&quot;</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># find the profile index associated with CHLA</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>chla_prof_i <span class="op">=</span> nc.param[nc.param.STATION_PARAMETERS.<span class="bu">str</span>.strip() <span class="op">==</span> <span class="st">&#39;CHLA&#39;</span>] <span class="op">\</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    .reset_index() <span class="op">\</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    .iloc[<span class="dv">0</span>] <span class="op">\</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    .N_PROF</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># get the PRES/CHLA/CHLA_QC series we&#39;ll work with</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># (note that there will be trailing NaN values here</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># but we want to keep those because we&#39;ll have to keep the</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># size the same to reassign values to a copy later)</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>pres <span class="op">=</span> nc[<span class="st">&#39;PRES&#39;</span>][:][chla_prof_i]</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>chla <span class="op">=</span> nc[<span class="st">&#39;CHLA&#39;</span>][:][chla_prof_i]</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>chla_qc_original <span class="op">=</span> nc[<span class="st">&#39;CHLA_QC&#39;</span>][:][chla_prof_i]</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>chla_qc <span class="op">=</span> chla_qc_original.copy()  <span class="co"># keep original so we can compare!</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># create the chla_adjusted and chla_qc variables from originals</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>chla_adjusted <span class="op">=</span> chla.copy()</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>chla_adjusted_qc <span class="op">=</span> chla_qc.copy()</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># reset chla_qc to Flag.NO_QC</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>chla_qc[:] <span class="op">=</span> Flag.NO_QC</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plot to verify!</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>plt.plot(chla, pres)</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span></code></pre></div>
+<pre><code>Downloading &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles/BR6904117_171.nc&#39;
+Downloading &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles/R6904117_171.nc&#39;</code></pre>
+<figure>
+<img src="post_files/post_23_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<p>The first step is to set the initial QC values to <code>Flag.PROBABLY_BAD</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>chla_qc[:] <span class="op">=</span> Flag.PROBABLY_BAD</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>chla_adjusted_qc[:] <span class="op">=</span> Flag.GOOD</span></code></pre></div>
+<p>Then we apply the global range test:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(chla_qc, Flag.BAD, where<span class="op">=</span>(chla <span class="op">&lt;</span> <span class="fl">0.1</span>) <span class="op">|</span> (chla <span class="op">&gt;</span> <span class="dv">100</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(chla_adjusted_qc, Flag.BAD, where<span class="op">=</span>(chla <span class="op">&lt;</span> <span class="fl">0.1</span>) <span class="op">|</span> (chla <span class="op">&gt;</span> <span class="dv">100</span>))</span></code></pre></div>
+<p>Next, we go through the steps for the dark correction. This profile was collected before any of this QC was implemented so it doesn’t contain any <code>PRELIM_DARK</code> or <code>FLOAT_DARK</code>. I’ll write out the logic anyway.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>coefs_df <span class="op">=</span> nc.calib[nc.calib.PARAMETER.<span class="bu">str</span>.strip() <span class="op">==</span> <span class="st">&#39;CHLA&#39;</span>] <span class="op">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>([<span class="st">&#39;SCIENTIFIC_CALIB_COEFFICIENT&#39;</span>])</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(coefs_df) <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> <span class="st">&#39;SCIENTIFIC_CALIB_COEFFICIENT&#39;</span> <span class="kw">not</span> <span class="kw">in</span> coefs_df:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f&quot;Can&#39;t find &#39;SCIENTIFIC_CALIB_COEFFICIENT&#39; for &#39;CHLA&#39; in file &#39;</span><span class="sc">{</span>nc_filename<span class="sc">}</span><span class="ss">&#39;&quot;</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># keep original and modified coefs so we know if they need updating</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> parse_scientific_calib_coefficient(coefs_df.iloc[<span class="dv">0</span>][<span class="dv">0</span>])</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>coefs_mod <span class="op">=</span> coefs.copy()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">&#39;FLOAT_DARK&#39;</span> <span class="kw">in</span> coefs:</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    float_dark_qc <span class="op">=</span> coefs[<span class="st">&#39;FLOAT_DARK_QC&#39;</span>] <span class="cf">if</span> <span class="st">&#39;FLOAT_DARK_QC&#39;</span> <span class="kw">in</span> coefs <span class="cf">else</span> Flag.NO_QC</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    chla_adjusted[:] <span class="op">=</span> chla <span class="op">-</span> coefs[<span class="st">&#39;FLOAT_DARK&#39;</span>]</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    Flag.update_safely(chla_adjusted_qc, float_dark_qc)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    prelim_dark_acc <span class="op">=</span> accumulate_prelim_dark([<span class="st">&#39;dac/&#39;</span> <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> bgc_profiles.<span class="bu">file</span>])</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    prelim_dark_this <span class="op">=</span> calc_prelim_dark_nc(nc, nc_core)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> prelim_dark_this <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        prelim_dark_this <span class="op">=</span> np.array([])</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        coefs_mod[<span class="st">&#39;PRELIM_DARK&#39;</span>] <span class="op">=</span> prelim_dark_this</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        prelim_dark_this <span class="op">=</span> np.array([prelim_dark_this])</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    prelim_dark_acc <span class="op">=</span> np.concatenate([prelim_dark_acc, prelim_dark_this])</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(prelim_dark_acc) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        float_dark <span class="op">=</span> prelim_dark_acc.mean()</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        float_dark_qc <span class="op">=</span> Flag.PROBABLY_GOOD  <span class="co"># not sure how this is actually calculated</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>        chla_adjusted[:] <span class="op">=</span> chla <span class="op">-</span> float_dark</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        Flag.update_safely(chla_adjusted_qc, float_dark_qc)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># potentially store in coefs_mod if there are enough PRELIM_DARK values</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(prelim_dark_acc) <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>            coefs_mod[<span class="st">&#39;FLOAT_DARK&#39;</span>] <span class="op">=</span> float_dark</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>            coefs_mod[<span class="st">&#39;FLOAT_DARK_QC&#39;</span>] <span class="op">=</span> float_dark_qc</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># we can&#39;t calculate the adjusted value</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>        chla_adjusted[:] <span class="op">=</span> np.nan</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a><span class="co"># should show the adjustment</span></span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chla[::<span class="dv">100</span>])</span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(chla_adjusted[::<span class="dv">100</span>])</span></code></pre></div>
+<pre><code>Downloading 161 files from &#39;https://data-argo.ifremer.fr/dac/coriolis/6904117/profiles&#39;
+
+
+[1.1241999864578247 1.1461000442504883 1.292099952697754
+ 1.0292999744415283 0.23360000550746918 0.20440000295639038
+ 0.21170000731945038 0.21170000731945038 0.23360000550746918
+ 0.2773999869823456 0.2847000062465668 0.2847000062465668
+ 0.2919999957084656]
+[0.9343999624252319 0.9563000202178955 1.1022999286651611
+ 0.8394999504089355 0.04380001127719879 0.014600008726119995
+ 0.021900013089179993 0.021900013089179993 0.04380001127719879
+ 0.0875999927520752 0.09490001201629639 0.09490001201629639
+ 0.10220000147819519]</code></pre>
+<p>There are no previous <code>PRELIM_DARK</code> values and no <code>FLOAT_DARK</code> value, so this applies the calculation based on the current profile.</p>
+<p>From my reading of the document, that’s the operation! What’s left is to figure out what changed and modify the NetCDF. There is probably an object diff library in Python that could do a good job of reporting what changed and I’d encourage readers to implement it! The objects that might have changed are <code>coefs_mod</code> (check differences with <code>coefs</code>) and <code>chla_qc</code> (check differences via <code>chla_qc_original</code>). <code>chla_adjusted</code> and <code>chla_adjusted_qc</code> can be written without checking diffs since in theory a brand new file won’t have those variables anyway.</p>
+<p>I imagine modification would be done by making a copy of the NetCDF file and opening via <code>netCDF4.Dataset()</code> in write mode.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> coefs_mod <span class="op">!=</span> coefs:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    coefs_serialized <span class="op">=</span> unparse_calib_coefficient(coefs_mod)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># write coefs_searialized to the appropriate location in </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &#39;SCIENTIFIC_CALIB_COEFFICIENT&#39;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>chla_qc_updated <span class="op">=</span> chla_qc <span class="op">!=</span> chla_qc_original</span></code></pre></div>
+<h3 id="tests">Tests</h3>
+<p>In the course of writing all of this I also wrote some unit tests and it’s worth putting them here so they don’t get lost!</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unittest</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestFlag(unittest.TestCase):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_value(<span class="va">self</span>):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(Flag.NO_QC, Flag(<span class="st">&#39;NO_QC&#39;</span>))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(Flag.label(Flag.NO_QC), <span class="st">&#39;NO_QC&#39;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="va">self</span>.assertRaises(<span class="pp">KeyError</span>):</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            Flag(<span class="st">&#39;not a QC key&#39;</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="va">self</span>.assertRaises(<span class="pp">KeyError</span>):</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>            Flag.label(b<span class="st">&#39;def not a flag&#39;</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_update(<span class="va">self</span>):</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        qc <span class="op">=</span> np.array([Flag.GOOD, Flag.PROBABLY_BAD, Flag.MISSING])</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        Flag.update_safely(qc, to<span class="op">=</span>Flag.BAD)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertTrue(np.<span class="bu">all</span>(qc <span class="op">==</span> np.array([Flag.BAD, Flag.BAD, Flag.MISSING])))</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        qc <span class="op">=</span> np.array([Flag.GOOD, Flag.PROBABLY_BAD, Flag.MISSING])</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        Flag.update_safely(qc, to<span class="op">=</span>Flag.BAD, where<span class="op">=</span>np.array([<span class="va">False</span>, <span class="va">True</span>, <span class="va">False</span>]))</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertTrue(np.<span class="bu">all</span>(qc <span class="op">==</span> np.array([Flag.GOOD, Flag.BAD, Flag.MISSING])))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">Dunnington (2021, Oct. 18). Argo Canada Development Blog: Implemeting real-time CHLA QC in Python. Retrieved from https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{dunnington2021implemeting,
+  author = {Dunnington, Dewey},
+  title = {Argo Canada Development Blog: Implemeting real-time CHLA QC in Python},
+  url = {https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python/},
+  year = {2021}
+}</pre>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

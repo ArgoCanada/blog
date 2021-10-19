@@ -7,7 +7,15 @@
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 02 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Implemeting real-time CHLA QC in Python</title>
+      <dc:creator>Dewey Dunnington</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</link>
+      <description>A reference implementation of forthcoming CHLA real-time QC</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</guid>
+      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Classifying an arbitrary longitude/latitude as 'land' or 'ocean'</title>
       <dc:creator>Dewey Dunnington</dc:creator>
