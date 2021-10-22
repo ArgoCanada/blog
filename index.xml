@@ -7,7 +7,16 @@
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>argoFloats-an-R-package-for-Argo-researchers</title>
+      <dc:creator>Jaimie Harbin and Dan Kelley</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</link>
+      <description>A short description of the post.</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</guid>
+      <pubDate>Fri, 22 Oct 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers/infremer.png" medium="image" type="image/png" width="828" height="894"/>
+    </item>
     <item>
       <title>Implemeting real-time CHLA QC in Python</title>
       <dc:creator>Dewey Dunnington</dc:creator>
