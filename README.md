@@ -13,4 +13,6 @@ The goal of the [Argo Canada Development Blog](https://argocanada.github.io/blog
 4. Edit the .Rmd file. When you're done, click "Knit" in RStudio (`R -e 'rmarkdown::render("_posts/my-post-dir/the-title-of-my-post.Rmd")` for command-line R holdouts). You can also run `rmarkdown::render_site()` to generate a preview of the entire site.
 5. Commit, push, and create a [pull request](https://github.com/ArgoCanada/blog/pulls)
 
+For Python-based posts, you can use the Python engine for RMarkdown (which uses [reticulate](https://rstudio.github.io/reticulate/) under the hood and might have to be configured in the first R chunk). Alternatively, you can create your post as an IPython Notebook (e.g., in VSCode using 'Create New Blank notebook' from the command palette) and convert it to Markdown using `python[3] -m nbconvert --to markdown path/to/post.ipynb`. You can then copy the markdown content to the .Rmd file you just created and click 'Knit' (or `rmarkdown::render("path/to/post.Rmd")` from the console).
+
 The blog is built by [distill for RMarkdown](https://rstudio.github.io/distill/), which is like blogdown but optimized for scientific publishing.
