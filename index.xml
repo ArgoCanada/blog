@@ -7,7 +7,15 @@
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 22 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Correcting Oxygen Response Time Error on an Argo Float</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</link>
+      <description>An example of time response correction using Argo data.</description>
+      <guid>https://argocanada.github.io/blog/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</guid>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>argoFloats-an-R-package-for-Argo-researchers</title>
       <dc:creator>Jaimie Harbin and Dan Kelley</dc:creator>
