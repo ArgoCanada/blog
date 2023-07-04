@@ -2,89 +2,89 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
     <title>Argo Canada Development Blog</title>
-    <link>https://argocanada.github.io/blog/</link>
-    <atom:link href="https://argocanada.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
+    <link>https://argocanada.github.io/</link>
+    <atom:link href="https://argocanada.github.io/index.xml" rel="self" type="application/rss+xml"/>
     <description>Argo Canada Development Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>2021-11-10</lastBuildDate>
     <item>
       <title>Correcting Oxygen Response Time Error on an Argo Float</title>
       <dc:creator>Christopher Gordon</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</link>
+      <link>https://argocanada.github.io/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</link>
       <description>An example of time response correction using Argo data.</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</guid>
-      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://argocanada.github.io/posts/2021-11-10-correcting-oxygen-response-time-error-on-an-argo-float</guid>
+      <pubDate>2021-11-10</pubDate>
     </item>
     <item>
       <title>argoFloats-an-R-package-for-Argo-researchers</title>
       <dc:creator>Jaimie Harbin and Dan Kelley</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</link>
+      <link>https://argocanada.github.io/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</link>
       <description>A short description of the post.</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</guid>
-      <pubDate>Fri, 22 Oct 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers/infremer.png" medium="image" type="image/png" width="828" height="894"/>
+      <guid>https://argocanada.github.io/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</guid>
+      <pubDate>2021-10-22</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers/infremer.png" medium="image" type="image/png" width="828" height="894"/>
     </item>
     <item>
       <title>Implemeting real-time CHLA QC in Python</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</link>
+      <link>https://argocanada.github.io/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</link>
       <description>A reference implementation of forthcoming CHLA real-time QC</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</guid>
-      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://argocanada.github.io/posts/2021-10-18-implemeting-real-time-chla-qc-in-python</guid>
+      <pubDate>2021-10-18</pubDate>
     </item>
     <item>
       <title>Classifying an arbitrary longitude/latitude as 'land' or 'ocean'</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</link>
+      <link>https://argocanada.github.io/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</link>
       <description>Computational approaches for the "point on land" test.</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</guid>
-      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <guid>https://argocanada.github.io/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean</guid>
+      <pubDate>2021-07-02</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-07-02-classifying-an-arbitrary-longitudelatitude-as-land-or-ocean/classifying-an-arbitrary-longitudelatitude-as-land-or-ocean_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Checking Argo Files</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files</link>
+      <link>https://argocanada.github.io/posts/2021-06-23-checking-argo-files</link>
       <description>How to run the Argo file checker on any platform</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-06-23-checking-argo-files</guid>
-      <pubDate>Wed, 23 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://argocanada.github.io/posts/2021-06-23-checking-argo-files</guid>
+      <pubDate>2021-06-23</pubDate>
     </item>
     <item>
       <title>An Argo Loop-the-Loop</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop</link>
+      <link>https://argocanada.github.io/posts/2021-06-07-an-argo-loop-the-loop</link>
       <description>Two floats that do a near-perfect loop-the-loop</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop</guid>
-      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <guid>https://argocanada.github.io/posts/2021-06-07-an-argo-loop-the-loop</guid>
+      <pubDate>2021-06-07</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-06-07-an-argo-loop-the-loop/an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Finding Coastal Argo Trajectories</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-06-04-finding-coastal-argo-trajectories</link>
+      <link>https://argocanada.github.io/posts/2021-06-04-finding-coastal-argo-trajectories</link>
       <description>Complex subsets of Argo profiles using argodata and s2</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-06-04-finding-coastal-argo-trajectories</guid>
-      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-06-04-finding-coastal-argo-trajectories/finding-coastal-argo-trajectories_files/figure-html5/unnamed-chunk-6-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <guid>https://argocanada.github.io/posts/2021-06-04-finding-coastal-argo-trajectories</guid>
+      <pubDate>2021-06-04</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-06-04-finding-coastal-argo-trajectories/finding-coastal-argo-trajectories_files/figure-html5/unnamed-chunk-6-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>A Questionable Interpolation</title>
       <dc:creator>Dewey Dunnington</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation</link>
+      <link>https://argocanada.github.io/posts/2021-05-14-a-questionable-interpolation</link>
       <description>A few floats with interpolated positions</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation</guid>
-      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-05-14-a-questionable-interpolation/a-questionable-interpolation_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <guid>https://argocanada.github.io/posts/2021-05-14-a-questionable-interpolation</guid>
+      <pubDate>2021-05-14</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-05-14-a-questionable-interpolation/a-questionable-interpolation_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Labrador Shelf DFO Argo Float</title>
       <dc:creator>Clark Richards</dc:creator>
-      <link>https://argocanada.github.io/blog/posts/2021-05-14-labrador-shelf-dfo-argo-float</link>
+      <link>https://argocanada.github.io/posts/2021-05-14-labrador-shelf-dfo-argo-float</link>
       <description>A quick overview of a DFO Argo float that survived a winter drifting under the ice on the Labrador Shelf</description>
-      <guid>https://argocanada.github.io/blog/posts/2021-05-14-labrador-shelf-dfo-argo-float</guid>
-      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://argocanada.github.io/blog/posts/2021-05-14-labrador-shelf-dfo-argo-float/labrador-shelf-dfo-argo-float_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <guid>https://argocanada.github.io/posts/2021-05-14-labrador-shelf-dfo-argo-float</guid>
+      <pubDate>2021-05-14</pubDate>
+      <media:content url="https://argocanada.github.io/posts/2021-05-14-labrador-shelf-dfo-argo-float/labrador-shelf-dfo-argo-float_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
   </channel>
 </rss>
