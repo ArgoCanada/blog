@@ -13,7 +13,7 @@ This page is used for Canadian Argo groups to coordinate deployment planning, in
 import pandas as pd
 
 df = pd.read_csv('deployment/canada_deployments.csv')
-df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp, args=(None, 'utc'))
+df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
 df = df.sort_values('DEPLOYMENT DATE')
 df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
 df['WMO'] = [str(int(w)) if pd.notna(w) else '' for w in df.WMO]
