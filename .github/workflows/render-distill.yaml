@@ -18,9 +18,14 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install dependencies
+      - name: Install python dependencies
+        run: |
+          pip install pandas
+
+      - name: Install R dependencies
         run: |
           install.packages("distill")
+          install.packages("reticulate")
         shell: Rscript {0}
 
       - name: Render site
