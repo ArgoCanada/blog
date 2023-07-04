@@ -22,6 +22,8 @@ Submitting a file via the `file_submission` folder may be more convenient as gro
 
 Column headings will follow OceanOps syntax. Headings in `canada_deployments.csv` are as follows:
 
+PROGRAM, STATUS, MODEL, DEPLOYMENT DATE, DEPLOYMENT LAT, DEPLOYMENT LON, DEPLOYMENT SHIP, IMEI, WMO, SERIAL NUMBER
+
 ## Form Submission
 
 Floats may be submitted using the following [google form](). The form will only work for 1 float at a time, so may be convenient for single or few submissions. 
