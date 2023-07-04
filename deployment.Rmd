@@ -1,0 +1,40 @@
+---
+title: "Deployment Planning"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+```
+
+This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
+
+```{python data}
+import pandas as pd
+
+df = pd.read_csv('deployment/canada_deployments.csv')
+df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
+df = df.sort_values('DEPLOYMENT DATE')
+df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
+df['WMO'] = [str(int(w)) if pd.notna(w) else '' for w in df.WMO]
+df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
+df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
+
+mapper = {
+    	'PROGRAM':'Program',
+        'STATUS':'Status',
+        'MODEL':'Model',
+        'DEPLOYMENT DATE':'Date',
+        'DEPLOYMENT LAT':'Latitude',
+        'DEPLOYMENT LON':'Longitude',
+        'DEPLOYMENT SHIP':'Ship',
+        'SERIAL NUMBER':'Serial No.',
+}
+
+df = df.rename(columns=mapper)
+df = df.reset_index()
+```
+
+```{r table, layout="l-screen-inset shaded"}
+knitr::kable(py$df)
+```
