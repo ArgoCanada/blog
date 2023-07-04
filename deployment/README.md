@@ -16,7 +16,7 @@ The changes can be:
 1. Directly editing `canada_deployments.csv`
 2. Submitting a file to the directory `file_submission`
 
-The file `canada_deployments.csv` is the workhorse of the [Canadian deployments page](). Editing this directly will update the website upon merging to the main branch of the repository. 
+The file `canada_deployments.csv` is the workhorse of the [Canadian deployments page](https://argocanada.github.io/blog/deployment.html). Editing this directly will update the website upon merging to the main branch of the repository. 
 
 Submitting a file via the `file_submission` folder may be more convenient as groups may be able to simply submit files they are using for their own internal data management. In this case, the submitter just needs to ensure that the headings in their file match the headings used in `canada_deployments.csv`. It is ok for extra columns to be present, but columns that do not match will not be synthesized into the deployment table.
 
@@ -24,9 +24,11 @@ Column headings will follow OceanOps syntax. Headings in `canada_deployments.csv
 
 PROGRAM, STATUS, MODEL, DEPLOYMENT DATE, DEPLOYMENT LAT, DEPLOYMENT LON, DEPLOYMENT SHIP, IMEI, WMO, SERIAL NUMBER
 
+Remember to submit a PR when you are done!!
+
 ## Form Submission
 
-Floats may be submitted using the following [google form](). The form will only work for 1 float at a time, so may be convenient for single or few submissions. 
+Floats may be submitted using the following [google form](https://docs.google.com/forms/d/e/1FAIpQLScsgQ2kJjSdpOTmVxt89-o6vQZ-7mUyqXlRuPBjgJOXiavfgQ/viewform?usp=sf_link). The form will only work for 1 float at a time, so may be convenient for single or few submissions. 
 
 ## Email Submission
 
