@@ -1,0 +1,10 @@
+---
+title: "Deployment Planning"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
+

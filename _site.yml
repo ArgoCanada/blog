@@ -3,11 +3,13 @@ title: "Argo Canada Development Blog"
 description: |
   Argo Canada Development Blog
 output_dir: "docs"
-base_url: https://argocanada.github.io/blog/
+base_url: https://argocanada.github.io/
 navbar:
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Deployment Planning"
+      href: deployment.html
 output: distill::distill_article
