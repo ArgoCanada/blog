@@ -4,7 +4,6 @@ title: "Deployment Planning"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-reticulate::use_condaenv('py39')
 library(reticulate)
 ```
 
