@@ -2072,6 +2072,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+  <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+  <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+  <script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+  <link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+  <script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+  <script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+  <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+  <script src="site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2127,17 +2136,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
+<div class="layout-chunk" data-layout="l-page-outset">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e79d770b06906a6b6833" style="width:624px;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-e79d770b06906a6b6833">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[49.4328,49.569,49.998,49.9987,59.9763,59.9578,59.9554,59.9482,59.501,51.3783,41.4059,54.18,54.18,52.4493,53.3165,54.0099,50,42,42.5,41.5,43.5,56.75,41,56.33,10,-10,-10,-28,-28],[-136.664,-138.6648,-145.006,-145.002,-53.5576,-54.5413,-54.544,-54.5468,-55.008,-130.842,-60.6433,-155.53,-155.53,-140.866,-146.9577,-155.1835,-145,-61,-50,-49,-57.5,-52.46,-44.5,-52.89,-28.5,-20,-20,-1.5,-1.5],[10,10,10,10,10,10,10,10,10,10,10,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],null,null,{"interactive":true,"className":"","stroke":false,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":["#FFA500","#000080","#000080","#FFA500","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#FFA500","#00FF00","#FFA500","#FFA500","#000080","#000080","#000080","#FFA500","#00FF00","#00FF00","#00FF00","#00FF00","#FFFF00","#00FF00","#FFFF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00"],"fillOpacity":0.7},null,null,["WMO: 4902596<br/>Model: PROVOR<br/>Program: Argo Canada, IOS","WMO: 4902634<br/>Model: Deep ARVOR<br/>Program: Argo ONC, ONC","WMO: 4902633<br/>Model: Deep ARVOR<br/>Program: Argo ONC, ONC","WMO: 4902597<br/>Model: PROVOR<br/>Program: Argo Canada, IOS","WMO: 4902650<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902604<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902670<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902671<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902652<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902614<br/>Model: ARVOR<br/>Program: Argo Canada, IOS","WMO: 4902606<br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, IOS","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, IOS","WMO: 4902635<br/>Model: Deep ARVOR<br/>Program: Argo ONC, ONC","WMO: 4902636<br/>Model: Deep ARVOR<br/>Program: Argo ONC, ONC","WMO: 4902637<br/>Model: Deep ARVOR<br/>Program: Argo ONC, ONC","WMO: <br/>Model: PROVOR<br/>Program: Argo Canada, IOS","WMO: <br/>Model: PROVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: PROVOR<br/>Program: Argo Canada, BIO","WMO: 4902684<br/>Model: PROVOR<br/>Program: Argo Dalhousie, Dal","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: 4902685<br/>Model: PROVOR<br/>Program: Argo Dalhousie, Dal","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO","WMO: <br/>Model: ARVOR<br/>Program: Argo Canada, BIO"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[45,-60],2,[]],"limits":{"lat":[-28,59.9763],"lng":[-155.53,-1.5]}},"evals":[],"jsHooks":[]}</script>
+</div>
 <h2 id="deployments-since-jan-1-2023">Deployments since Jan 1, 2023</h2>
-<div class="layout-chunk" data-layout="l-page-inset shaded">
+<div class="layout-chunk" data-layout="l-page-outset shaded">
 <table>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 7%" />
 <col style="width: 8%" />
-<col style="width: 9%" />
-<col style="width: 6%" />
+<col style="width: 10%" />
 <col style="width: 7%" />
-<col style="width: 20%" />
+<col style="width: 7%" />
+<col style="width: 17%" />
 <col style="width: 12%" />
 <col style="width: 6%" />
 <col style="width: 11%" />
@@ -2212,7 +2225,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">03 Jun, 2023</td>
 <td style="text-align: right;">59.9763</td>
 <td style="text-align: right;">-53.5576</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902650</td>
 <td style="text-align: left;">AI2632-23CA002</td>
@@ -2224,7 +2237,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">03 Jun, 2023</td>
 <td style="text-align: right;">59.9578</td>
 <td style="text-align: right;">-54.5413</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902604</td>
 <td style="text-align: left;">AI2600-22CA002</td>
@@ -2236,7 +2249,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">03 Jun, 2023</td>
 <td style="text-align: right;">59.9554</td>
 <td style="text-align: right;">-54.5440</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902670</td>
 <td style="text-align: left;">AI3500-23CA001</td>
@@ -2248,7 +2261,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">03 Jun, 2023</td>
 <td style="text-align: right;">59.9482</td>
 <td style="text-align: right;">-54.5468</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902671</td>
 <td style="text-align: left;">AI3500-23CA002</td>
@@ -2260,7 +2273,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">03 Jun, 2023</td>
 <td style="text-align: right;">59.5010</td>
 <td style="text-align: right;">-55.0080</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902652</td>
 <td style="text-align: left;">AI2632-23CA004</td>
@@ -2284,7 +2297,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">10 Jun, 2023</td>
 <td style="text-align: right;">41.4059</td>
 <td style="text-align: right;">-60.6433</td>
-<td style="text-align: left;">CCGS Capt. Jacques Cartier</td>
+<td style="text-align: left;">CAPT. JACQUES CARTIER</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">4902606</td>
 <td style="text-align: left;">AI2600-22CA004</td>
@@ -2293,7 +2306,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 </div>
 <h2 id="planned-deployments">Planned Deployments</h2>
-<div class="layout-chunk" data-layout="l-page-inset shaded">
+<div class="layout-chunk" data-layout="l-page-outset shaded">
 <table style="width:100%;">
 <colgroup>
 <col style="width: 11%" />
