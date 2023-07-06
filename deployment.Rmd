@@ -5,6 +5,7 @@ title: "Deployment Planning"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
+library(leaflet)
 ```
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
@@ -40,14 +41,36 @@ recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index()
 plan   = df.loc[df.Status != 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
 ```
 
+```{r map, layout="l-page-outset"}
+pal <- colorFactor(c("green", "orange","navy", "yellow"), levels=c("BIO", "IOS", "ONC", "Dal"))
+leaflet() %>% addTiles() %>%
+  setView(lng=-60, lat=45 , zoom = 2) %>% 
+  addCircleMarkers(
+    data=py$df,
+    lat=py$df$Latitude,
+    lng=py$df$Longitude,
+    radius = ~ifelse(py$df$Status == "OPERATIONAL", 10, 6),
+    stroke=FALSE,
+    fillColor=~pal(py$df$Institute),
+    fillOpacity=0.7,
+    popup=paste0(
+      "WMO: ", py$df$WMO,
+      "<br/>", 
+      "Model: ", py$df$Model,
+      "<br/>", 
+      "Program: ", py$df$Program, ", ", py$df$Institute
+    )
+  )
+```
+
 ## Deployments since Jan 1, 2023
 
-```{r table_1, layout="l-page-inset shaded"}
+```{r table_1, layout="l-page-outset shaded"}
 knitr::kable(py$recent)
 ```
 ## Planned Deployments
 
-```{r table_2, layout="l-page-inset shaded"}
+```{r table_2, layout="l-page-outset shaded"}
 knitr::kable(py$plan)
 ```
 
