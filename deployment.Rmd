@@ -42,12 +42,12 @@ plan   = df.loc[df.Status != 'OPERATIONAL'].drop('Status', axis=1).reset_index()
 
 ## Deployments since Jan 1, 2023
 
-```{r table_1, layout="l-screen-inset shaded"}
+```{r table_1, layout="l-page-inset shaded"}
 knitr::kable(py$recent)
 ```
 ## Planned Deployments
 
-```{r table_2, layout="l-screen-inset shaded"}
+```{r table_2, layout="l-page-inset shaded"}
 knitr::kable(py$plan)
 ```
 
