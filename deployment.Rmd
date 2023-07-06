@@ -10,6 +10,8 @@ library(leaflet)
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
 
+The map below shows completed and planned deployments for 2023, coloured by institution. Larger dots are completed deployments and smaller ones are planned. 
+
 ```{python data}
 import pandas as pd
 
@@ -96,7 +98,7 @@ remain = remain.set_index(['Program', 'Institute'], drop=False)
 for i in plan.index:
     ix = (plan.loc[i].Program, plan.loc[i].Institute)
     f = plan.loc[i].Model
-    remain.loc[ix][f] -= 1
+    remain.loc[ix, f] -= 1
 
 ```
 
