@@ -32,4 +32,4 @@ Floats may be submitted using the following [google form](https://docs.google.co
 
 ## Email Submission
 
-Finally, floats may be submitted by simply emailing the file and/or float information to [chris.gordon@dfo-mpo.gc.ca](mailto:chris.gordon@dfo-mpo.gc.ca).
+Finally, floats may be submitted by simply emailing the file and/or float information to [chris.gordon@dfo-mpo.gc.ca](mailto:chris.gordon@dfo-mpo.gc.ca). If the float is already submitted to OceanOps, you can forward the notification email from submission.
