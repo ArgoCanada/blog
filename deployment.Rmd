@@ -6,11 +6,12 @@ title: "Deployment Planning"
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
+# use_condaenv("py39")
 ```
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
 
-The map below shows completed and planned deployments for 2023, coloured by institution. Larger dots are completed deployments and smaller ones are planned. 
+The map below shows completed and planned deployments for 2023, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
 
 ```{python data}
 import pandas as pd
@@ -44,23 +45,49 @@ plan   = df.loc[df.Status != 'OPERATIONAL'].drop('Status', axis=1).reset_index()
 ```
 
 ```{r map, layout="l-page-outset"}
-pal <- colorFactor(c("green", "orange","navy", "yellow"), levels=c("BIO", "IOS", "ONC", "Dal"))
-leaflet() %>% addTiles() %>%
-  setView(lng=-60, lat=45 , zoom = 2) %>% 
+pal <- colorFactor(
+  c("green", "purple", "blue", "yellow"),
+  levels = c("BIO", "IOS", "ONC", "Dal")
+)
+icons <- iconList(
+  OPERATIONAL = makeIcon("buoy.png", "buoy.png", 16, 16),
+  CONFIRMED = makeIcon("loading.png", "loading.png", 16, 16)
+)
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = -60, lat = 45, zoom = 2) %>%
   addCircleMarkers(
-    data=py$df,
-    lat=py$df$Latitude,
-    lng=py$df$Longitude,
-    radius = ~ifelse(py$df$Status == "OPERATIONAL", 10, 6),
-    stroke=FALSE,
-    fillColor=~pal(py$df$Institute),
-    fillOpacity=0.7,
+    data = py$df,
+    lat = py$df$Latitude,
+    lng = py$df$Longitude,
+    radius = 12,
+    stroke = FALSE,
+    fillColor = ~pal(py$df$Institute),
+    fillOpacity = 0.7,
     popup=paste0(
       "WMO: ", py$df$WMO,
-      "<br/>", 
+      "<br/>",
       "Model: ", py$df$Model,
-      "<br/>", 
-      "Program: ", py$df$Program, ", ", py$df$Institute
+      "<br/>",
+      "Program: ", py$df$Program, ", ", py$df$Institute,
+      "<br/>",
+      "Deployment Date: ", py$df$Date
+    )
+  ) %>%
+  addMarkers(
+    data = py$df,
+    lat = py$df$Latitude,
+    lng = py$df$Longitude,
+    icon = ~icons[py$df$Status],
+    popup=paste0(
+      "WMO: ", py$df$WMO,
+      "<br/>",
+      "Model: ", py$df$Model,
+      "<br/>",
+      "Program: ", py$df$Program, ", ", py$df$Institute,
+      "<br/>",
+      "Deployment Date: ", py$df$Date
     )
   )
 ```
