@@ -26,15 +26,15 @@ df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
 df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
 
 mapper = {
-    	'PROGRAM':'Program',
-        'INSTITUTE':'Institute',
-        'STATUS':'Status',
-        'MODEL':'Model',
-        'DEPLOYMENT DATE':'Date',
-        'DEPLOYMENT LAT':'Latitude',
-        'DEPLOYMENT LON':'Longitude',
-        'DEPLOYMENT SHIP':'Ship',
-        'SERIAL NUMBER':'Serial No.',
+  'PROGRAM':'Program',
+  'INSTITUTE':'Institute',
+  'STATUS':'Status',
+  'MODEL':'Model',
+  'DEPLOYMENT DATE':'Date',
+  'DEPLOYMENT LAT':'Latitude',
+  'DEPLOYMENT LON':'Longitude',
+  'DEPLOYMENT SHIP':'Ship',
+  'SERIAL NUMBER':'Serial No.',
 }
 
 df = df.rename(columns=mapper)
@@ -50,46 +50,46 @@ pal <- colorFactor(
   levels = c("BIO", "IOS", "ONC", "Dal")
 )
 icons <- iconList(
-  OPERATIONAL = makeIcon("buoy.png", "buoy.png", 16, 16),
-  CONFIRMED = makeIcon("loading.png", "loading.png", 16, 16)
+  OPERATIONAL = makeIcon("images/buoy.png", "buoy.png", 16, 16),
+  CONFIRMED = makeIcon("images/loading.png", "loading.png", 16, 16)
 )
 
 leaflet() %>%
   addTiles() %>%
-  setView(lng = -60, lat = 45, zoom = 2) %>%
-  addCircleMarkers(
-    data = py$df,
-    lat = py$df$Latitude,
-    lng = py$df$Longitude,
-    radius = 12,
-    stroke = FALSE,
-    fillColor = ~pal(py$df$Institute),
-    fillOpacity = 0.7,
-    popup=paste0(
-      "WMO: ", py$df$WMO,
-      "<br/>",
-      "Model: ", py$df$Model,
-      "<br/>",
-      "Program: ", py$df$Program, ", ", py$df$Institute,
-      "<br/>",
-      "Deployment Date: ", py$df$Date
+    setView(lng = -60, lat = 45, zoom = 2) %>%
+    addCircleMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      radius = 12,
+      stroke = FALSE,
+      fillColor = ~pal(py$df$Institute),
+      fillOpacity = 0.7,
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date
+      )
+    ) %>%
+    addMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      icon = ~icons[py$df$Status],
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date
+      )
     )
-  ) %>%
-  addMarkers(
-    data = py$df,
-    lat = py$df$Latitude,
-    lng = py$df$Longitude,
-    icon = ~icons[py$df$Status],
-    popup=paste0(
-      "WMO: ", py$df$WMO,
-      "<br/>",
-      "Model: ", py$df$Model,
-      "<br/>",
-      "Program: ", py$df$Program, ", ", py$df$Institute,
-      "<br/>",
-      "Deployment Date: ", py$df$Date
-    )
-  )
 ```
 
 ## Deployments since Jan 1, 2023
@@ -127,6 +127,7 @@ for i in plan.index:
     f = plan.loc[i].Model
     remain.loc[ix, f] -= 1
 
+remain.loc[('Argo Canada','BIO'), 'ARVOR'] -= 6 # account for Cape Town
 ```
 
 The table below shows the number of "in stock" floats for each program/institution.
@@ -135,7 +136,7 @@ The table below shows the number of "in stock" floats for each program/instituti
 knitr::kable(py$stock)
 ```
 
-This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. For simplicity, all types of ARVOR models (except deep) are combined here.
+This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. For BIO, the 6 floats being sent to Cape Town are also being accounted for in this table. For simplicity, all types of ARVOR models (except deep) are combined here.
 
 ```{r table_4, layout="l-body-outset shaded"}
 knitr::kable(py$remain)
