@@ -127,6 +127,7 @@ for i in plan.index:
     f = plan.loc[i].Model
     remain.loc[ix, f] -= 1
 
+remain.loc[('Argo Canada','BIO'), 'ARVOR'] -= 6 # account for Cape Town
 ```
 
 The table below shows the number of "in stock" floats for each program/institution.
@@ -135,7 +136,7 @@ The table below shows the number of "in stock" floats for each program/instituti
 knitr::kable(py$stock)
 ```
 
-This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. For simplicity, all types of ARVOR models (except deep) are combined here.
+This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. For BIO, the 6 floats being sent to Cape Town are also being accounted for in this table. For simplicity, all types of ARVOR models (except deep) are combined here.
 
 ```{r table_4, layout="l-body-outset shaded"}
 knitr::kable(py$remain)
