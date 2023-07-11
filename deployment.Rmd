@@ -26,15 +26,15 @@ df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
 df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
 
 mapper = {
-    	'PROGRAM':'Program',
-        'INSTITUTE':'Institute',
-        'STATUS':'Status',
-        'MODEL':'Model',
-        'DEPLOYMENT DATE':'Date',
-        'DEPLOYMENT LAT':'Latitude',
-        'DEPLOYMENT LON':'Longitude',
-        'DEPLOYMENT SHIP':'Ship',
-        'SERIAL NUMBER':'Serial No.',
+  'PROGRAM':'Program',
+  'INSTITUTE':'Institute',
+  'STATUS':'Status',
+  'MODEL':'Model',
+  'DEPLOYMENT DATE':'Date',
+  'DEPLOYMENT LAT':'Latitude',
+  'DEPLOYMENT LON':'Longitude',
+  'DEPLOYMENT SHIP':'Ship',
+  'SERIAL NUMBER':'Serial No.',
 }
 
 df = df.rename(columns=mapper)
