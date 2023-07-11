@@ -50,46 +50,46 @@ pal <- colorFactor(
   levels = c("BIO", "IOS", "ONC", "Dal")
 )
 icons <- iconList(
-  OPERATIONAL = makeIcon("buoy.png", "buoy.png", 16, 16),
-  CONFIRMED = makeIcon("loading.png", "loading.png", 16, 16)
+  OPERATIONAL = makeIcon("images/buoy.png", "buoy.png", 16, 16),
+  CONFIRMED = makeIcon("images/loading.png", "loading.png", 16, 16)
 )
 
 leaflet() %>%
   addTiles() %>%
-  setView(lng = -60, lat = 45, zoom = 2) %>%
-  addCircleMarkers(
-    data = py$df,
-    lat = py$df$Latitude,
-    lng = py$df$Longitude,
-    radius = 12,
-    stroke = FALSE,
-    fillColor = ~pal(py$df$Institute),
-    fillOpacity = 0.7,
-    popup=paste0(
-      "WMO: ", py$df$WMO,
-      "<br/>",
-      "Model: ", py$df$Model,
-      "<br/>",
-      "Program: ", py$df$Program, ", ", py$df$Institute,
-      "<br/>",
-      "Deployment Date: ", py$df$Date
+    setView(lng = -60, lat = 45, zoom = 2) %>%
+    addCircleMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      radius = 12,
+      stroke = FALSE,
+      fillColor = ~pal(py$df$Institute),
+      fillOpacity = 0.7,
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date
+      )
+    ) %>%
+    addMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      icon = ~icons[py$df$Status],
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date
+      )
     )
-  ) %>%
-  addMarkers(
-    data = py$df,
-    lat = py$df$Latitude,
-    lng = py$df$Longitude,
-    icon = ~icons[py$df$Status],
-    popup=paste0(
-      "WMO: ", py$df$WMO,
-      "<br/>",
-      "Model: ", py$df$Model,
-      "<br/>",
-      "Program: ", py$df$Program, ", ", py$df$Institute,
-      "<br/>",
-      "Deployment Date: ", py$df$Date
-    )
-  )
 ```
 
 ## Deployments since Jan 1, 2023
