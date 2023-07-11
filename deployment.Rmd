@@ -72,7 +72,9 @@ leaflet() %>%
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
-        "Deployment Date: ", py$df$Date
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
       )
     ) %>%
     addMarkers(
@@ -87,7 +89,9 @@ leaflet() %>%
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
-        "Deployment Date: ", py$df$Date
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
       )
     )
 ```
