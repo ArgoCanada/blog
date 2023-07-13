@@ -4,6 +4,7 @@ description: |
   Argo Canada Development Blog
 output_dir: "docs"
 base_url: https://argocanada.github.io/blog/
+favicon: images/logo.jpg
 navbar:
   logo:
     image: images/logo_big.jpg
