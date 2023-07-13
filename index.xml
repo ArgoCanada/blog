@@ -6,6 +6,11 @@
     <atom:link href="https://argocanada.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
     <description>Argo Canada Development Blog
 </description>
+    <image>
+      <title>Argo Canada Development Blog</title>
+      <url>https://argocanada.github.io/blog/images/logo.jpg</url>
+      <link>https://argocanada.github.io/blog/</link>
+    </image>
     <generator>Distill</generator>
     <lastBuildDate>2021-11-10</lastBuildDate>
     <item>
