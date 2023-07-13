@@ -40,7 +40,7 @@ mapper = {
 }
 
 df = df.rename(columns=mapper)
-df = df[mapper.values]
+df = df[mapper.values()]
 df = df.reset_index().drop('index', axis=1)
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
