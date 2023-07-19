@@ -12,7 +12,15 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>2021-11-10</lastBuildDate>
+    <lastBuildDate>2023-07-13</lastBuildDate>
+    <item>
+      <title>Diversifying Argo Surfacing Times</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times</link>
+      <description>Having Argo floats arrive at the surface at diverse local times of day leads exciting results!</description>
+      <guid>https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times</guid>
+      <pubDate>2023-07-13</pubDate>
+    </item>
     <item>
       <title>Correcting Oxygen Response Time Error on an Argo Float</title>
       <dc:creator>Christopher Gordon</dc:creator>
@@ -22,10 +30,10 @@
       <pubDate>2021-11-10</pubDate>
     </item>
     <item>
-      <title>argoFloats-an-R-package-for-Argo-researchers</title>
+      <title>argoFloats: An R package for Argo researchers</title>
       <dc:creator>Jaimie Harbin and Dan Kelley</dc:creator>
       <link>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</link>
-      <description>A short description of the post.</description>
+      <description>Tools for downloading and analyzing collections of oceanographic Argo float datasets in R.</description>
       <guid>https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers</guid>
       <pubDate>2021-10-22</pubDate>
       <media:content url="https://argocanada.github.io/blog/posts/2021-10-22-argofloats-an-r-package-for-argo-researchers/infremer.png" medium="image" type="image/png" width="828" height="894"/>
