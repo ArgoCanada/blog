@@ -1,7 +1,7 @@
 ---
-title: "argoFloats-an-R-package-for-Argo-researchers"
+title: "argoFloats: An R package for Argo researchers"
 description: |
-  A short description of the post.
+  Tools for downloading and analyzing collections of oceanographic Argo float datasets in R.
 author:
   - name: Jaimie Harbin and Dan Kelley
 date: 2021-10-22

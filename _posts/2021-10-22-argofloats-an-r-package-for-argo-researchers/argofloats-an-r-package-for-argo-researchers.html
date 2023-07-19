@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -87,9 +88,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>argoFloats-an-R-package-for-Argo-researchers</title>
+  <title>argoFloats: An R package for Argo researchers</title>
 
-  <meta property="description" itemprop="description" content="A short description of the post."/>
+  <meta property="description" itemprop="description" content="Tools for downloading and analyzing collections of oceanographic Argo float datasets in R."/>
 
 
   <!--  https://schema.org/Article -->
@@ -98,26 +99,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="Jaimie Harbin and Dan Kelley"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="argoFloats-an-R-package-for-Argo-researchers"/>
+  <meta property="og:title" content="argoFloats: An R package for Argo researchers"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A short description of the post."/>
+  <meta property="og:description" content="Tools for downloading and analyzing collections of oceanographic Argo float datasets in R."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="argoFloats-an-R-package-for-Argo-researchers"/>
-  <meta property="twitter:description" content="A short description of the post."/>
+  <meta property="twitter:title" content="argoFloats: An R package for Argo researchers"/>
+  <meta property="twitter:description" content="Tools for downloading and analyzing collections of oceanographic Argo float datasets in R."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["argoFloats-an-R-package-for-Argo-researchers"]},{"type":"character","attributes":{},"value":["A short description of the post.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Jaimie Harbin and Dan Kelley"]}]}]},{"type":"character","attributes":{},"value":["2021-10-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["argoFloats: An R package for Argo researchers"]},{"type":"character","attributes":{},"value":["Tools for downloading and analyzing collections of oceanographic Argo float datasets in R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Jaimie Harbin and Dan Kelley"]}]}]},{"type":"character","attributes":{},"value":["2021-10-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["argofloats-an-r-package-for-argo-researchers_files/anchor-4.2.2/anchor.min.js","argofloats-an-r-package-for-argo-researchers_files/bowser-1.9.3/bowser.min.js","argofloats-an-r-package-for-argo-researchers_files/distill-2.2.21/template.v2.js","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-11-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-13-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-7-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-9-1.png","argofloats-an-r-package-for-argo-researchers_files/header-attrs-2.11/header-attrs.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.min.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.min.map","argofloats-an-r-package-for-argo-researchers_files/popper-2.6.0/popper.min.js","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy-bundle.umd.min.js","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy-light-border.css","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy.css","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy.umd.min.js","argofloats-an-r-package-for-argo-researchers_files/webcomponents-2.0.0/webcomponents.js","files.png","infremer.png","mapApp.png","qualitycontrol.png","topo_66.1W_61.99W_41.99N_43.41N_1min.nc","workflow.png"]}
+  {"type":"character","attributes":{},"value":["argofloats-an-r-package-for-argo-researchers_files/anchor-4.2.2/anchor.min.js","argofloats-an-r-package-for-argo-researchers_files/bowser-1.9.3/bowser.min.js","argofloats-an-r-package-for-argo-researchers_files/distill-2.2.21/template.v2.js","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-11-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-13-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-7-1.png","argofloats-an-r-package-for-argo-researchers_files/figure-html5/unnamed-chunk-9-1.png","argofloats-an-r-package-for-argo-researchers_files/header-attrs-2.11/header-attrs.js","argofloats-an-r-package-for-argo-researchers_files/header-attrs-2.23/header-attrs.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.min.js","argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.min.map","argofloats-an-r-package-for-argo-researchers_files/popper-2.6.0/popper.min.js","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy-bundle.umd.min.js","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy-light-border.css","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy.css","argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy.umd.min.js","argofloats-an-r-package-for-argo-researchers_files/webcomponents-2.0.0/webcomponents.js","files.png","infremer.png","mapApp.png","qualitycontrol.png","topo_66.1W_61.99W_41.99N_43.41N_1min.nc","workflow.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -188,6 +189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -429,10 +431,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1264,9 +1262,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1278,6 +1288,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1377,6 +1412,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1399,7 +1436,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -1438,7 +1475,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="argofloats-an-r-package-for-argo-researchers_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="argofloats-an-r-package-for-argo-researchers_files/header-attrs-2.23/header-attrs.js"></script>
   <script src="argofloats-an-r-package-for-argo-researchers_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="argofloats-an-r-package-for-argo-researchers_files/popper-2.6.0/popper.min.js"></script>
   <link href="argofloats-an-r-package-for-argo-researchers_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1459,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"argoFloats-an-R-package-for-Argo-researchers","description":"A short description of the post.","authors":[{"author":"Jaimie Harbin and Dan Kelley","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-22T00:00:00.000-03:00","citationText":"Kelley, 2021"}
+{"title":"argoFloats: An R package for Argo researchers","description":"Tools for downloading and analyzing collections of oceanographic Argo float datasets in R.","authors":[{"author":"Jaimie Harbin and Dan Kelley","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-22T00:00:00.000-03:00","citationText":"Kelley, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1469,10 +1506,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>argoFloats-an-R-package-for-Argo-researchers</h1>
+<h1>argoFloats: An R package for Argo researchers</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>A short description of the post.</p></p>
+<p><p>Tools for downloading and analyzing collections of oceanographic Argo float datasets in R.</p></p>
 </div>
 
 <div class="d-byline">
@@ -1492,7 +1529,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p>To eliminate the gap between Argo data and the end user, we created an easy 5 step process, shown below.</p>
 <figure>
-<img src="workflow.png" alt="Work flow for argoFloats package with descriptions on the left and relevent functions on the right" /><figcaption aria-hidden="true">Work flow for argoFloats package with descriptions on the left and relevent functions on the right</figcaption>
+<img src="workflow.png" alt="Work flow for argoFloats package with descriptions on the left and relevent functions on the right" />
+<figcaption aria-hidden="true">Work flow for argoFloats package with descriptions on the left and relevent functions on the right</figcaption>
 </figure>
 <h2 id="getindex">getIndex()</h2>
 <p><code>getIndex()</code>, the foundational tool of the package, queries an Argo server for an index of data files. Various servers can be used, with the default being to try Infremer and USGODAE in turn. The possible indices are listed below.</p>
