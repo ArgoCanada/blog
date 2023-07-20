@@ -18,7 +18,7 @@ library(reticulate)
 use_condaenv("py39")
 ```
 
-A paper by [Johnson and Bif (2021)](https://doi.org/10.1038/s41561-021-00807-z) demonstrated that diel cycles of oxygen can be observed using the Argo network as a collective set of sensors. Previously, [Gilles (2012)](https://doi.org/10.1029/2012JC007883) demonstrated a the same for diel cycles of temperature. The calculation of the diel cycle depends on multiple factors, one of them being that floats included in the analysis do not surface at the fixed or few local times of day for every profile. Instead, floats must demonstrate good temporal coverage a 24hr period with near even occurrences.
+A 2021 paper by [Johnson and Bif (2021)](https://doi.org/10.1038/s41561-021-00807-z) demonstrated that diel cycles of oxygen can be observed using the Argo network as a collective set of sensors. More recently, [Stoer and Fennel (2022)](https://doi.org/10.1002/lol2.10295) used similar methodology on particle backscatter to estimate Net Primary Production (NPP) from diel cycles in carbon biomass. Each of these recent papers apply the method [Gille (2012)](https://doi.org/10.1029/2012JC007883) demonstrated for diel cycles of temperature to biogeochemical variables. The calculation of the diel cycle depends on multiple factors, one of them being that floats included in the analysis do not surface at a fixed or few times of day for every profile. Instead, floats must demonstrate good temporal coverage of a 24hr period with near even occurrences.
 
 ![Figure 2 from [Johnson and Bif (2021).](https://doi.org/10.1038/s41561-021-00807-z) Their caption reads: *a*, Mean oxygen anomaly in the upper 20 m from each profile with acceptable cycle timing (N = 14,294) versus local hour of the day. Data from all days of year from 2010 to 2020 are included. *b*, Mean oxygen anomaly in each hourly interval and the least-squares fit of equation (2) to the data shown in a with GOP = 2.2 $\pm$ 0.3 (1 standard error) mmol m$^{−3}$ d$^{−1}$ O2. *c*, GOP determined at 2-month intervals in the upper 20 m versus day of year. *d*, Depth profile of GOP rates for all days of the year. Error bars are one standard error.](Johnson_Bif_figure_2.png)
 
@@ -43,7 +43,9 @@ meds = global_index.loc[global_index.file.str.contains('meds')]
 meds = meds.loc[meds.date.notna()]
 
 # convert date to pandas timestamps, take only profiles from the last 3 years
-meds["date"] = meds.date.astype(str).apply(lambda x: x.replace(".0", "")).apply(pd.Timestamp, tz="utc")
+meds["date"] = meds.date.astype(str)\
+  .apply(lambda x: x.replace(".0", ""))\
+  .apply(pd.Timestamp, tz="utc")
 meds = meds.loc[meds.date > pd.Timestamp("01-2020", tz="utc")]
 ```
 
@@ -66,7 +68,10 @@ meds = meds.loc[meds.profiler_type.isin([int(p) for p in profiler_type.keys()])]
 meds = meds.loc[(meds.latitude.notna()) & (meds.longitude.notna())]
 
 # get timezone, local time, and hour at surface for each profile
-meds["timezone"] = [pytz.timezone(tf.certain_timezone_at(lat=lat, lng=lon)) for lat, lon in zip(meds.latitude, meds.longitude)]
+meds["timezone"] = [
+  pytz.timezone(tf.certain_timezone_at(lat=lat, lng=lon))\
+  for lat, lon in zip(meds.latitude, meds.longitude)
+]
 meds["local_time"] = [utc_time.tz_convert(tz) for utc_time, tz in zip(meds.date, meds.timezone)]
 meds["surface_hour"] = [local_time.hour + 0.5 for local_time in meds.local_time]
 
@@ -82,10 +87,10 @@ sns.lineplot(data=meds, x="local_time", y="surface_hour", style="WMO",
 
 The above plot is very busy, but clearly shows a shift in regime in mid-2021 when we began reprogramming all new deployments as well as existing floats via remote commands. For NKE ARVOR floats, which constitute most of the Canadian fleet, we set the cycle period to 245 hours, or 10 days + 5 hours. This creates diel coverage relatively quickly, without sampling at times near each other on subsequent profiles. NKE PROVOR floats were slightly trickier to reprogram, as instead of a cycle period they have a surface time they aim to achieve. This parameter therefore must be reprogrammed every cycle. This is achieved by running a daily github action powered by python, which you can find on the [ArgoCanada github page](https://github.com/ArgoCanada/provor-auto-param-update). 
 
-To better understand the timing, lets look closely at an ARVOR float that was reprogrammed, and a PROVOR float that gets a new command each cycle. 
+To better understand the timing, lets look closely at an ARVOR float that was deployed in late 2020 and reprogrammed, and a PROVOR float that gets a new command each cycle. 
 
 ```{python individual floats, echo=TRUE, results=FALSE, fig.show="hide"}
-# ARVOR deployed in 2021, PROVOR in 2022
+# ARVOR deployed in 2020, PROVOR in 2022
 arvor  = 4902523
 provor = 4902623
 subset = meds.loc[meds.WMO.isin((arvor, provor))]
@@ -127,4 +132,12 @@ g.fig.set_constrained_layout(True)
 plt.show(g.fig)
 ```
 
-The above figure shows the progression of the Canadian Argo fleet over the years. Blue bars correspond to ARVOR floats with Seabird CTDs, orange bars to ARVOR floats with RBR CTDs and green bars to PROVOR floats. In the 2020 panel, there are two peaks, one representing local times in the Eastern Pacific, and the other in the Western Atlantic. In 2021 these peaks persist, but for roughly half the year we have good coverage. In 2022, some peaks remain as the final floats still operating on 240 hour cycles are reprogrammed. In the final panel, we see that the fleet operates well to cover the entire day. There are slight biases toward 0600-0700 and 1400-1500 local times in the PROVOR floats (green bars) as the live reprogramming was not active until May this year, but those profiles are now being well distributed. Overall, almost all recent profiles recorded by Argo Canada floats should now meet the statistical criteria to be able to construct diel cycles as in [Gilles (2012)](https://doi.org/10.1029/2012JC007883) and [Johnson and Bif (2021)](https://doi.org/10.1038/s41561-021-00807-z). 
+The above figure shows the progression of the Canadian Argo fleet over the years. Blue bars correspond to ARVOR floats with Seabird CTDs, orange bars to ARVOR floats with RBR CTDs and green bars to PROVOR floats. In the 2020 panel, there are two peaks, one representing local times in the Eastern Pacific, and the other in the Western Atlantic. In 2021 these peaks persist, but for roughly half the year we have good coverage. In 2022, some peaks remain as the final floats still operating on 240 hour cycles are reprogrammed. In the final panel, we see that the fleet operates well to cover the entire day. There are slight biases toward 0600-0700 and 1400-1500 local times in the PROVOR floats (green bars) as the live reprogramming was not active until May this year, but those profiles are now being well distributed. Overall, almost all recent profiles recorded by Argo Canada floats should now meet the statistical criteria to be able to construct diel cycles as in [Gille (2012)](https://doi.org/10.1029/2012JC007883), [Johnson and Bif (2021)](https://doi.org/10.1038/s41561-021-00807-z), and [Stoer and Fennel (2022)](https://doi.org/10.1002/lol2.10295). 
+
+# References
+
+Johnson, K.S., Bif, M.B. Constraint on net primary productivity of the global ocean by Argo oxygen measurements. Nat. Geosci. 14, 769-774 (2021). https://doi.org/10.1038/s41561-021-00807-z
+
+Stoer, A.C. and Fennel, K. (2023), Estimating ocean net primary productivity from daily cycles of carbon biomass measured by profiling floats. Limnol. Oceanogr. Lett, 8: 368-375. https://doi.org/10.1002/lol2.10295
+
+Gille, S. T. (2012), Diurnal variability of upper ocean temperatures from microwave satellite measurements and Argo profiles, J. Geophys. Res., 117, C11027, doi:10.1029/2012JC007883.
