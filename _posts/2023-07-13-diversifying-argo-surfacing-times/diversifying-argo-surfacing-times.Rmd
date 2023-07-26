@@ -1,7 +1,7 @@
 ---
 title: "Diversifying Argo Surfacing Times"
 description: |
-  Having Argo floats arrive at the surface at diverse local times of day leads exciting results!
+  Extracting diel cycles using fleet-level data
 author:
   - name: Christopher Gordon
     url: https://github.com/cgrdn
@@ -49,20 +49,20 @@ meds["date"] = meds.date.astype(str)\
 meds = meds.loc[meds.date > pd.Timestamp("01-2020", tz="utc")]
 ```
 
-Now that we have loaded all the MEDS profiles from 2020 onward, we have some final subsets to make. MetOcean NOVA floats are still operating for Argo Canada. Because these floats neither have the capacity to define surfacing times, nor update parameters remotely, we will exclude them. The few surviving Teledyne-Webb APEX floats will also be excluded. Finally, recently deployed deep ARVOR floats will be excluded, as their cycle period is defined as an integer number of days rather than in hours. From there, we will calculate the local time using the location data, and python packages `timezonefinder` and `pytz`, and visualize local surfacing times over the last 3 years.
+The few surviving MetOcean NOVA floats are included here, but it should be noted that these were not specifically reprogrammed for varied surfacing times. Recently deployed deep ARVOR floats are also included, however their cycle period is defined as an integer number of days rather than in hours, and so those will not produce good diel coverage. Now, we will calculate the local time using the location data, and python packages `timezonefinder` and `pytz`, and visualize local surfacing times over the last 3 years.
 
 ```{python local times, echo=TRUE, results=FALSE}
 import timezonefinder
 tf = timezonefinder.TimezoneFinder()
 import pytz
 
-# remove NOVA floats, only use NKE floats
 profiler_type = {
-    "836":"PROVOR   ",
-    "844":"ARVOR_SBE",
-    "878":"ARVOR_RBR",
+    "865":"NOVA      ",
+    "844":"ARVOR_SBE ",
+    "878":"ARVOR_RBR ",
+    "838":"ARVOR_DEEP",
+    "836":"PROVOR    ",
 }
-meds = meds.loc[meds.profiler_type.isin([int(p) for p in profiler_type.keys()])]
 
 # exclude invalid locations
 meds = meds.loc[(meds.latitude.notna()) & (meds.longitude.notna())]
@@ -80,9 +80,15 @@ meds["WMO"] = [int(s.split("/")[1]) for s in meds.file]
 meds["platform"] = [profiler_type[f"{p}"] for p in meds.profiler_type]
 
 fig, ax = plt.subplots(dpi=300, constrained_layout=True)
-sns.lineplot(data=meds, x="local_time", y="surface_hour", style="WMO", 
-  dashes=False, legend=False, alpha=0.5, markers=True, ax=ax
+sns.lineplot(data=meds, x="local_time", y="surface_hour", hue="platform", 
+  units="WMO", estimator=None, alpha=0.25, ax=ax
 )
+sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
+plt.setp(ax.get_xticklabels(), ha="right", rotation=45)
+
+```
+```{python fig 1, echo=FALSE}
+plt.show(fig)
 ```
 
 The above plot is very busy, but clearly shows a shift in regime in mid-2021 when we began reprogramming all new deployments as well as existing floats via remote commands. For NKE ARVOR floats, which constitute most of the Canadian fleet, we set the cycle period to 245 hours, or 10 days + 5 hours. This creates diel coverage relatively quickly, without sampling at times near each other on subsequent profiles. NKE PROVOR floats were slightly trickier to reprogram, as instead of a cycle period they have a surface time they aim to achieve. This parameter therefore must be reprogrammed every cycle. This is achieved by running a daily github action powered by python, which you can find on the [ArgoCanada github page](https://github.com/ArgoCanada/provor-auto-param-update). 
@@ -119,6 +125,7 @@ Finally, to get a better idea of how we have performed fleet-wide, let's look at
 ```{python surface time distributions, echo=TRUE, results=FALSE, message=FALSE, fig.show="hide"}
 # create column for profile year
 meds["year"] = [d.year for d in meds.local_time]
+meds = meds.loc[meds.year > 2019] # 2 floats have local times in 2019
 # create a FacetGrid that will plot by year, 2020, 2021, 2022, 2023
 g = sns.displot(
   meds, x="surface_hour", col="year", hue="platform", 
