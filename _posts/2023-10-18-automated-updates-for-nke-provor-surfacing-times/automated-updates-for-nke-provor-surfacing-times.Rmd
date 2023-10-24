@@ -144,3 +144,4 @@ Additionally, although this routine was built to automate PROVOR surfacing time 
 - Increased vertical resolution on every *nth* profile
 - Downcast measurements every *nth* profile
 - Seasonally varying missions
+- Fleet-wide parameter changes
