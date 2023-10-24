@@ -1,0 +1,147 @@
+---
+title: "Automated Updates for NKE PROVOR Surfacing Times"
+description: |
+  Using python and github actions to automatically reprogram PROVOR surfacing times.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2023-10-18
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_condaenv("py39")
+```
+
+This post is analogous to a presentation made at the 24th Argo Data Management Team meeting which can be found [here]().
+
+## Background & Motivation
+
+Argo floats have operated on, and been well served by, a 10-day cycle since its inception in the late 1990's. Recently, however, it has been recommended that Argo floats begin to operate on *near* but not *exact* 10-day cycles in order to reduce biases. Reducing these biases is important to calculations of ocean heat content ([Gille (2012)](https://doi.org/10.1029/2012JC007883), [von Schuckmann et al. 2020](https://doi.org/10.5194/essd-12-2013-2020)) as well as primary productivity via biogeochemcial variables ([Johnson & Bif 2021](https://doi.org/10.1038/s41561-021-00807-z), [Stoer & Fennel 2022](https://doi.org/10.1002/lol2.10295)). 
+
+Argo Canada has made a significant effort to ensure good time-of-day coverage from its floats in the last 2 years (read more: [*Diversifying Argo Surfacing Times*](https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times/)). As part of that effort, a protocol using python and [github actions]() was developed to update the surfacing time of NKE PROVOR floats after each cycle. 
+
+Unlike many other floats, PROVOR floats use a time of day parameter along with cycle time to determine their surfacing time. With other floats, setting the cycle time to say, 10 days plus 5 hours, would result in a different surfacing time with each cycle. With PROVOR floats however, because the time of day parameter controls the surfacing time, it must be updated after each cycle in order to achieve good time of day coverage throughout the lifetime of the float. This parameter can be reprogrammed remotely, but doing so manually quickly becomes impossible to manage for even a few different PROVOR floats.
+
+Fortunately the method for reprogramming a PROVOR float is to upload a text file to the remote command directory of that float's RUDICS FTP server, where the float's data also arrives. This means the problem is well suited to be solved programatically. 
+
+## Code Framework
+
+The following *pseudocode* outlines a script that runs once per day via github actions:
+
+- Log into RUDICS FTP server^1^
+- Check which floats have reported within the last 24 hours
+- For those that have reported recently, create a command file with the new surface time^2^
+- Upload the command file to the FTP server
+- Log the actions taken for which float^3^
+
+^1^*Log in credentials are stored using [github secrets](), which allow you to securely call the stored variables within a github action without worry of data leaks*
+
+^2^*The method of deciding the next target time may be defined by the user, but by default is a simple delta (ex. most recent time minus 5 hours). See next section for details*
+
+^3^*Logged information uses the float's IMEI number, which is how the directories are defined by default. The command files are also archived. Example log:* `[2023-10-18] Updated 300125061656740 surfacing time from 4 to 23`
+
+### Timing definitions & floats with Radiometry
+
+So far, Argo Canada has been operating its PROVOR floats by making the surface time 5 hours earlier than the previous one. This effectively results in a 235 hour cycle. This choice of cycle time was made as (1) it provides good time of day coverage, (2) it was suggested by the manufacturer that slightly reducing cycle time rather than slightly increasing it may better maximize the float's battery life in terms of number of completed cycles, and (3) Argo Canada is not currently operating any floats that are equipped with radiometry sensors. 
+
+For floats that have radiometry sensors, it is best to sample at local noon. To both comply with varying time of day and operate the float to more frequently profile at local noon time, the user can define for example a list of times for the float to cycle through that includes extra noon time profiles. 
+
+```{python extra noons, echo=FALSE, results=FALSE}
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style='ticks', palette='colorblind')
+
+times = np.array([0, 5, 12, 10, 15, 12, 20, 1, 12, 6, 11, 12, 16, 21, 12, 2, 7, 12, 12, 17, 12, 22, 3, 12, 8, 13, 12, 18, 23, 12, 4, 9, 12, 14, 19, 12])
+cycles = np.arange(len(times))
+fig, axes = plt.subplots(1, 2, constrained_layout=True)
+
+axes[0].plot(cycles, times, '-s', cycles[times == 12], times[times == 12], 's')
+sns.histplot(times+0.5, bins=list(range(24)), ax=axes[1])
+fig.suptitle('Surfacing times using custom list')
+axes[0].set_title('Timeseries with extra noon profiles highlighted', loc='left', fontdict={'fontsize':8})
+axes[1].set_title('1 year distribution (36 cycles)', loc='left', fontdict={'fontsize':8})
+axes[0].set_xlabel('Cycle Number')
+axes[1].set_xlabel('Surface Hour')
+axes[0].set_ylabel('Surface Hour')
+```
+
+## Results
+
+To demonstrate the results of this code, the figures below show the distribution of PROVOR surfacing times for the last 3 years, and an example of the surfacing times of one float deployed in 2022. 
+
+```{python PROVOR surfacing times, echo=FALSE, results=FALSE}
+
+import pandas as pd
+
+import timezonefinder
+tf = timezonefinder.TimezoneFinder()
+import pytz
+
+# load the global index
+global_index = pd.read_csv(
+  "ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt.gz", 
+  compression="gzip", header=8
+)
+# subset to only the MEDS DAC, profiles with valid dates
+meds = global_index.loc[global_index.file.str.contains('meds')]
+meds = meds.loc[meds.date.notna()]
+
+# convert date to pandas timestamps, take only profiles from the last 3 years
+meds["date"] = meds.date.astype(str)\
+  .apply(lambda x: x.replace(".0", ""))\
+  .apply(pd.Timestamp, tz="utc")
+meds = meds.loc[meds.date > pd.Timestamp("01-2020", tz="utc")]
+
+# exclude invalid locations
+meds = meds.loc[(meds.latitude.notna()) & (meds.longitude.notna())]
+meds = meds.loc[meds.profiler_type == 836]
+
+# get timezone, local time, and hour at surface for each profile
+meds["timezone"] = [
+  pytz.timezone(tf.certain_timezone_at(lat=lat, lng=lon))\
+  for lat, lon in zip(meds.latitude, meds.longitude)
+]
+meds["local_time"] = [utc_time.tz_convert(tz) for utc_time, tz in zip(meds.date, meds.timezone)]
+meds["surface_hour"] = [local_time.hour + 0.5 for local_time in meds.local_time]
+meds["utc_hour"] = [utc_time.hour + 0.5 for utc_time in meds.date]
+meds["year"] = [d.year for d in meds.date]
+
+# add a column for WMO number as well as platform name
+meds["WMO"] = [int(s.split("/")[1]) for s in meds.file]
+
+fig = plt.figure(constrained_layout=True)
+gs = fig.add_gridspec(2, 2)
+axes = [fig.add_subplot(gs[0,i]) for i in range(2)]
+axes.append(fig.add_subplot(gs[1,:]))
+
+for ax, yr in zip(axes, [2022, 2023]):
+  sub = meds.loc[meds.year == yr]
+  g = sns.histplot(x="surface_hour", data=sub, bins=list(range(24)), ax=ax)
+  ax.set_title(f'{yr}', loc='left', fontdict={'fontsize':8})
+  ax.set_xlabel('Surface Hour')
+
+
+h = sns.lineplot(data=meds.loc[meds.WMO == 4902623], x="local_time", y="surface_hour", 
+  style="WMO", markers=True, ax=axes[-1], legend=False)
+axes[-1].set_xlabel('Date')
+axes[-1].set_ylabel('Surface Hour')
+```
+
+## Future Work & Flexibility
+
+I believe for PROVOR CTS5 floats, this will still be necessary (though I don't know for sure). Argo Canada (Dalhousie University) will be deploying this type of float in the near furure, so the next priority will be to implement commands in the style/language of the new firmware. 
+
+Additionally, although this routine was built to automate PROVOR surfacing time of day, there could be many uses to automatically updating mission parameters of any type of float. Off the top of my head - though so of these may be possible within a float's existing firmware. Of course I would not encourage anything outside the Argo mission :). 
+
+- Increased vertical resolution on every *nth* profile
+- Downcast measurements every *nth* profile
+- Seasonally varying missions
+- Fleet-wide parameter changes
