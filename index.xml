@@ -12,7 +12,15 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 13 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Automated Updates for NKE PROVOR Surfacing Times</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2023-10-18-automated-updates-for-nke-provor-surfacing-times</link>
+      <description>Using python and github actions to automatically reprogram PROVOR surfacing times.</description>
+      <guid>https://argocanada.github.io/blog/posts/2023-10-18-automated-updates-for-nke-provor-surfacing-times</guid>
+      <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Diversifying Argo Surfacing Times</title>
       <dc:creator>Christopher Gordon</dc:creator>
