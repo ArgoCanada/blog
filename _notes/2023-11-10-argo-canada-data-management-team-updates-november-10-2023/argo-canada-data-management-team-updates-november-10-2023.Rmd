@@ -1,0 +1,247 @@
+---
+title: "Argo Canada Data Management Team Updates - November 10, 2023"
+description: |
+  Summary for meeting taking place on November 10, 2023.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2023-11-10
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_condaenv("py39")
+```
+
+```{python py setup, echo=FALSE, results=FALSE}
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style="ticks", palette="colorblind")
+
+# load the global index
+global_index = pd.read_csv(
+  "ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt.gz", 
+  compression="gzip", header=8
+)
+# subset to only the MEDS DAC, profiles with valid dates
+meds = global_index.loc[global_index.file.str.contains('meds')]
+meds = meds.loc[meds.date.notna()]
+
+# convert date to pandas timestamps, take only profiles from the last 3 years
+meds["date"] = meds.date.astype(str)\
+  .apply(lambda x: x.replace(".0", ""))\
+  .apply(pd.Timestamp, tz="utc")
+meds = meds.loc[meds.date > pd.Timestamp("01-2020", tz="utc")]
+```
+
+## Update/Takeaways from ADMT
+
+-   CHLA_ADJUSTED: Raphaelle Suazede presented on adjusting chlorophyll using a factor from a lookup table (date, location) or calculated based on first 5 cycles. Current process is to divide by 2 for all data (Roesler 2017). Simple to implement in python RTQC once we have LUT.
+-   RT adjustment of DOXY is a high priority. Can provide a gain value after 5 cycles, and populate DOXY_ADJUSTED in RT at python RTQC step. Chris needs to talk to Anh about this - new VMS variable and populating SCIENTIFIC_CALIB_COMMENT.
+
+### Cycle Timing
+
+-   Canadian floats are almost all compliant with time of day sampling. Only floats that appeared in Drucker/Riser audit list were NOVA, deep ARVOR floats and 2 very recently deployed ARVORs that have been reprogrammed to 235hr cycles already.
+
+```{python MEDS surfacing times, echo=FALSE, fig.show="hide"}
+import timezonefinder
+tf = timezonefinder.TimezoneFinder()
+import pytz
+
+profiler_type = {
+    "865":"NOVA      ",
+    "844":"ARVOR_SBE ",
+    "878":"ARVOR_RBR ",
+    "838":"ARVOR_DEEP",
+    "836":"PROVOR    ",
+}
+
+# exclude invalid locations
+meds = meds.loc[(meds.latitude.notna()) & (meds.longitude.notna())]
+
+# get timezone, local time, and hour at surface for each profile
+meds["timezone"] = [
+  pytz.timezone(tf.certain_timezone_at(lat=lat, lng=lon))\
+  for lat, lon in zip(meds.latitude, meds.longitude)
+]
+meds["local_time"] = [utc_time.tz_convert(tz) for utc_time, tz in zip(meds.date, meds.timezone)]
+meds["surface_hour"] = [local_time.hour + 0.5 for local_time in meds.local_time]
+meds["year"] = [d.year for d in meds.date]
+
+# add a column for WMO number as well as platform name
+meds["WMO"] = [int(s.split("/")[1]) for s in meds.file]
+meds["platform"] = [profiler_type[f"{p}"] for p in meds.profiler_type]
+
+meds = meds.loc[meds.year > 2019] # 2 floats have local times in 2019
+# create a FacetGrid that will plot by year, 2020, 2021, 2022, 2023
+g = sns.displot(
+  meds, x="surface_hour", col="year", hue="platform", 
+  kind="hist", bins=list(range(24)), multiple="stack", 
+  col_wrap=2, facet_kws=dict(despine=False, sharey=False)
+)
+g.fig.set_dpi(300)
+g.fig.set_constrained_layout(True)
+
+```
+
+```{python fig 1, echo=FALSE}
+plt.show(g.fig)
+```
+
+-   Discussion on indicating time of day sampling regime in the meta file by John Gilson via CONFIG_MISSION_COMMENT. Not totally clear to me but I think we are meant to set it to -1 (i.e. TOD sampling off?).
+-   Presented our method for actively reprogramming PROVOR floats to effectively result in 235 hour cycles.
+
+```{python PROVOR automation, echo=FALSE}
+fig = plt.figure(constrained_layout=True)
+gs = fig.add_gridspec(2, 2)
+axes = [fig.add_subplot(gs[0,i]) for i in range(2)]
+axes.append(fig.add_subplot(gs[1,:]))
+
+for ax, yr in zip(axes, [2022, 2023]):
+  sub = meds.loc[(meds.year == yr) & (meds.profiler_type == 836)]
+  g = sns.histplot(x="surface_hour", data=sub, bins=list(range(24)), ax=ax)
+  ax.set_title(f'{yr}', loc='left', fontdict={'fontsize':8})
+  ax.set_xlabel('Surface Hour')
+
+
+h = sns.lineplot(data=meds.loc[meds.WMO == 4902623], x="local_time", y="surface_hour", 
+  style="WMO", markers=True, ax=axes[-1], legend=False)
+axes[-1].set_xlabel('Date')
+axes[-1].set_ylabel('Surface Hour')
+```
+
+- PROVOR CTS5 floats: the new floats will require new syntax to reprogram, and also carry radiometry sensors. Plan will be to cycle through 24hr cycle plus extra local noon surfacings through the year.
+
+```{python extra noons, echo=FALSE}
+import numpy as np
+times = np.array([
+  0, 5, 12, 10, 15, 12, 20, 1, 12, 6, 11, 12, 16, 21, 
+  12, 2, 7, 12, 12, 17, 12, 22, 3, 12, 8, 13, 12, 18, 
+  23, 12, 4, 9, 12, 14, 19, 12
+])
+cycles = np.arange(len(times))
+fig, axes = plt.subplots(1, 2, constrained_layout=True)
+
+axes[0].plot(cycles, times, '-s', cycles[times == 12], times[times == 12], 's')
+sns.histplot(times+0.5, bins=list(range(24)), ax=axes[1])
+fig.suptitle('Surfacing times using custom list')
+axes[0].set_title('Timeseries with extra noon profiles highlighted', loc='left', fontdict={'fontsize':8})
+axes[1].set_title('1 year distribution (36 cycles)', loc='left', fontdict={'fontsize':8})
+axes[0].set_xlabel('Cycle Number')
+axes[1].set_xlabel('Surface Hour')
+axes[0].set_ylabel('Surface Hour')
+```
+
+## RTQC Of PROVOR CTS5 Floats
+
+- Need to add radiometry RTQC to python setup - just range test, very simple
+
+## DMQC Updates
+
+- 4 floats ready for submission, going to do a couple more and submit as a batch
+- Making an effort to do 1-2/week right now
+- Will need to spend some time validating in-air method in code
+- Upon DMQC, updating DOXY_QC=1 to DOXY_QC=3. Should we do that for all files more urgently?
+
+## Deployment Summary
+
+All completed and planned deployments can be seen on the development blog [planning page](https://argocanada.github.io/blog/deployment.html).
+
+So far in 2023, 24 floats have been deployed:
+
+- 5 PROVOR / 14 ARVOR / 5 deep ARVOR
+- 11 BIO / 8 IOS / 5 ONC
+- 3 RBR / 21 SBE
+
+In the remainder of 2023 and into early 2024, 13 more deployments are planned:
+
+- 2 PROVOR CTS5 / 9 ARVOR / 3 deep ARVOR
+- 7 BIO / 2 IOS / 2 ONC / 2 Dalhousie
+- 4 RBR / 9 SBE
+
+Notable deployments: 
+
+- The crew of the DISCOVREY will be deploying 6 floats on their way to Cape Town, South Africa. 
+- An additional 6 floats (not in table) will be delivered to a vessel in Cape Town via the DISCOVERY for deployment in the Western Indian Ocean, date TBD.
+- The HMCS VANCOUVER will deploy 2 floats near Hawaii
+- The 2 PROVOR CTS5 floats will be deployed in the Lab Sea from the MERIAN, being loaded on November 21.
+- The sailing vessel OCEANOLOG will deploy an ARVOR float as part of [Sail for Science](https://sailforscience.com/)
+- 2 deep ARVOR floats will be deployed from the HESPERIDES in the Southern Ocean (more floats to avoid ice!)
+- An additional 5 floats (not in the table) will be sent on a joint Italian/NZ voyage to the Ross Sea
+
+## Beaufort Floats
+
+### Float Programming
+
+The two floats deployed in the Beaufort Sea ([4902610](https://fleetmonitoring.euro-argo.eu/float/4902610) and [4902611](https://fleetmonitoring.euro-argo.eu/float/4902611)) were updated with new ice sensing algorithm (ISA) parameters. The parameters were provided by Steve Jayne based on data analysis of the Beaufort Gyre.
+
+ISA works by detecting a temperature threshold over a certain depth range. The suggested range was between 20-10dbar with a threshold of -1.21deg C (90% success rate of avoiding ice when present) or -1.03 deg C (95% success rate).
+
+I ran the parameter change by Jerome at NKE. He was cautious about it as the depth range Steve provided was more shallow than their default setting (-1.79 deg C between 50 and 20dbar), but that the changes looked fine in terms of reprogramming the float:
+
+```         
+!MC 2 235    # cycle timing
+!MC 3 235    # cycle timing phase 2, inaccessible
+!MC 17 475   # surface/mid threshold 
+!MC 18 1000  # mid/bottom threshold
+!MC 20 5     # mid resolution
+!MC 21 10    # bottom resolution
+!IC 2 3      # number of detections to confirm ice, default
+!IC 3 20     # start pressure detection
+!IC 4 10     # stop pressure detection
+!IC 5 -1210  # temperature threshold, millidegrees
+```
+
+Both floats successfully received the parameter change, but I cannot see ice parameter values in the messages. May consult NKE on this. 
+
+### Preliminary Data
+
+Float 4902610 collected 2 profiles before stopping reporting (last Oct 1, 2023). Float 4902611 has collected 3 (last reported Oct 25, 2023).
+
+```{python beaufort data, echo=FALSE, results=FALSE}
+import argopy
+argopy.set_options(mode="expert")
+wmos = [4902610, 4902611]
+f = argopy.DataFetcher().float(wmos)
+df = f.to_dataframe()
+df = df.loc[df.DIRECTION == "A"]
+
+fig1, axes = plt.subplots(2,2, sharey=True, sharex=False, constrained_layout=True)
+for wmo, axrow in zip(wmos, axes):
+  for v, ax in zip(["TEMP", "PSAL"], axrow):
+    sub = df.loc[df.PLATFORM_NUMBER == wmo]
+    sns.lineplot(data=sub, x=v, y="PRES", hue="CYCLE_NUMBER", sort=False, 
+      markers=True, estimator=None, legend=False, ax=ax)
+axes[0,0].set_ylim((2000,0))
+axes[0,0].set_xlim(axes[1,0].get_xlim())
+axes[1,1].set_xlim(axes[0,1].get_xlim())
+plt.show(fig1)
+```
+```{python fig 2, echo=FALSE, results=FALSE}
+fig2, axes = plt.subplots(2,2, sharey=True, sharex=False, constrained_layout=True)
+for wmo, axrow in zip(wmos, axes):
+  for v, ax in zip(["TEMP", "PSAL"], axrow):
+    sub = df.loc[(df.PLATFORM_NUMBER == wmo) & (df.PRES < 400)]
+    sns.scatterplot(data=sub, x=v, y="PRES", hue="CYCLE_NUMBER", 
+      legend=False, ax=ax)
+    if v == "TEMP":
+      ax.axhline(20)
+      ax.axhline(10)
+      ax.axvline(-1.21)
+axes[0,0].set_ylim((400,0))
+axes[0,0].set_xlim(axes[1,0].get_xlim())
+axes[1,1].set_xlim(axes[0,1].get_xlim())
+plt.show(fig2)
+```
+```{python fig 3, echo=FALSE}
+fig3, axes = plt.subplots(1, 2, sharex=True, sharey=True, constrained_layout=True)
+for wmo, ax in zip(wmos, axes):
+  sub = df.loc[(df.PLATFORM_NUMBER == wmo)]
+  sns.scatterplot(data=sub, y="TEMP", x="PSAL", hue="CYCLE_NUMBER", legend=False, ax=ax)
+```

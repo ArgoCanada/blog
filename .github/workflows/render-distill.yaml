@@ -26,6 +26,8 @@ jobs:
       - name: Install python dependencies
         run: |
           pip install pandas
+          pip install seaborn
+          pip install git+http://github.com/euroargodev/argopy.git@master
 
       - name: Install R dependencies
         run: |
