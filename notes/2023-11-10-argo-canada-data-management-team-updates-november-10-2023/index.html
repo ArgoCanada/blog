@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,11 +74,11 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,55 +86,50 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
-<title>Argo Canada Development Blog: An Argo Loop-the-Loop</title>
+<title>Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023</title>
 
-<meta property="description" itemprop="description" content="Two floats that do a near-perfect loop-the-loop"/>
+<meta property="description" itemprop="description" content="Summary for meeting taking place on November 10, 2023."/>
 
-<link rel="canonical" href="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"/>
+<link rel="canonical" href="https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"/>
 <link rel="icon" type="image/jpeg" href="../../images/logo.jpg"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-06-07"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-06-07"/>
-<meta name="article:author" content="Dewey Dunnington"/>
+<meta property="article:published" itemprop="datePublished" content="2023-11-10"/>
+<meta property="article:created" itemprop="dateCreated" content="2023-11-10"/>
+<meta name="article:author" content="Christopher Gordon"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Argo Canada Development Blog: An Argo Loop-the-Loop"/>
+<meta property="og:title" content="Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Two floats that do a near-perfect loop-the-loop"/>
-<meta property="og:url" content="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"/>
-<meta property="og:image" content="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png"/>
-<meta property="og:image:width" content="1248"/>
-<meta property="og:image:height" content="768"/>
+<meta property="og:description" content="Summary for meeting taking place on November 10, 2023."/>
+<meta property="og:url" content="https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Argo Canada Development Blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
-<meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:title" content="Argo Canada Development Blog: An Argo Loop-the-Loop"/>
-<meta property="twitter:description" content="Two floats that do a near-perfect loop-the-loop"/>
-<meta property="twitter:url" content="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"/>
-<meta property="twitter:image" content="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png"/>
-<meta property="twitter:image:width" content="1248"/>
-<meta property="twitter:image:height" content="768"/>
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:title" content="Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023"/>
+<meta property="twitter:description" content="Summary for meeting taking place on November 10, 2023."/>
+<meta property="twitter:url" content="https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="Argo Canada Development Blog: An Argo Loop-the-Loop"/>
-<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"/>
-<meta name="citation_online_date" content="2021/06/07"/>
-<meta name="citation_publication_date" content="2021/06/07"/>
-<meta name="citation_author" content="Dewey Dunnington"/>
+<meta name="citation_title" content="Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023"/>
+<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"/>
+<meta name="citation_online_date" content="2023/11/10"/>
+<meta name="citation_publication_date" content="2023/11/10"/>
+<meta name="citation_author" content="Christopher Gordon"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["An Argo Loop-the-Loop"]},{"type":"character","attributes":{},"value":["Two floats that do a near-perfect loop-the-loop"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Dewey Dunnington"]},{"type":"character","attributes":{},"value":["https://github.com/paleolimbot"]}]}]},{"type":"character","attributes":{},"value":["06-07-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Argo Canada Data Management Team Updates - November 10, 2023"]},{"type":"character","attributes":{},"value":["Summary for meeting taking place on November 10, 2023."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-11-10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["an-argo-loop-the-loop_files/anchor-4.2.2/anchor.min.js","an-argo-loop-the-loop_files/bowser-1.9.3/bowser.min.js","an-argo-loop-the-loop_files/distill-2.2.21/template.v2.js","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-3-1.png","an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-4-1.gif","an-argo-loop-the-loop_files/jquery-1.11.3/jquery.min.js","an-argo-loop-the-loop_files/popper-2.6.0/popper.min.js","an-argo-loop-the-loop_files/tippy-6.2.7/tippy-bundle.umd.min.js","an-argo-loop-the-loop_files/tippy-6.2.7/tippy-light-border.css","an-argo-loop-the-loop_files/tippy-6.2.7/tippy.css","an-argo-loop-the-loop_files/tippy-6.2.7/tippy.umd.min.js","an-argo-loop-the-loop_files/webcomponents-2.0.0/webcomponents.js","argoFloats-cache/ar_index_global_prof.rda","topo_62.11W_51.79W_6.7N_12.31N_2min.nc","topo_62.41W_51.49W_7.1N_12.01N_2min.nc"]}
+  {"type":"character","attributes":{},"value":["argo-canada-data-management-team-updates-november-10-2023_files/anchor-4.2.2/anchor.min.js","argo-canada-data-management-team-updates-november-10-2023_files/bowser-1.9.3/bowser.min.js","argo-canada-data-management-team-updates-november-10-2023_files/distill-2.2.21/template.v2.js","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/beaufort data-7.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/extra noons-5.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/extra noons-6.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig 1-1.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig 2-4.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig 2-9.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig 3-11.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig 3-7.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/PROVOR automation-3.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-10.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-11.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-13.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-14.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-15.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-8.png","argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/show figs-9.png","argo-canada-data-management-team-updates-november-10-2023_files/header-attrs-2.23/header-attrs.js","argo-canada-data-management-team-updates-november-10-2023_files/jquery-3.6.0/jquery-3.6.0.js","argo-canada-data-management-team-updates-november-10-2023_files/jquery-3.6.0/jquery-3.6.0.min.js","argo-canada-data-management-team-updates-november-10-2023_files/jquery-3.6.0/jquery-3.6.0.min.map","argo-canada-data-management-team-updates-november-10-2023_files/popper-2.6.0/popper.min.js","argo-canada-data-management-team-updates-november-10-2023_files/tippy-6.2.7/tippy-bundle.umd.min.js","argo-canada-data-management-team-updates-november-10-2023_files/tippy-6.2.7/tippy-light-border.css","argo-canada-data-management-team-updates-november-10-2023_files/tippy-6.2.7/tippy.css","argo-canada-data-management-team-updates-november-10-2023_files/tippy-6.2.7/tippy.umd.min.js","argo-canada-data-management-team-updates-november-10-2023_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2121,7 +2117,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.23/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2141,7 +2138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"An Argo Loop-the-Loop","description":"Two floats that do a near-perfect loop-the-loop","authors":[{"author":"Dewey Dunnington","authorURL":"https://github.com/paleolimbot","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-07T00:00:00.000+00:00","citationText":"Dunnington, 2021"}
+{"title":"Argo Canada Data Management Team Updates - November 10, 2023","description":"Summary for meeting taking place on November 10, 2023.","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-11-10T00:00:00.000+00:00","citationText":"Gordon, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2171,221 +2168,113 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>An Argo Loop-the-Loop</h1>
+<h1>Argo Canada Data Management Team Updates - November 10, 2023</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Two floats that do a near-perfect loop-the-loop</p></p>
+<p><p>Summary for meeting taking place on November 10, 2023.</p></p>
 </div>
 
 <div class="d-byline">
-  Dewey Dunnington <a href="https://github.com/paleolimbot" class="uri">https://github.com/paleolimbot</a> 
+  Christopher Gordon <a href="https://github.com/cgrdn" class="uri">https://github.com/cgrdn</a> 
   
-<br/>06-07-2021
+<br/>2023-11-10
 </div>
 
 <div class="d-article">
-<p>In writing the <a href="/blog/posts/2021-06-04-finding-coastal-argo-trajectories/">last post</a>, two floats were identified (<a href="https://data-argo.ifremer.fr/dac/coriolis/6902966/">coriolis/6902966</a> and <a href="https://data-argo.ifremer.fr/dac/coriolis/6902957/">coriolis/6902957</a>) that do an almost perfect loop-the-loop off the coast of Brazil!</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ArgoCanada/argoFloats'>argoFloats</a></span><span class='op'>)</span>
-<span class='va'>full_index</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argoFloats/man/getIndex.html'>getIndex</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>float1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>full_index</span>, ID <span class='op'>=</span> <span class='fl'>6902966</span><span class='op'>)</span>
-<span class='va'>float2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>full_index</span>, ID <span class='op'>=</span> <span class='fl'>6902957</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>float1</span>, <span class='va'>float2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>float1</span><span class='op'>@</span><span class='va'>data</span><span class='op'>$</span><span class='va'>index</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"longitude"</span>, <span class='st'>"latitude"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>float2</span><span class='op'>@</span><span class='va'>data</span><span class='op'>$</span><span class='va'>index</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"longitude"</span>, <span class='st'>"latitude"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</code></pre>
 </div>
-<p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
-</div>
-<p>The first question we might want to ask is <em>why!?</em>. Eddies are common in ocean currents but it seems like an awfully big coincidence that these two floats did the exact same loop-the-loop if they weren’t in the same eddy at the same time. Using <a href="https://github.com/ArgoCanada/argodata">argodata</a>, we can investigate some of the details. I’ll also use the <a href="https://tidyverse.org/">tidyverse</a> for plotting and data frame manipulation.</p>
+<h2 id="updatetakeaways-from-admt">Update/Takeaways from ADMT</h2>
+<ul>
+<li>CHLA_ADJUSTED: Raphaelle Suazede presented on adjusting chlorophyll using a factor from a lookup table (date, location) or calculated based on first 5 cycles. Current process is to divide by 2 for all data (Roesler 2017). Simple to implement in python RTQC once we have LUT.</li>
+<li>RT adjustment of DOXY is a high priority. Can provide a gain value after 5 cycles, and populate DOXY_ADJUSTED in RT at python RTQC step. Chris needs to talk to Anh about this - new VMS variable and populating SCIENTIFIC_CALIB_COMMENT.</li>
+</ul>
+<h3 id="cycle-timing">Cycle Timing</h3>
+<ul>
+<li>Canadian floats are almost all compliant with time of day sampling. Only floats that appeared in Drucker/Riser audit list were NOVA, deep ARVOR floats and 2 very recently deployed ARVORs that have been reprogrammed to 235hr cycles already.</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ArgoCanada/argodata'>argodata</a></span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>The first question we might want to ask is: were these floats in the same place at the same time? We can plot the dates to see if they are at least cycling at the same time:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prof</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_global_meta.html'>argo_global_prof</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_filter.html'>argo_filter_float</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6902966</span>, <span class='fl'>6902957</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_path_info.html'>argo_extract_path_info</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>prof</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>file_float</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
 </div>
-<p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
-</div>
-<p>It looks like they are! Using <a href="https://gganimate.com">gganimate</a>, we can do a quick visual check if they also align in space.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>prof</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>longitude</span>, <span class='va'>latitude</span>, group <span class='op'>=</span> <span class='va'>file_float</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_path</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>gganimate</span><span class='fu'>::</span><span class='fu'><a href='https://gganimate.com/reference/transition_reveal.html'>transition_reveal</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"{ frame_along }"</span><span class='op'>)</span>
-</code></pre>
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig%201-1.png" width="1112" /></p>
 </div>
-<p><img src="an-argo-loop-the-loop_files/figure-html5/unnamed-chunk-4-1.gif" /><!-- --></p>
-</div>
-<p>It looks like they were released at the same time right next to each other, which explains why they tracked so closely (and why they get farther apart as they move west).</p>
-<p>Another curiosity is the distance between profiles, which changes a few times over the course of the float’s lifetime. We could just measure the time between profiles, but to see what the float <em>intended</em> to do we can also check the configuration parameters. In argodata these are available via <code>argo_meta_config_param()</code>:</p>
+<ul>
+<li>Discussion on indicating time of day sampling regime in the meta file by John Gilson via CONFIG_MISSION_COMMENT. Not totally clear to me but I think we are meant to set it to -1 (i.e. TOD sampling off?).</li>
+<li>Presented our method for actively reprogramming PROVOR floats to effectively result in 235 hour cycles.</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>meta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_global_meta.html'>argo_global_meta</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_filter.html'>argo_filter_float</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6902966</span>, <span class='fl'>6902957</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>meta</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_meta.html'>argo_meta_config_param</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/argodata/man/argo_path_info.html'>argo_extract_path_info</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>file_float</span>, <span class='va'>n_missions</span>, <span class='va'>config_parameter_name</span>, <span class='va'>config_parameter_value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>n_missions</span>, values_from <span class='op'>=</span> <span class='va'>config_parameter_value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/PROVOR%20automation-3.png" width="624" /></p>
 </div>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">file_float</th>
-<th style="text-align: left;">config_parameter_name</th>
-<th style="text-align: right;">1</th>
-<th style="text-align: right;">2</th>
-<th style="text-align: right;">3</th>
-<th style="text-align: right;">4</th>
-<th style="text-align: right;">5</th>
-<th style="text-align: right;">6</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">6902957</td>
-<td style="text-align: left;">CONFIG_CycleTime_hours</td>
-<td style="text-align: right;">26.5</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">240</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902957</td>
-<td style="text-align: left;">CONFIG_ParkPressure_dbar</td>
-<td style="text-align: right;">200.0</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">6902957</td>
-<td style="text-align: left;">CONFIG_ProfilePressure_dbar</td>
-<td style="text-align: right;">1000.0</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">2000</td>
-<td style="text-align: right;">2000</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902957</td>
-<td style="text-align: left;">CONFIG_DescentToParkPresSamplingTime_seconds</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">6902957</td>
-<td style="text-align: left;">CONFIG_Direction_NUMBER</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_CycleTime_hours</td>
-<td style="text-align: right;">38.5</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">240</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">120</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_ParkPressure_dbar</td>
-<td style="text-align: right;">200.0</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">1000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_ProfilePressure_dbar</td>
-<td style="text-align: right;">1000.0</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">2000</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">1000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_SurfaceTime_HH</td>
-<td style="text-align: right;">15.0</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_DescentToParkPresSamplingTime_seconds</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_InAirMeasurementPeriodicity_NUMBER</td>
-<td style="text-align: right;">5.0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6902966</td>
-<td style="text-align: left;">CONFIG_Direction_NUMBER</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>PROVOR CTS5 floats: the new floats will require new syntax to reprogram, and also carry radiometry sensors. Plan will be to cycle through 24hr cycle plus extra local noon surfacings through the year.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/extra%20noons-5.png" width="624" /></p>
 </div>
-<p>It looks like these floats were set to sample rapidly (every 24 hours) and changed a few times over the course of the float lifespan. This explains the loop-the-loop more convincingly as an eddy as the usual float cycling time of 10 days would mean it was a very slow eddy (credit to Clark Richards for that observation!).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="rtqc-of-provor-cts5-floats">RTQC Of PROVOR CTS5 Floats</h2>
+<ul>
+<li>Need to add radiometry RTQC to python setup - just range test, very simple</li>
+</ul>
+<h2 id="dmqc-updates">DMQC Updates</h2>
+<ul>
+<li>4 floats ready for submission, going to do a couple more and submit as a batch</li>
+<li>Making an effort to do 1-2/week right now</li>
+<li>Will need to spend some time validating in-air method in code</li>
+<li>Upon DMQC, updating DOXY_QC=1 to DOXY_QC=3. Should we do that for all files more urgently?</li>
+</ul>
+<h2 id="deployment-summary">Deployment Summary</h2>
+<p>All completed and planned deployments can be seen on the development blog <a href="https://argocanada.github.io/blog/deployment.html">planning page</a>.</p>
+<p>So far in 2023, 24 floats have been deployed:</p>
+<ul>
+<li>5 PROVOR / 14 ARVOR / 5 deep ARVOR</li>
+<li>11 BIO / 8 IOS / 5 ONC</li>
+<li>3 RBR / 21 SBE</li>
+</ul>
+<p>In the remainder of 2023 and into early 2024, 13 more deployments are planned:</p>
+<ul>
+<li>2 PROVOR CTS5 / 9 ARVOR / 3 deep ARVOR</li>
+<li>7 BIO / 2 IOS / 2 ONC / 2 Dalhousie</li>
+<li>4 RBR / 9 SBE</li>
+</ul>
+<p>Notable deployments:</p>
+<ul>
+<li>The crew of the DISCOVREY will be deploying 6 floats on their way to Cape Town, South Africa.</li>
+<li>An additional 6 floats (not in table) will be delivered to a vessel in Cape Town via the DISCOVERY for deployment in the Western Indian Ocean, date TBD.</li>
+<li>The HMCS VANCOUVER will deploy 2 floats near Hawaii</li>
+<li>The 2 PROVOR CTS5 floats will be deployed in the Lab Sea from the MERIAN, being loaded on November 21.</li>
+<li>The sailing vessel OCEANOLOG will deploy an ARVOR float as part of <a href="https://sailforscience.com/">Sail for Science</a></li>
+<li>2 deep ARVOR floats will be deployed from the HESPERIDES in the Southern Ocean (more floats to avoid ice!)</li>
+<li>An additional 5 floats (not in the table) will be sent on a joint Italian/NZ voyage to the Ross Sea</li>
+</ul>
+<h2 id="beaufort-floats">Beaufort Floats</h2>
+<h3 id="float-programming">Float Programming</h3>
+<p>The two floats deployed in the Beaufort Sea (<a href="https://fleetmonitoring.euro-argo.eu/float/4902610">4902610</a> and <a href="https://fleetmonitoring.euro-argo.eu/float/4902611">4902611</a>) were updated with new ice sensing algorithm (ISA) parameters. The parameters were provided by Steve Jayne based on data analysis of the Beaufort Gyre.</p>
+<p>ISA works by detecting a temperature threshold over a certain depth range. The suggested range was between 20-10dbar with a threshold of -1.21deg C (90% success rate of avoiding ice when present) or -1.03 deg C (95% success rate).</p>
+<p>I ran the parameter change by Jerome at NKE. He was cautious about it as the depth range Steve provided was more shallow than their default setting (-1.79 deg C between 50 and 20dbar), but that the changes looked fine in terms of reprogramming the float:</p>
+<pre><code>!MC 2 235    # cycle timing
+!MC 3 235    # cycle timing phase 2, inaccessible
+!MC 17 475   # surface/mid threshold 
+!MC 18 1000  # mid/bottom threshold
+!MC 20 5     # mid resolution
+!MC 21 10    # bottom resolution
+!IC 2 3      # number of detections to confirm ice, default
+!IC 3 20     # start pressure detection
+!IC 4 10     # stop pressure detection
+!IC 5 -1210  # temperature threshold, millidegrees</code></pre>
+<p>Both floats successfully received the parameter change, but I cannot see ice parameter values in the messages. May consult NKE on this.</p>
+<h3 id="preliminary-data">Preliminary Data</h3>
+<p>Float 4902610 collected 2 profiles before stopping reporting (last Oct 1, 2023). Float 4902611 has collected 3 (last reported Oct 25, 2023).</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/beaufort%20data-7.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig%202-9.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="argo-canada-data-management-team-updates-november-10-2023_files/figure-html5/fig%203-11.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2400,13 +2289,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="appendix-bottom">
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Dunnington (2021, June 7). Argo Canada Development Blog: An Argo Loop-the-Loop. Retrieved from https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/</pre>
+  <pre class="citation-appendix short">Gordon (2023, Nov. 10). Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023. Retrieved from https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/</pre>
   <p>BibTeX citation</p>
-  <pre class="citation-appendix long">@misc{dunnington2021an,
-  author = {Dunnington, Dewey},
-  title = {Argo Canada Development Blog: An Argo Loop-the-Loop},
-  url = {https://argocanada.github.io/blog/posts/2021-06-07-an-argo-loop-the-loop/},
-  year = {2021}
+  <pre class="citation-appendix long">@misc{gordon2023argo,
+  author = {Gordon, Christopher},
+  title = {Argo Canada Development Blog: Argo Canada Data Management Team Updates - November 10, 2023},
+  url = {https://argocanada.github.io/blog/notes/2023-11-10-argo-canada-data-management-team-updates-november-10-2023/},
+  year = {2023}
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
