@@ -1,0 +1,360 @@
+---
+title: "Implementing updated backscatter RTQC"
+description: |
+  Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2023-12-05
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+```
+
+In this post I will examine the new backscatter testing implemented in [medsrtqc](https://github.com/ArgoCanada/medsrtqc), a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the [official vocabulary](https://vocab.nerc.ac.uk/collection/R11/current/).
+
+We will use the same floats and cycles shown as examples in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2), discuss the expected results, and then examine the results given by the package.
+
+A custom plotting function to show the flags of each profile is used throughout the post. The definition of that function can be found at the bottom of the post.
+
+The floats we will be analyzing will have already been QC'ed (in fact, most have been DMQC'ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will rely on the output of the rtqc log to evaluate the results of the tests. 
+
+
+```{python functions and setup, include=FALSE}
+import sys
+from pathlib import Path
+import ftplib
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set(style="ticks", palette=sns.color_palette(["grey", "green", "blue", "yellow", "red"], desat=0.50))
+
+def download_example_files():
+    
+    ftp = ftplib.FTP("ftp.ifremer.fr")
+    ftp.login()
+    
+    dac = ["csiro", "coriolis", "coriolis", "bodc", "bodc", "coriolis", "bodc", "coriolis"]
+    dm  = ["D", "D", "R", "D", "D", "D", "D", "D"]
+    wmo = [1901339, 6901004, 7900561, 3901531, 6901151, 6901654, 6901151, 6903197]
+    cyc = [1, 41, 8, 125, 79, 56, 7, 26]
+    
+    for d, m, w, c in zip(dac, dm, wmo, cyc):
+        fn = f"B{m}{w}_{c:03d}.nc"
+        local_file = Path("data") / fn
+        ftp_fn = f"ifremer/argo/dac/{d}/{w}/profiles/{fn}"
+        sys.stdout.write(f"Downloading {fn}...")
+        lf = open(local_file, 'wb')
+        ftp.retrbinary('RETR ' + ftp_fn, lf.write)
+        lf.close()
+        sys.stdout.write('done\n')
+        
+    ftp.close()
+
+def plot_profile_flags(nc, ax=None, ylim=(2000, 0), xlim="auto"):
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    # put netcdf Profile into dataframe
+    df = pd.DataFrame(dict(PRES=nc["BBP700"].pres, BBP700=nc["BBP700"].value, QC=[s.decode() for s in nc["BBP700"].qc]))
+
+    # plot results
+    sns.lineplot(data=df, x="BBP700", y="PRES", color='k', ax=ax, sort=False, legend=False, estimator=None, zorder=0)
+    g = sns.scatterplot(data=df, x="BBP700", y="PRES", hue="QC", hue_order=('0', '1', '2', '3', '4'), ax=ax, zorder=1)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+
+    return g
+  
+download_example_files()
+```
+
+## Missing Data Test
+
+The missing data test bins the profile and checks how many of those bins are populated. Good data will have all bins populated, probably bad data will have multiple bins with no data, and bad data will have only one bin with data. 
+
+The test is written as follows in python:
+
+```{python missing data, echo=TRUE, eval=FALSE}
+# missing data test
+self.log('Performing missing data test')
+# find amount of data in each bin
+bins = [0, 50, 156, 261, 367, 472, 578, 683, 789, 894, 1000]
+hist, bins = np.histogram(bbp.pres, bins=bins)
+# 1 or more bin empty, flag as probably bad (3)
+new_flag = Flag.PROBABLY_BAD if sum(hist == 0) > 1 else Flag.GOOD
+# all but 1 empty, flag as bad (4)
+new_flag = Flag.BAD if sum(hist != 0) == 1 else new_flag
+# all empty, flag as missing (9)
+new_flag = Flag.MISSING if all(hist == 0) else new_flag
+# update flags and log
+Flag.update_safely(bbp.qc, new_flag)
+self.log(f'Missing data test results: flags set to {new_flag}')
+```
+
+The examples shown in the paper are on floats 1901339 cycle 1, 4900561 cycle 8, and 6901004 cycle 41. We expect to see the full profile flagged as 3 (probably bad), 3, and 4 (bad) respectively. 
+
+```{python run missing data test, echo=TRUE}
+from medsrtqc.qc.bbp import bbpTest
+from medsrtqc.nc import read_nc_profile
+from medsrtqc.qc.check import preTestCheck
+
+# example files
+files = ["BD1901339_001.nc", "BR7900561_008.nc", "BD6901004_041.nc"]
+# fig/axes to plot results
+fig, axes = plt.subplots(1, 3, sharey=True, constrained_layout=True)
+
+check = preTestCheck()
+bbp = bbpTest()
+
+# loop through each profile
+for fn, ax in zip(files, axes):
+    nc = read_nc_profile("data/" + fn, mode="r+")
+    tests = check.run(nc)
+    
+    print("before: ", nc["BBP700"])
+    nc.prepare(tests)
+    
+    bbp.run(nc)
+    print("after: ", nc["BBP700"])
+    
+    g = plot_profile_flags(nc, ax=ax, ylim=(1200, 0), xlim=(-0.002, 0.015))
+    nc.close()
+plt.show()
+```
+
+### Summary
+
+`r emo::ji("check")` BD1901339_001: Flags are set to 3 as expected.
+
+`r emo::ji("check")` BD7900561_008: Fails the missing value test and tries to set flags to 3 since data exists in multiple bins, but flags are already set to 4 (probably by the D-mode operator) and package will (appropriately) not upgrade flags. Test performed as expected, though. 
+
+`r emo::ji("check")` BD6901004_041: Flags are set to 4 as expected.
+
+## High Deep Value Test
+
+The high deep value test aims to flag profiles with anomalously high BBP values at depth. This could be a symptom of biofouling, poor calibration, or sensor error. These could also be valid data, in which case the flags would be returned to a value of 1 or 2 by the D-mode operator. The test checks if median-filtered BBP is higher than a threshold value of 5e-4.
+
+The test is written as follows in python:
+
+```{python high value test, echo=TRUE, eval=FALSE}
+# high deep value test
+self.log('Performing high deep value')
+# compute median, check which are above threshold value
+median_bbp = self.running_median(5)
+high_deep_value = (sum(bbp.pres > 700) > 5) & (np.nanmedian(median_bbp[bbp.pres > 700]) > 5e-4)
+# update to 3 if there are high deep values
+new_flag = Flag.PROBABLY_BAD if high_deep_value else Flag.GOOD
+Flag.update_safely(bbp.qc, new_flag)
+self.log(f'High deep value test results: flags set to {new_flag}')
+```
+
+The example shown in the paper is on float 3901531 cycle 125. We expect the flags to be set to 3.
+
+```{python run high value test, echo=TRUE}
+fn = "BD3901531_125.nc"
+fig, ax = plt.subplots(constrained_layout=True)
+fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
+
+nc = read_nc_profile("data/" + fn, mode="r+")
+tests = check.run(nc)
+
+print("before: ", nc["BBP700"])
+nc.prepare(tests)
+bbp.run(nc)
+print("after: ", nc["BBP700"])
+
+g = plot_profile_flags(nc, ax=ax, ylim=(1200, 0), xlim=(-0.002, 0.015))
+nc.close()
+plt.show()
+```
+
+### Summary
+
+`r emo::ji("check")` BD3901531_125: Flags are set to 3 as expected. Some bottom points were previously set as 4 and could not be upgraded as described above.
+
+## Noisy Profile Test
+
+Flag profiles that are affected by noisy data by checking the portion of residuals to the median profile above a threshold value. 
+
+The test is written as follows in python:
+
+```{python noisy profile test, echo=TRUE, eval=FALSE}
+self.log('Performing noisy profile test')
+# below surface
+deep_ix = bbp.pres > 100
+# compute residuals below surface
+residual = bbp.value - median_bbp
+high_residuals = residual > 0.0005
+high_residuals = high_residuals[deep_ix]
+# portion of residuals
+pct_residuals = 100*sum(high_residuals)/len(high_residuals)
+many_high_residuals = pct_residuals > 10
+# if there are a lot of high residuals, flag as 3
+new_flag = Flag.PROBABLY_BAD if many_high_residuals else Flag.GOOD
+Flag.update_safely(bbp.qc, new_flag)
+self.log(f'Noisy profile test results: flags set to {new_flag}')
+```
+
+On float 6901151 cycle 79 we expect to flag to profile as 3:
+
+```{python run noisy profile test, echo=TRUE}
+fn = "BD6901151_079.nc"
+fig, ax = plt.subplots(constrained_layout=True)
+fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
+
+nc = read_nc_profile("data/" + fn, mode="r+")
+tests = check.run(nc)
+
+print("before: ", nc["BBP700"])
+nc.prepare(tests)
+bbp.run(nc)
+print("after: ", nc["BBP700"])
+
+g = plot_profile_flags(nc, ax=ax, ylim=(1200, 0), xlim=(-0.002, 0.015))
+nc.close()
+plt.show()
+```
+
+### Summary
+
+`r emo::ji("check")` BD6901151_079: Flags are set to 3 as expected. One bottom was previously set as 4 and could not be upgraded as described above. The float also failed the high deep value test. 
+
+## Negative BBP Test
+
+The objective of this test is to flag negative backscatter values. Negative values in the top 5dbar will be flagged as 4 as they most likely represent in-air backscatter samples. If there are other negative values, the profile will be flagged as 3, or if the profile consists of more than 10% negative values, the profile is flagged as 4. 
+
+The test is written as follows in python:
+
+```{python negative bbp test, echo=TRUE, eval=FALSE}
+self.log('Performing negative bbp test')
+# negative points at the very surface
+shallow_and_negative = (bbp.pres < 5) & (bbp.value < 0)
+if any(shallow_and_negative):
+    self.log(f'Negative bbp test results: shallow negative flags set to {Flag.BAD}')
+# update surface flags
+Flag.update_safely(bbp.qc, Flag.BAD, where=shallow_and_negative)
+# negative values in rest of profile
+deep_and_negative = (bbp.pres > 5) & (bbp.value < 0)
+pct_negative = 100*sum(deep_and_negative)/len(deep_and_negative)
+# if more than 10 pct are negative
+many_negative = pct_negative > 10
+# flag as 3 if any negative
+new_flag = Flag.PROBABLY_BAD if any(deep_and_negative) else Flag.GOOD
+# flag as 4 if > 10% negative
+new_flag = Flag.BAD if many_negative else new_flag
+Flag.update_safely(bbp.qc, new_flag)
+self.log(f'Negative bbp test result: flags set to {new_flag}')
+```
+
+For this test we will check 2 floats: 6901654 cycle 56 and 6901151 cycle 7. For the first profile, there is only a surface negative value, which should be flagged as 4 but the rest of the profile should be fine. For the second profile, there are negative deep values so the whole profile should be flagged 3 or 4 depending on the portion of negative data. 
+
+```{python run negative bbp test, echo=TRUE}
+# example files
+files = ["BD6901654_056.nc", "BD6901151_007.nc"]
+# fig/axes to plot results
+fig, axes = plt.subplots(1, 2, sharey=True, constrained_layout=True)
+fig.set_size_inches(fig.get_figwidth()*4/5, fig.get_figheight())
+
+# loop through each profile
+for fn, ax in zip(files, axes):
+    nc = read_nc_profile("data/" + fn, mode="r+")
+    tests = check.run(nc)
+    
+    print("before: ", nc["BBP700"])
+    nc.prepare(tests)
+    
+    bbp.run(nc)
+    print("after: ", nc["BBP700"])
+    
+    g = plot_profile_flags(nc, ax=ax, ylim=(1200, 0), xlim=(-0.002, 0.005))
+    nc.close()
+plt.show()
+```
+
+### Summary
+
+`r emo::ji("check")` BD6901654_056: Top negative point marked as bad, rest of profile ok. 
+
+`r emo::ji("check")` BD6901151_007: Whole profile marked as bad.
+
+## Parking Hook Test
+
+The parking hook test applies to profiles that have the same parking depth as their profile depth. In this configuration, there is no descent phase before the beginning of the profile, but instead the float immediately starts sampling and ascending toward the surface. Accumulated particles during the parking stage cause a distinctive hook at the bottom of the profile before they are released off the sensor back into the water. Although these data can be useful to expert users, they are not the *expected* data a user would want to find in an Argo profile and so the goal of this test is to flag these anomalous points. 
+
+The test is written as follows in python:
+
+```{python parking hook test, echo=TRUE, eval=FALSE}
+if ascending:
+    pres = bbp.pres
+    pres[np.abs(pres) > 6000] = np.nan # remove fill values of 99999
+    pres = np.sort(pres)
+    # calculate deepest difference
+    deepest_diff = pres[-1] - pres[-2]
+    # deep points closer than 20m
+    if deepest_diff < 20:
+        parking_pres = 1000 # placeholder, assumed for now
+        # difference between parking pressure and 
+        parking_diff = np.abs(pres[-1] - parking_pres)
+        if parking_diff < 100:
+            self.log('Performing parking hook test')
+            # check for high points in deepest 50m of the profile
+            ix = (bbp.pres < (pres[-1] - 20)) & (bbp.pres > (pres[-1] - 50))
+            baseline = np.median(bbp.value[ix]) + 0.0002
+            deep_above_baseline = (bbp.pres > (pres[-1] - 50)) & (bbp.value > baseline)
+            all_passed = all_passed and not any(deep_above_baseline)
+            # update only the bottom flags
+            Flag.update_safely(bbp.qc, Flag.BAD, where=deep_above_baseline)
+            self.log(f'Parking hook test results: flags set to {new_flag}')
+```
+
+
+The example profile for this test is float 6903197 cycle 26.
+
+```{python run parking hook test, echo=TRUE}
+fn = "BD6903197_026.nc"
+fig, ax = plt.subplots(constrained_layout=True)
+fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
+
+nc = read_nc_profile("data/" + fn, mode="r+")
+tests = check.run(nc)
+
+print("before: ", nc["BBP700"])
+nc.prepare(tests)
+bbp.run(nc)
+print("after: ", nc["BBP700"])
+
+g = plot_profile_flags(nc, ax=ax, ylim=(1070, 800), xlim=(-0.0005, 0.003))
+nc.close()
+plt.show()
+```
+### Summary
+
+`r emo::ji("check")` BD6903197_027: 9 high value points at depth flagged as bad
+
+## Appendix
+
+### Plotting function
+
+```{python plotting function, echo=TRUE, eval=FALSE}
+def plot_profile_flags(nc, ax=None, ylim=(2000, 0), xlim="auto"):
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    # put netcdf Profile into dataframe
+    df = pd.DataFrame(dict(PRES=nc["BBP700"].pres, BBP700=nc["BBP700"].value, QC=[s.decode() for s in nc["BBP700"].qc]))
+
+    # plot results
+    sns.lineplot(data=df, x="BBP700", y="PRES", color='k', ax=ax, sort=False, legend=False, estimator=None, zorder=0)
+    g = sns.scatterplot(data=df, x="BBP700", y="PRES", hue="QC", hue_order=('0', '1', '2', '3', '4'), ax=ax, zorder=1)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+
+    return g
+```
