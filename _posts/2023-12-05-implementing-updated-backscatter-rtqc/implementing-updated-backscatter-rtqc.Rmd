@@ -15,7 +15,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
-use_condaenv("py39")
 ```
 
 In this post I will examine the new backscatter testing implemented in [medsrtqc](https://github.com/ArgoCanada/medsrtqc), a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the [official vocabulary](https://vocab.nerc.ac.uk/collection/R11/current/).
