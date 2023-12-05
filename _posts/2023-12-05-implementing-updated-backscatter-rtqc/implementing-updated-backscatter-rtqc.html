@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-08-22"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-08-22"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-12-05"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-12-05"/>
   <meta name="article:author" content="Christopher Gordon"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Implementing updated backscatter RTQC"]},{"type":"character","attributes":{},"value":["Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-08-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Implementing updated backscatter RTQC"]},{"type":"character","attributes":{},"value":["Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-12-05"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1496,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Implementing updated backscatter RTQC","description":"Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-08-22T00:00:00.000-03:00","citationText":"Gordon, 2023"}
+{"title":"Implementing updated backscatter RTQC","description":"Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-12-05T00:00:00.000-04:00","citationText":"Gordon, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1515,7 +1515,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Christopher Gordon <a href="https://github.com/cgrdn" class="uri">https://github.com/cgrdn</a> 
   
-<br/>2023-08-22
+<br/>2023-12-05
 </div>
 
 <div class="d-article">
@@ -1547,7 +1547,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.bbp <span class="im">import</span> bbpTest</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.nc <span class="im">import</span> read_nc_profile</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.check <span class="im">import</span> preTestCheck</span></code></pre></div>
-<pre><code>&#39;doxy_bgc_calibration_coef.csv&#39; is not a resource within the C:\Users\GordonC\Documents\projects\blog\_posts\2023-08-22-implementing-updated-backscatter-rtqc\config directory. Checking resources...</code></pre>
+<pre><code>&#39;doxy_bgc_calibration_coef.csv&#39; is not a resource within the C:\Users\GordonC\Documents\projects\blog\_posts\2023-12-05-implementing-updated-backscatter-rtqc\config directory. Checking resources...</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD1901339_001.nc&quot;</span>, <span class="st">&quot;BR7900561_008.nc&quot;</span>, <span class="st">&quot;BD6901004_041.nc&quot;</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
@@ -1624,53 +1624,53 @@ after:  Trace(
     mtime=[masked, masked, masked, [1101 values], masked, masked, masked]
 )
 
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Missing data test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Missing data test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Parking hook test results: 0 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Missing data test results: flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Negative bbp test result: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing stuck value test on bbp</code></pre>
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Missing data test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Missing data test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Parking hook test results: 0 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Missing data test results: flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Negative bbp test result: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing stuck value test on bbp</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20missing%20data%20test-1.png" width="624" /></p>
 </div>
@@ -1713,23 +1713,23 @@ after:  Trace(
 )</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] High deep value test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Parking hook test results: 12 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing stuck value test on bbp</code></pre>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] High deep value test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Parking hook test results: 12 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing stuck value test on bbp</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
@@ -1787,23 +1787,23 @@ after:  Trace(
 )</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] High deep value test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Noisy profile test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing stuck value test on bbp</code></pre>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] High deep value test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Noisy profile test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing stuck value test on bbp</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
@@ -1902,39 +1902,39 @@ after:  Trace(
     mtime=[masked, masked, masked, [354 values], masked, masked, masked]
 )
 
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Negative bbp test results: shallow negative flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Negative bbp test result: flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing stuck value test on bbp</code></pre>
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Negative bbp test results: shallow negative flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Negative bbp test result: flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing stuck value test on bbp</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20negative%20bbp%20test-7.png" width="499" /></p>
 </div>
@@ -1988,23 +1988,23 @@ after:  Trace(
 )</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Parking hook test results: 9 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing stuck value test on bbp</code></pre>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Parking hook test results: 9 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing stuck value test on bbp</code></pre>
 <div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
