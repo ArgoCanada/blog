@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+<title>Argo Canada Development Blog: Implementing updated backscatter RTQC</title>
+
+<meta property="description" itemprop="description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+
+<link rel="canonical" href="https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"/>
+<link rel="icon" type="image/jpeg" href="../../images/logo.jpg"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2023-08-22"/>
+<meta property="article:created" itemprop="dateCreated" content="2023-08-22"/>
+<meta name="article:author" content="Christopher Gordon"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Argo Canada Development Blog: Implementing updated backscatter RTQC"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+<meta property="og:url" content="https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Argo Canada Development Blog"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:title" content="Argo Canada Development Blog: Implementing updated backscatter RTQC"/>
+<meta property="twitter:description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+<meta property="twitter:url" content="https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"/>
+
+<!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+<meta name="citation_title" content="Argo Canada Development Blog: Implementing updated backscatter RTQC"/>
+<meta name="citation_fulltext_html_url" content="https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"/>
+<meta name="citation_online_date" content="2023/08/22"/>
+<meta name="citation_publication_date" content="2023/08/22"/>
+<meta name="citation_author" content="Christopher Gordon"/>
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Implementing updated backscatter RTQC"]},{"type":"character","attributes":{},"value":["Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-08-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"]},{"type":"character","attributes":{},"value":["https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/BD1901339_001.nc","data/BD3901531_125.nc","data/BD6901004_041.nc","data/BD6901151_007.nc","data/BD6901151_079.nc","data/BD6901654_056.nc","data/BD6903197_026.nc","data/BR7900561_008.nc","implementing-updated-backscatter-rtqc_files/anchor-4.2.2/anchor.min.js","implementing-updated-backscatter-rtqc_files/bowser-1.9.3/bowser.min.js","implementing-updated-backscatter-rtqc_files/distill-2.2.21/template.v2.js","implementing-updated-backscatter-rtqc_files/figure-html5/missing data test-1.png","implementing-updated-backscatter-rtqc_files/figure-html5/run high value test-3.png","implementing-updated-backscatter-rtqc_files/figure-html5/run missing data test-1.png","implementing-updated-backscatter-rtqc_files/figure-html5/run negative bbp test-7.png","implementing-updated-backscatter-rtqc_files/figure-html5/run noisy profile test-5.png","implementing-updated-backscatter-rtqc_files/figure-html5/run parking hook test-9.png","implementing-updated-backscatter-rtqc_files/figure-html5/xx-9.png","implementing-updated-backscatter-rtqc_files/header-attrs-2.23/header-attrs.js","implementing-updated-backscatter-rtqc_files/jquery-3.6.0/jquery-3.6.0.js","implementing-updated-backscatter-rtqc_files/jquery-3.6.0/jquery-3.6.0.min.js","implementing-updated-backscatter-rtqc_files/jquery-3.6.0/jquery-3.6.0.min.map","implementing-updated-backscatter-rtqc_files/popper-2.6.0/popper.min.js","implementing-updated-backscatter-rtqc_files/tippy-6.2.7/tippy-bundle.umd.min.js","implementing-updated-backscatter-rtqc_files/tippy-6.2.7/tippy-light-border.css","implementing-updated-backscatter-rtqc_files/tippy-6.2.7/tippy.css","implementing-updated-backscatter-rtqc_files/tippy-6.2.7/tippy.umd.min.js","implementing-updated-backscatter-rtqc_files/webcomponents-2.0.0/webcomponents.js","medsrtqc/__init__.py","medsrtqc/__pycache__/__init__.cpython-39.pyc","medsrtqc/__pycache__/betasw.cpython-39.pyc","medsrtqc/__pycache__/coefficient.cpython-39.pyc","medsrtqc/__pycache__/core.cpython-39.pyc","medsrtqc/__pycache__/history.cpython-39.pyc","medsrtqc/__pycache__/interactive.cpython-39.pyc","medsrtqc/__pycache__/nc.cpython-39.pyc","medsrtqc/betasw.py","medsrtqc/coefficient.py","medsrtqc/core.py","medsrtqc/interactive.py","medsrtqc/nc.py","medsrtqc/qc/__init__.py","medsrtqc/qc/__pycache__/__init__.cpython-39.pyc","medsrtqc/qc/__pycache__/bbp.cpython-39.pyc","medsrtqc/qc/__pycache__/check.cpython-39.pyc","medsrtqc/qc/__pycache__/chla.cpython-39.pyc","medsrtqc/qc/__pycache__/flag.cpython-39.pyc","medsrtqc/qc/__pycache__/history.cpython-39.pyc","medsrtqc/qc/__pycache__/named_tests.cpython-39.pyc","medsrtqc/qc/__pycache__/operation.cpython-39.pyc","medsrtqc/qc/__pycache__/ph.cpython-39.pyc","medsrtqc/qc/__pycache__/util.cpython-39.pyc","medsrtqc/qc/bbp.py","medsrtqc/qc/check.py","medsrtqc/qc/chla.py","medsrtqc/qc/flag.py","medsrtqc/qc/history.py","medsrtqc/qc/named_tests.py","medsrtqc/qc/operation.py","medsrtqc/qc/ph.py","medsrtqc/qc/util.py","medsrtqc/resources/__init__.py","medsrtqc/resources/__pycache__/__init__.cpython-39.pyc","medsrtqc/resources/arvor_bgc_win.dat","medsrtqc/resources/bgc_vms.dat","medsrtqc/resources/BINARY_VMS.DAT","medsrtqc/resources/BINARY_VMS.json","medsrtqc/resources/BR6904117_085.nc","medsrtqc/resources/doxy_bgc_calibration_coef.csv","medsrtqc/resources/last_dark_chla.csv","medsrtqc/resources/OUTPUT_RT.DAT","medsrtqc/resources/OUTPUT_RT.json","medsrtqc/resources/R6904117_085.nc","medsrtqc/vms/__init__.py","medsrtqc/vms/__pycache__/__init__.cpython-39.pyc","medsrtqc/vms/__pycache__/core_impl.cpython-39.pyc","medsrtqc/vms/__pycache__/enc.cpython-39.pyc","medsrtqc/vms/__pycache__/enc_win.cpython-39.pyc","medsrtqc/vms/__pycache__/pr_profile_enc.cpython-39.pyc","medsrtqc/vms/__pycache__/pr_stn_enc.cpython-39.pyc","medsrtqc/vms/__pycache__/profiles_enc.cpython-39.pyc","medsrtqc/vms/__pycache__/read.cpython-39.pyc","medsrtqc/vms/core_impl.py","medsrtqc/vms/enc.py","medsrtqc/vms/enc_win.py","medsrtqc/vms/pr_profile_enc.py","medsrtqc/vms/pr_stn_enc.py","medsrtqc/vms/profiles_enc.py","medsrtqc/vms/read.py"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+  font-size: 100%;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+hr.section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0px;
+}
+
+
+d-byline {
+  border-top: none;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+  border-top: none;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+/* tweak for Pandoc numbered line within distill */
+d-article pre.numberSource code > span {
+    left: -2em;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // separator
+  var separator = '<hr class="section-separator" style="clear: both"/>';
+  // prepend separator above appendix
+  $('.d-byline').before(separator);
+  $('.d-article').before(separator);
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme, except when numbering line
+  // in code chunk
+  $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      var author_name = front_matter.authors[i].author
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      const citeChild = $(this).children()[0]
+      // Do not process if @xyz has been used without escaping and without bibliography activated
+      // https://github.com/rstudio/distill/issues/466
+      if (citeChild === undefined) return true
+
+      if (citeChild.nodeName == "D-FOOTNOTE") {
+        var fn = citeChild
+        $(this).html(fn.shadowRoot.querySelector("sup"))
+        $(this).id = fn.id
+        fn.remove()
+      }
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        // Could use CSS.escape too here, we insure backward compatibility in navigator
+        return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // fix footnotes in tables (#411)
+    // replacing broken distill.pub feature
+    $('table d-footnote').each(function() {
+      // we replace internal showAtNode methode which is triggered when hovering a footnote
+      this.hoverBox.showAtNode = function(node) {
+        // ported from https://github.com/distillpub/template/pull/105/files
+        calcOffset = function(elem) {
+            let x = elem.offsetLeft;
+            let y = elem.offsetTop;
+            // Traverse upwards until an `absolute` element is found or `elem`
+            // becomes null.
+            while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                x += elem.offsetLeft;
+                y += elem.offsetTop;
+            }
+
+            return { left: x, top: y };
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+        const bbox = node.getBoundingClientRect();
+        const offset = calcOffset(node);
+        this.show([offset.left + bbox.width, offset.top + bbox.height]);
+      }
+    })
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    // ignore leaflet img layers (#106)
+    figures = figures.filter(':not(img[class*="leaflet"])')
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.23/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Implementing updated backscatter RTQC","description":"Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-08-22T00:00:00.000+00:00","citationText":"Gordon, 2023"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo" href="https://argocanada.github.io/blog/">
+<img src="../../images/logo_big.jpg" alt="Logo"/>
+</a>
+<a href="../../index.html" class="title">Argo Canada Development Blog</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Home</a>
+<a href="../../about.html">About</a>
+<a href="../../deployment.html">Deployment Planning</a>
+<a href="https://github.com/ArgoCanada/blog">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Implementing updated backscatter RTQC</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>Writing and testing a python implementation of the updated tests described in <a href="https://open-research-europe.ec.europa.eu/articles/2-118/v2">Dall’Olmo et al.</a></p></p>
+</div>
+
+<div class="d-byline">
+  Christopher Gordon <a href="https://github.com/cgrdn" class="uri">https://github.com/cgrdn</a> 
+  
+<br/>2023-08-22
+</div>
+
+<div class="d-article">
+<p>In this post I will examine the new backscatter testing implemented in <a href="https://github.com/ArgoCanada/medsrtqc">medsrtqc</a>, a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the <a href="https://vocab.nerc.ac.uk/collection/R11/current/">official vocabulary</a>.</p>
+<p>We will use the same floats and cycles shown as examples in <a href="https://open-research-europe.ec.europa.eu/articles/2-118/v2">Dall’Olmo et al.</a>, discuss the expected results, and then examine the results given by the package.</p>
+<p>A custom plotting function to show the flags of each profile is used throughout the post. The definition of that function can be found at the bottom of the post.</p>
+<p>The floats we will be analyzing will have already been QC’ed (in fact, most have been DMQC’ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will rely on the output of the rtqc log to evaluate the results of the tests.</p>
+<h2 id="missing-data-test">Missing Data Test</h2>
+<p>The missing data test bins the profile and checks how many of those bins are populated. Good data will have all bins populated, probably bad data will have multiple bins with no data, and bad data will have only one bin with data.</p>
+<p>The test is written as follows in python:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing data test</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing missing data test&#39;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># find amount of data in each bin</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">156</span>, <span class="dv">261</span>, <span class="dv">367</span>, <span class="dv">472</span>, <span class="dv">578</span>, <span class="dv">683</span>, <span class="dv">789</span>, <span class="dv">894</span>, <span class="dv">1000</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>hist, bins <span class="op">=</span> np.histogram(bbp.pres, bins<span class="op">=</span>bins)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 or more bin empty, flag as probably bad (3)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> <span class="bu">sum</span>(hist <span class="op">==</span> <span class="dv">0</span>) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># all but 1 empty, flag as bad (4)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.BAD <span class="cf">if</span> <span class="bu">sum</span>(hist <span class="op">!=</span> <span class="dv">0</span>) <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> new_flag</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># all empty, flag as missing (9)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.MISSING <span class="cf">if</span> <span class="bu">all</span>(hist <span class="op">==</span> <span class="dv">0</span>) <span class="cf">else</span> new_flag</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># update flags and log</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Missing data test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+</div>
+<p>The examples shown in the paper are on floats 1901339 cycle 1, 4900561 cycle 8, and 6901004 cycle 41. We expect to see the full profile flagged as 3 (probably bad), 3, and 4 (bad) respectively.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.bbp <span class="im">import</span> bbpTest</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.nc <span class="im">import</span> read_nc_profile</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.check <span class="im">import</span> preTestCheck</span></code></pre></div>
+<pre><code>&#39;doxy_bgc_calibration_coef.csv&#39; is not a resource within the C:\Users\GordonC\Documents\projects\blog\_posts\2023-08-22-implementing-updated-backscatter-rtqc\config directory. Checking resources...</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD1901339_001.nc&quot;</span>, <span class="st">&quot;BR7900561_008.nc&quot;</span>, <span class="st">&quot;BD6901004_041.nc&quot;</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>check <span class="op">=</span> preTestCheck()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>bbp <span class="op">=</span> bbpTest()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
+<pre><code>before:  Trace(
+    value=[0.0025575757, 0.0022508001, 0.0028643121, [25 values], 0.00084325275, 0.00070981274, 0.00081648194],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [25 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
+    adjusted=[masked, masked, masked, [25 values], masked, masked, masked],
+    adjusted_qc=[masked, masked, masked, [25 values], masked, masked, masked],
+    adjusted_error=[masked, masked, masked, [25 values], masked, masked, masked],
+    pres=[7.61, 11.83, 21.68, [25 values], 281.02, 291.23, 300.71],
+    mtime=[masked, masked, masked, [25 values], masked, masked, masked]
+)
+after:  Trace(
+    value=[0.0025575757, 0.0022508001, 0.0028643121, [25 values], 0.00084325275, 0.00070981274, 0.00081648194],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [25 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    adjusted=[masked, masked, masked, [25 values], masked, masked, masked],
+    adjusted_qc=[masked, masked, masked, [25 values], masked, masked, masked],
+    adjusted_error=[masked, masked, masked, [25 values], masked, masked, masked],
+    pres=[7.61, 11.83, 21.68, [25 values], 281.02, 291.23, 300.71],
+    mtime=[masked, masked, masked, [25 values], masked, masked, masked]
+)
+before:  Trace(
+    value=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
+    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [137 values], masked, masked, masked],
+    pres=[267.06625, 272.18, 277.255, [137 values], 982.7982, 987.80884, 991.61237],
+    mtime=[masked, masked, masked, [137 values], masked, masked, masked]
+)
+after:  Trace(
+    value=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
+    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [137 values], masked, masked, masked],
+    pres=[267.06625, 272.18, 277.255, [137 values], 982.7982, 987.80884, 991.61237],
+    mtime=[masked, masked, masked, [137 values], masked, masked, masked]
+)
+before:  Trace(
+    value=[0.0004893391, -0.00025918605, 0.0006870628, [1101 values], 0.00033398485, 0.001548573, 0.00043284672],
+    qc=[b&#39;2&#39;, b&#39;3&#39;, b&#39;2&#39;, [1101 values], b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;],
+    adjusted=[masked, masked, masked, [1101 values], masked, masked, masked],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [1101 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [1101 values], masked, masked, masked],
+    pres=[107.5, 107.5, 107.5, [1101 values], 107.5, 107.5, 107.5],
+    mtime=[masked, masked, masked, [1101 values], masked, masked, masked]
+)
+after:  Trace(
+    value=[0.0004893391, -0.00025918605, 0.0006870628, [1101 values], 0.00033398485, 0.001548573, 0.00043284672],
+    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [1101 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[masked, masked, masked, [1101 values], masked, masked, masked],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [1101 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [1101 values], masked, masked, masked],
+    pres=[107.5, 107.5, 107.5, [1101 values], 107.5, 107.5, 107.5],
+    mtime=[masked, masked, masked, [1101 values], masked, masked, masked]
+)
+
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Missing data test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273035970&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Missing data test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Parking hook test results: 0 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273078F10&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Missing data test results: flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Negative bbp test result: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827310C8B0&gt;] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20missing%20data%20test-1.png" width="624" /></p>
+</div>
+<h3 id="summary">Summary</h3>
+<p>✅ BD1901339_001: Flags are set to 3 as expected.</p>
+<p>✅ BD7900561_008: Fails the missing value test and tries to set flags to 3 since data exists in multiple bins, but flags are already set to 4 (probably by the D-mode operator) and package will (appropriately) not upgrade flags. Test performed as expected, though.</p>
+<p>✅ BD6901004_041: Flags are set to 4 as expected.</p>
+<h2 id="high-deep-value-test">High Deep Value Test</h2>
+<p>The high deep value test aims to flag profiles with anomalously high BBP values at depth. This could be a symptom of biofouling, poor calibration, or sensor error. These could also be valid data, in which case the flags would be returned to a value of 1 or 2 by the D-mode operator. The test checks if median-filtered BBP is higher than a threshold value of 5e-4.</p>
+<p>The test is written as follows in python:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># high deep value test</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing high deep value&#39;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># compute median, check which are above threshold value</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>median_bbp <span class="op">=</span> <span class="va">self</span>.running_median(<span class="dv">5</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>high_deep_value <span class="op">=</span> (<span class="bu">sum</span>(bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>) <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (np.nanmedian(median_bbp[bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>]) <span class="op">&gt;</span> <span class="fl">5e-4</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update to 3 if there are high deep values</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> high_deep_value <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;High deep value test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+</div>
+<p>The example shown in the paper is on float 3901531 cycle 125. We expect the flags to be set to 3.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD3901531_125.nc&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>before:  Trace(
+    value=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
+    adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [1082 values], masked, masked, masked],
+    pres=[0.0, 0.0, 0.0, [1082 values], 1017.7, 1017.7, 1017.5],
+    mtime=[masked, masked, masked, [1082 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] High deep value test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Parking hook test results: 12 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x0000028273225910&gt;] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>after:  Trace(
+    value=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
+    adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [1082 values], masked, masked, masked],
+    pres=[0.0, 0.0, 0.0, [1082 values], 1017.7, 1017.7, 1017.5],
+    mtime=[masked, masked, masked, [1082 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20high%20value%20test-3.png" width="250" /></p>
+</div>
+<h3 id="summary-1">Summary</h3>
+<p>✅ BD3901531_125: Flags are set to 3 as expected. Some bottom points were previously set as 4 and could not be upgraded as described above.</p>
+<h2 id="noisy-profile-test">Noisy Profile Test</h2>
+<p>Flag profiles that are affected by noisy data by checking the portion of residuals to the median profile above a threshold value.</p>
+<p>The test is written as follows in python:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing noisy profile test&#39;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># below surface</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>deep_ix <span class="op">=</span> bbp.pres <span class="op">&gt;</span> <span class="dv">100</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compute residuals below surface</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>residual <span class="op">=</span> bbp.value <span class="op">-</span> median_bbp</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> residual <span class="op">&gt;</span> <span class="fl">0.0005</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> high_residuals[deep_ix]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># portion of residuals</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>pct_residuals <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(high_residuals)<span class="op">/</span><span class="bu">len</span>(high_residuals)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>many_high_residuals <span class="op">=</span> pct_residuals <span class="op">&gt;</span> <span class="dv">10</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if there are a lot of high residuals, flag as 3</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> many_high_residuals <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Noisy profile test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+</div>
+<p>On float 6901151 cycle 79 we expect to flag to profile as 3:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6901151_079.nc&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>before:  Trace(
+    value=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    adjusted=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
+    adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    adjusted_error=[masked, masked, masked, [328 values], masked, masked, masked],
+    pres=[0.7, 1.1, 1.2, [328 values], 977.6, 989.2, 993.8],
+    mtime=[masked, masked, masked, [328 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] High deep value test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Noisy profile test results: flags set to b&#39;3&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002827304B490&gt;] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>after:  Trace(
+    value=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    adjusted=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
+    adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    adjusted_error=[masked, masked, masked, [328 values], masked, masked, masked],
+    pres=[0.7, 1.1, 1.2, [328 values], 977.6, 989.2, 993.8],
+    mtime=[masked, masked, masked, [328 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20noisy%20profile%20test-5.png" width="250" /></p>
+</div>
+<h3 id="summary-2">Summary</h3>
+<p>✅ BD6901151_079: Flags are set to 3 as expected. One bottom was previously set as 4 and could not be upgraded as described above. The float also failed the high deep value test.</p>
+<h2 id="negative-bbp-test">Negative BBP Test</h2>
+<p>The objective of this test is to flag negative backscatter values. Negative values in the top 5dbar will be flagged as 4 as they most likely represent in-air backscatter samples. If there are other negative values, the profile will be flagged as 3, or if the profile consists of more than 10% negative values, the profile is flagged as 4.</p>
+<p>The test is written as follows in python:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing negative bbp test&#39;</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># negative points at the very surface</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>shallow_and_negative <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">any</span>(shallow_and_negative):</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test results: shallow negative flags set to </span><span class="sc">{</span>Flag<span class="sc">.</span>BAD<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update surface flags</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>shallow_and_negative)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># negative values in rest of profile</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>deep_and_negative <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>pct_negative <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(deep_and_negative)<span class="op">/</span><span class="bu">len</span>(deep_and_negative)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if more than 10 pct are negative</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>many_negative <span class="op">=</span> pct_negative <span class="op">&gt;</span> <span class="dv">10</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 3 if any negative</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> <span class="bu">any</span>(deep_and_negative) <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 4 if &gt; 10% negative</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.BAD <span class="cf">if</span> many_negative <span class="cf">else</span> new_flag</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test result: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+</div>
+<p>For this test we will check 2 floats: 6901654 cycle 56 and 6901151 cycle 7. For the first profile, there is only a surface negative value, which should be flagged as 4 but the rest of the profile should be fine. For the second profile, there are negative deep values so the whole profile should be flagged 3 or 4 depending on the portion of negative data.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD6901654_056.nc&quot;</span>, <span class="st">&quot;BD6901151_007.nc&quot;</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">4</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.005</span>))</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
+<pre><code>before:  Trace(
+    value=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
+    qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
+    adjusted_qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted_error=[masked, masked, masked, [1190 values], masked, masked, masked],
+    pres=[0.6, 0.7, 1.1, [1190 values], 986.7, 986.7, 986.7],
+    mtime=[masked, masked, masked, [1190 values], masked, masked, masked]
+)
+after:  Trace(
+    value=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
+    qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
+    adjusted_qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted_error=[masked, masked, masked, [1190 values], masked, masked, masked],
+    pres=[0.6, 0.7, 1.1, [1190 values], 986.7, 986.7, 986.7],
+    mtime=[masked, masked, masked, [1190 values], masked, masked, masked]
+)
+before:  Trace(
+    value=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
+    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [354 values], masked, masked, masked],
+    pres=[0.6, 1.1, 1.2, [354 values], 1840.2, 1903.7, 1970.2],
+    mtime=[masked, masked, masked, [354 values], masked, masked, masked]
+)
+after:  Trace(
+    value=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
+    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
+    adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted_error=[masked, masked, masked, [354 values], masked, masked, masked],
+    pres=[0.6, 1.1, 1.2, [354 values], 1840.2, 1903.7, 1970.2],
+    mtime=[masked, masked, masked, [354 values], masked, masked, masked]
+)
+
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Negative bbp test results: shallow negative flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000282761AD5B0&gt;] Performing stuck value test on bbp
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Negative bbp test result: flags set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA5B0&gt;] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20negative%20bbp%20test-7.png" width="499" /></p>
+</div>
+<h3 id="summary-3">Summary</h3>
+<p>✅ BD6901654_056: Top negative point marked as bad, rest of profile ok.</p>
+<p>✅ BD6901151_007: Whole profile marked as bad.</p>
+<h2 id="parking-hook-test">Parking Hook Test</h2>
+<p>The parking hook test applies to profiles that have the same parking depth as their profile depth. In this configuration, there is no descent phase before the beginning of the profile, but instead the float immediately starts sampling and ascending toward the surface. Accumulated particles during the parking stage cause a distinctive hook at the bottom of the profile before they are released off the sensor back into the water. Although these data can be useful to expert users, they are not the <em>expected</em> data a user would want to find in an Argo profile and so the goal of this test is to flag these anomalous points.</p>
+<p>The test is written as follows in python:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ascending:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> bbp.pres</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    pres[np.<span class="bu">abs</span>(pres) <span class="op">&gt;</span> <span class="dv">6000</span>] <span class="op">=</span> np.nan <span class="co"># remove fill values of 99999</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> np.sort(pres)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate deepest difference</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    deepest_diff <span class="op">=</span> pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> pres[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># deep points closer than 20m</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> deepest_diff <span class="op">&lt;</span> <span class="dv">20</span>:</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        parking_pres <span class="op">=</span> <span class="dv">1000</span> <span class="co"># placeholder, assumed for now</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># difference between parking pressure and </span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        parking_diff <span class="op">=</span> np.<span class="bu">abs</span>(pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> parking_pres)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> parking_diff <span class="op">&lt;</span> <span class="dv">100</span>:</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="st">&#39;Performing parking hook test&#39;</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># check for high points in deepest 50m of the profile</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">20</span>)) <span class="op">&amp;</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>))</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>            baseline <span class="op">=</span> np.median(bbp.value[ix]) <span class="op">+</span> <span class="fl">0.0002</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>            deep_above_baseline <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>)) <span class="op">&amp;</span> (bbp.value <span class="op">&gt;</span> baseline)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>            all_passed <span class="op">=</span> all_passed <span class="kw">and</span> <span class="kw">not</span> <span class="bu">any</span>(deep_above_baseline)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update only the bottom flags</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>            Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>deep_above_baseline)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="ss">f&#39;Parking hook test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+</div>
+<p>The example profile for this test is float 6903197 cycle 26.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6903197_026.nc&quot;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>before:  Trace(
+    value=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
+    qc=[b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;, [436 values], b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;],
+    adjusted=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
+    adjusted_qc=[b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;, [436 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted_error=[0.00027849164, 0.00032804598, 0.00030763133, [436 values], 0.00014784608, 0.0001886537, 0.00036820726],
+    pres=[0.3, 1.0, 1.2, [436 values], 932.8, 932.8, 932.8],
+    mtime=[masked, masked, masked, [436 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Setting previously unset flags for BBP to GOOD
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing missing data test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Missing data test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing high deep value
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] High deep value test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing noisy profile test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing negative bbp test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing parking hook test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Parking hook test results: 9 points set to b&#39;4&#39;
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Applying global range test to BBP
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing negative spike test
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Calculating running median over window size 5
+[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002826FEBA6D0&gt;] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<pre><code>after:  Trace(
+    value=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
+    qc=[b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;, [436 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    adjusted=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
+    adjusted_qc=[b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;, [436 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    adjusted_error=[0.00027849164, 0.00032804598, 0.00030763133, [436 values], 0.00014784608, 0.0001886537, 0.00036820726],
+    pres=[0.3, 1.0, 1.2, [436 values], 932.8, 932.8, 932.8],
+    mtime=[masked, masked, masked, [436 values], masked, masked, masked]
+)</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1070</span>, <span class="dv">800</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.0005</span>, <span class="fl">0.003</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20parking%20hook%20test-9.png" width="250" /></p>
+</div>
+<h3 id="summary-4">Summary</h3>
+<p>✅ BD6903197_027: 9 high value points at depth flagged as bad</p>
+<h2 id="appendix">Appendix</h2>
+<h3 id="plotting-function">Plotting function</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_profile_flags(nc, ax<span class="op">=</span><span class="va">None</span>, ylim<span class="op">=</span>(<span class="dv">2000</span>, <span class="dv">0</span>), xlim<span class="op">=</span><span class="st">&quot;auto&quot;</span>):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># put netcdf Profile into dataframe</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>(PRES<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].pres, BBP700<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].value, QC<span class="op">=</span>[s.decode() <span class="cf">for</span> s <span class="kw">in</span> nc[<span class="st">&quot;BBP700&quot;</span>].qc]))</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot results</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    sns.lineplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>, ax<span class="op">=</span>ax, sort<span class="op">=</span><span class="va">False</span>, legend<span class="op">=</span><span class="va">False</span>, estimator<span class="op">=</span><span class="va">None</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, hue<span class="op">=</span><span class="st">&quot;QC&quot;</span>, hue_order<span class="op">=</span>(<span class="st">&#39;0&#39;</span>, <span class="st">&#39;1&#39;</span>, <span class="st">&#39;2&#39;</span>, <span class="st">&#39;3&#39;</span>, <span class="st">&#39;4&#39;</span>), ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(xlim)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(ylim)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g</span></code></pre></div>
+</div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">Gordon (2023, Aug. 22). Argo Canada Development Blog: Implementing updated backscatter RTQC. Retrieved from https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{gordon2023implementing,
+  author = {Gordon, Christopher},
+  title = {Argo Canada Development Blog: Implementing updated backscatter RTQC},
+  url = {https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/},
+  year = {2023}
+}</pre>
+</div>
+<!--/radix_placeholder_appendices-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
+<div class="distill-site-nav distill-site-footer">
+<p><a href="https://argocanada.github.io/blog/notes.html">notes</a></p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+</body></html>
+
+
+</body>
+
+</html>

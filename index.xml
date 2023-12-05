@@ -22,6 +22,14 @@
       <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
+      <title>Implementing updated backscatter RTQC</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc</link>
+      <description>Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)</description>
+      <guid>https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc</guid>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Diversifying Argo Surfacing Times</title>
       <dc:creator>Christopher Gordon</dc:creator>
       <link>https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times</link>
