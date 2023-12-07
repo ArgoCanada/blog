@@ -90,7 +90,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Implementing updated backscatter RTQC</title>
 
-  <meta property="description" itemprop="description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+  <meta property="description" itemprop="description" content="Writing and testing a python implementation of the updated tests described in Dall&#39;Olmo et al. 2023"/>
 
 
   <!--  https://schema.org/Article -->
@@ -101,19 +101,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Implementing updated backscatter RTQC"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+  <meta property="og:description" content="Writing and testing a python implementation of the updated tests described in Dall&#39;Olmo et al. 2023"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Implementing updated backscatter RTQC"/>
-  <meta property="twitter:description" content="Writing and testing a python implementation of the updated tests described in [Dall&#39;Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)"/>
+  <meta property="twitter:description" content="Writing and testing a python implementation of the updated tests described in Dall&#39;Olmo et al. 2023"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Implementing updated backscatter RTQC"]},{"type":"character","attributes":{},"value":["Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-12-05"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Implementing updated backscatter RTQC"]},{"type":"character","attributes":{},"value":["Writing and testing a python implementation of the updated tests described in Dall'Olmo et al. 2023\n"]},{"type":"character","attributes":{},"value":["implementing-updated-backscatter-rtqc_files/figure-html5/missing data test-1.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Christopher Gordon"]},{"type":"character","attributes":{},"value":["https://github.com/cgrdn"]}]}]},{"type":"character","attributes":{},"value":["2023-12-05"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1496,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Implementing updated backscatter RTQC","description":"Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-12-05T00:00:00.000-04:00","citationText":"Gordon, 2023"}
+{"title":"Implementing updated backscatter RTQC","description":"Writing and testing a python implementation of the updated tests described in Dall'Olmo et al. 2023","authors":[{"author":"Christopher Gordon","authorURL":"https://github.com/cgrdn","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-12-05T00:00:00.000-04:00","citationText":"Gordon, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1509,7 +1509,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>Implementing updated backscatter RTQC</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Writing and testing a python implementation of the updated tests described in <a href="https://open-research-europe.ec.europa.eu/articles/2-118/v2">Dall’Olmo et al.</a></p></p>
+<p><p>Writing and testing a python implementation of the updated tests described in Dall’Olmo et al. 2023</p></p>
 </div>
 
 <div class="d-byline">
@@ -1519,10 +1519,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>In this post I will examine the new backscatter testing implemented in <a href="https://github.com/ArgoCanada/medsrtqc">medsrtqc</a>, a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the <a href="https://vocab.nerc.ac.uk/collection/R11/current/">official vocabulary</a>.</p>
+<p>In this post I will examine the updated backscatter testing described in <a href="https://open-research-europe.ec.europa.eu/articles/2-118/v2">Dall’Olmo et al. 2023</a> implementation in <a href="https://github.com/ArgoCanada/medsrtqc">medsrtqc</a>, a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the <a href="https://vocab.nerc.ac.uk/collection/R11/current/">official vocabulary</a>.</p>
+<h2 id="analysis-structure">Analysis Structure</h2>
 <p>We will use the same floats and cycles shown as examples in <a href="https://open-research-europe.ec.europa.eu/articles/2-118/v2">Dall’Olmo et al.</a>, discuss the expected results, and then examine the results given by the package.</p>
+<p>For each test, code for that test is shown in python. This code is incomplete, as it is just snippets of the tests written in <a href="https://github.com/ArgoCanada/medsrtqc">medsrtqc</a>, however the code structure and variable names should be instructive should anyone want to re-purpose these functions.</p>
 <p>A custom plotting function to show the flags of each profile is used throughout the post. The definition of that function can be found at the bottom of the post.</p>
-<p>The floats we will be analyzing will have already been QC’ed (in fact, most have been DMQC’ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will rely on the output of the rtqc log to evaluate the results of the tests.</p>
+<p>The floats we will be analyzing will have already been QC’ed (in fact, most have been DMQC’ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will fully reset all flags to 0 to simulate the actual RTQC result.</p>
 <h2 id="missing-data-test">Missing Data Test</h2>
 <p>The missing data test bins the profile and checks how many of those bins are populated. Good data will have all bins populated, probably bad data will have multiple bins with no data, and bad data will have only one bin with data.</p>
 <p>The test is written as follows in python:</p>
@@ -1544,31 +1546,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p>The examples shown in the paper are on floats 1901339 cycle 1, 4900561 cycle 8, and 6901004 cycle 41. We expect to see the full profile flagged as 3 (probably bad), 3, and 4 (bad) respectively.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.bbp <span class="im">import</span> bbpTest</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.nc <span class="im">import</span> read_nc_profile</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.check <span class="im">import</span> preTestCheck</span></code></pre></div>
-<pre><code>&#39;doxy_bgc_calibration_coef.csv&#39; is not a resource within the C:\Users\GordonC\Documents\projects\blog\_posts\2023-12-05-implementing-updated-backscatter-rtqc\config directory. Checking resources...</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD1901339_001.nc&quot;</span>, <span class="st">&quot;BR7900561_008.nc&quot;</span>, <span class="st">&quot;BD6901004_041.nc&quot;</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>check <span class="op">=</span> preTestCheck()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>bbp <span class="op">=</span> bbpTest()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.util <span class="im">import</span> ResetQCOperation</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.bbp <span class="im">import</span> bbpTest</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.nc <span class="im">import</span> read_nc_profile</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> medsrtqc.qc.check <span class="im">import</span> preTestCheck</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD1901339_001.nc&quot;</span>, <span class="st">&quot;BR7900561_008.nc&quot;</span>, <span class="st">&quot;BD6901004_041.nc&quot;</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>check <span class="op">=</span> preTestCheck()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bbp <span class="op">=</span> bbpTest()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    ResetQCOperation().run(nc)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
 <pre><code>before:  Trace(
     value=[0.0025575757, 0.0022508001, 0.0028643121, [25 values], 0.00084325275, 0.00070981274, 0.00081648194],
     qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [25 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
@@ -1589,7 +1593,7 @@ after:  Trace(
 )
 before:  Trace(
     value=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
-    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [137 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
     adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted_error=[masked, masked, masked, [137 values], masked, masked, masked],
@@ -1598,7 +1602,7 @@ before:  Trace(
 )
 after:  Trace(
     value=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
-    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [137 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
     adjusted=[0.0004414144, 0.00048095727, 0.00046771928, [137 values], 0.00033030732, 0.00036985305, 0.0003302439],
     adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [137 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted_error=[masked, masked, masked, [137 values], masked, masked, masked],
@@ -1607,7 +1611,7 @@ after:  Trace(
 )
 before:  Trace(
     value=[0.0004893391, -0.00025918605, 0.0006870628, [1101 values], 0.00033398485, 0.001548573, 0.00043284672],
-    qc=[b&#39;2&#39;, b&#39;3&#39;, b&#39;2&#39;, [1101 values], b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [1101 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[masked, masked, masked, [1101 values], masked, masked, masked],
     adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [1101 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted_error=[masked, masked, masked, [1101 values], masked, masked, masked],
@@ -1624,113 +1628,110 @@ after:  Trace(
     mtime=[masked, masked, masked, [1101 values], masked, masked, masked]
 )
 
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Missing data test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171B4970&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Missing data test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Parking hook test results: 0 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171F9F10&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Missing data test results: flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Negative bbp test result: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561728C8B0&gt;] Performing stuck value test on bbp</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp
+[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing parking hook test
+[medsrtqc.nc.NetCDFProfile log] Parking hook test results: 0 points set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp
+[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 4
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20missing%20data%20test-1.png" width="624" /></p>
 </div>
 <h3 id="summary">Summary</h3>
 <p>✅ BD1901339_001: Flags are set to 3 as expected.</p>
-<p>✅ BD7900561_008: Fails the missing value test and tries to set flags to 3 since data exists in multiple bins, but flags are already set to 4 (probably by the D-mode operator) and package will (appropriately) not upgrade flags. Test performed as expected, though.</p>
+<p>✅ BD7900561_008: Flags are set to 3 as expected.</p>
 <p>✅ BD6901004_041: Flags are set to 4 as expected.</p>
 <h2 id="high-deep-value-test">High Deep Value Test</h2>
 <p>The high deep value test aims to flag profiles with anomalously high BBP values at depth. This could be a symptom of biofouling, poor calibration, or sensor error. These could also be valid data, in which case the flags would be returned to a value of 1 or 2 by the D-mode operator. The test checks if median-filtered BBP is higher than a threshold value of 5e-4.</p>
 <p>The test is written as follows in python:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># high deep value test</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing high deep value&#39;</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># compute median, check which are above threshold value</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>median_bbp <span class="op">=</span> <span class="va">self</span>.running_median(<span class="dv">5</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>high_deep_value <span class="op">=</span> (<span class="bu">sum</span>(bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>) <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (np.nanmedian(median_bbp[bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>]) <span class="op">&gt;</span> <span class="fl">5e-4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update to 3 if there are high deep values</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> high_deep_value <span class="cf">else</span> Flag.GOOD</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;High deep value test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># high deep value test</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing high deep value&#39;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># compute median, check which are above threshold value</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>median_bbp <span class="op">=</span> <span class="va">self</span>.running_median(<span class="dv">5</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>high_deep_value <span class="op">=</span> (<span class="bu">sum</span>(bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>) <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (np.nanmedian(median_bbp[bbp.pres <span class="op">&gt;</span> <span class="dv">700</span>]) <span class="op">&gt;</span> <span class="fl">5e-4</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update to 3 if there are high deep values</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> high_deep_value <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;High deep value test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 </div>
 <p>The example shown in the paper is on float 3901531 cycle 125. We expect the flags to be set to 3.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD3901531_125.nc&quot;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD3901531_125.nc&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ResetQCOperation().run(nc)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>before:  Trace(
     value=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
-    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [1082 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
     adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted_error=[masked, masked, masked, [1082 values], masked, masked, masked],
     pres=[0.0, 0.0, 0.0, [1082 values], 1017.7, 1017.7, 1017.5],
     mtime=[masked, masked, masked, [1082 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] High deep value test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Parking hook test results: 12 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256173A5910&gt;] Performing stuck value test on bbp</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing parking hook test
+[medsrtqc.nc.NetCDFProfile log] Parking hook test results: 12 points set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.009043367, 0.027663978, 0.021865454, [1082 values], 0.0023098632, 0.0025140366, 0.002350698],
     qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [1082 values], b&#39;3&#39;, b&#39;4&#39;, b&#39;4&#39;],
@@ -1740,71 +1741,71 @@ after:  Trace(
     pres=[0.0, 0.0, 0.0, [1082 values], 1017.7, 1017.7, 1017.5],
     mtime=[masked, masked, masked, [1082 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20high%20value%20test-3.png" width="250" /></p>
 </div>
 <h3 id="summary-1">Summary</h3>
-<p>✅ BD3901531_125: Flags are set to 3 as expected. Some bottom points were previously set as 4 and could not be upgraded as described above.</p>
+<p>✅ BD3901531_125: Flags are set to 3 as expected. Some points at the bottom also fail the <a href="#parking-hook-test">Parking Hook Test</a>.</p>
 <h2 id="noisy-profile-test">Noisy Profile Test</h2>
 <p>Flag profiles that are affected by noisy data by checking the portion of residuals to the median profile above a threshold value.</p>
 <p>The test is written as follows in python:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing noisy profile test&#39;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># below surface</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>deep_ix <span class="op">=</span> bbp.pres <span class="op">&gt;</span> <span class="dv">100</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compute residuals below surface</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>residual <span class="op">=</span> bbp.value <span class="op">-</span> median_bbp</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> residual <span class="op">&gt;</span> <span class="fl">0.0005</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> high_residuals[deep_ix]</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># portion of residuals</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>pct_residuals <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(high_residuals)<span class="op">/</span><span class="bu">len</span>(high_residuals)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>many_high_residuals <span class="op">=</span> pct_residuals <span class="op">&gt;</span> <span class="dv">10</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if there are a lot of high residuals, flag as 3</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> many_high_residuals <span class="cf">else</span> Flag.GOOD</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Noisy profile test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing noisy profile test&#39;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># below surface</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>deep_ix <span class="op">=</span> bbp.pres <span class="op">&gt;</span> <span class="dv">100</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compute residuals below surface</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>residual <span class="op">=</span> bbp.value <span class="op">-</span> median_bbp</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> residual <span class="op">&gt;</span> <span class="fl">0.0005</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>high_residuals <span class="op">=</span> high_residuals[deep_ix]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># portion of residuals</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>pct_residuals <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(high_residuals)<span class="op">/</span><span class="bu">len</span>(high_residuals)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>many_high_residuals <span class="op">=</span> pct_residuals <span class="op">&gt;</span> <span class="dv">10</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if there are a lot of high residuals, flag as 3</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> many_high_residuals <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Noisy profile test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 </div>
 <p>On float 6901151 cycle 79 we expect to flag to profile as 3:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6901151_079.nc&quot;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6901151_079.nc&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ResetQCOperation().run(nc)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>before:  Trace(
     value=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
-    qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [328 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
     adjusted_qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
     adjusted_error=[masked, masked, masked, [328 values], masked, masked, masked],
     pres=[0.7, 1.1, 1.2, [328 values], 977.6, 989.2, 993.8],
     mtime=[masked, masked, masked, [328 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] High deep value test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Noisy profile test results: flags set to b&#39;3&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x00000256171D4A00&gt;] Performing stuck value test on bbp</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 3
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing parking hook test
+[medsrtqc.nc.NetCDFProfile log] Parking hook test results: 1 points set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.0074264565, 0.0022428727, 0.0032238269, [328 values], 0.0036023555, 0.0008325885, 0.0008325483],
     qc=[b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;, [328 values], b&#39;3&#39;, b&#39;3&#39;, b&#39;3&#39;],
@@ -1814,60 +1815,61 @@ after:  Trace(
     pres=[0.7, 1.1, 1.2, [328 values], 977.6, 989.2, 993.8],
     mtime=[masked, masked, masked, [328 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.015</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20noisy%20profile%20test-5.png" width="250" /></p>
 </div>
 <h3 id="summary-2">Summary</h3>
-<p>✅ BD6901151_079: Flags are set to 3 as expected. One bottom was previously set as 4 and could not be upgraded as described above. The float also failed the high deep value test.</p>
+<p>✅ BD6901151_079: Flags are set to 3 as expected. One point also fails the <a href="#parking-hook-test">Parking Hook Test</a>.</p>
 <h2 id="negative-bbp-test">Negative BBP Test</h2>
 <p>The objective of this test is to flag negative backscatter values. Negative values in the top 5dbar will be flagged as 4 as they most likely represent in-air backscatter samples. If there are other negative values, the profile will be flagged as 3, or if the profile consists of more than 10% negative values, the profile is flagged as 4.</p>
 <p>The test is written as follows in python:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing negative bbp test&#39;</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># negative points at the very surface</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>shallow_and_negative <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">any</span>(shallow_and_negative):</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test results: shallow negative flags set to </span><span class="sc">{</span>Flag<span class="sc">.</span>BAD<span class="sc">}</span><span class="ss">&#39;</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update surface flags</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>shallow_and_negative)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># negative values in rest of profile</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>deep_and_negative <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>pct_negative <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(deep_and_negative)<span class="op">/</span><span class="bu">len</span>(deep_and_negative)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if more than 10 pct are negative</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>many_negative <span class="op">=</span> pct_negative <span class="op">&gt;</span> <span class="dv">10</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 3 if any negative</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> <span class="bu">any</span>(deep_and_negative) <span class="cf">else</span> Flag.GOOD</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 4 if &gt; 10% negative</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.BAD <span class="cf">if</span> many_negative <span class="cf">else</span> new_flag</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test result: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="st">&#39;Performing negative bbp test&#39;</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># negative points at the very surface</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>shallow_and_negative <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">any</span>(shallow_and_negative):</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test results: shallow negative flags set to </span><span class="sc">{</span>Flag<span class="sc">.</span>BAD<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># update surface flags</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>shallow_and_negative)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># negative values in rest of profile</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>deep_and_negative <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> <span class="dv">5</span>) <span class="op">&amp;</span> (bbp.value <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>pct_negative <span class="op">=</span> <span class="dv">100</span><span class="op">*</span><span class="bu">sum</span>(deep_and_negative)<span class="op">/</span><span class="bu">len</span>(deep_and_negative)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># if more than 10 pct are negative</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>many_negative <span class="op">=</span> pct_negative <span class="op">&gt;</span> <span class="dv">10</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 3 if any negative</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.PROBABLY_BAD <span class="cf">if</span> <span class="bu">any</span>(deep_and_negative) <span class="cf">else</span> Flag.GOOD</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># flag as 4 if &gt; 10% negative</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>new_flag <span class="op">=</span> Flag.BAD <span class="cf">if</span> many_negative <span class="cf">else</span> new_flag</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>Flag.update_safely(bbp.qc, new_flag)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.log(<span class="ss">f&#39;Negative bbp test result: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 </div>
 <p>For this test we will check 2 floats: 6901654 cycle 56 and 6901151 cycle 7. For the first profile, there is only a surface negative value, which should be flagged as 4 but the rest of the profile should be fine. For the second profile, there are negative deep values so the whole profile should be flagged 3 or 4 depending on the portion of negative data.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD6901654_056.nc&quot;</span>, <span class="st">&quot;BD6901151_007.nc&quot;</span>]</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">4</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.005</span>))</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example files</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [<span class="st">&quot;BD6901654_056.nc&quot;</span>, <span class="st">&quot;BD6901151_007.nc&quot;</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fig/axes to plot results</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, sharey<span class="op">=</span><span class="va">True</span>, constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">4</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each profile</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fn, ax <span class="kw">in</span> <span class="bu">zip</span>(files, axes):</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    ResetQCOperation().run(nc)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    nc.prepare(tests)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    bbp.run(nc)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1200</span>, <span class="dv">0</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.002</span>, <span class="fl">0.005</span>))</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    nc.close()</span></code></pre></div>
 <pre><code>before:  Trace(
     value=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
-    qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [1190 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[-0.0004011667, 0.00046792105, 0.00046791686, [1190 values], 0.00025597008, 0.00024438222, 0.00025597008],
     adjusted_qc=[b&#39;4&#39;, b&#39;1&#39;, b&#39;1&#39;, [1190 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
     adjusted_error=[masked, masked, masked, [1190 values], masked, masked, masked],
@@ -1885,7 +1887,7 @@ after:  Trace(
 )
 before:  Trace(
     value=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
-    qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [354 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[0.00080094114, 0.00082017767, 0.00083941227, [354 values], -0.0003456371, -0.0002303965, -0.00021136053],
     adjusted_qc=[b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;, [354 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted_error=[masked, masked, masked, [354 values], masked, masked, masked],
@@ -1902,145 +1904,154 @@ after:  Trace(
     mtime=[masked, masked, masked, [354 values], masked, masked, masked]
 )
 
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Negative bbp test results: shallow negative flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Parking hook test results: 1 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A33D5B0&gt;] Performing stuck value test on bbp
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Negative bbp test result: flags set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561404A5B0&gt;] Performing stuck value test on bbp</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test results: shallow negative flags set to 4
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing parking hook test
+[medsrtqc.nc.NetCDFProfile log] Parking hook test results: 1 points set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp
+[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20negative%20bbp%20test-7.png" width="499" /></p>
 </div>
 <h3 id="summary-3">Summary</h3>
-<p>✅ BD6901654_056: Top negative point marked as bad, rest of profile ok.</p>
-<p>✅ BD6901151_007: Whole profile marked as bad.</p>
+<p>✅ BD6901654_056: Top negative point marked as bad, rest of profile ok. One point also fails the <a href="#parking-hook-test">Parking Hook Test</a>.</p>
+<p>✅ BD6901151_007: Whole profile marked as bad as expected.</p>
 <h2 id="parking-hook-test">Parking Hook Test</h2>
 <p>The parking hook test applies to profiles that have the same parking depth as their profile depth. In this configuration, there is no descent phase before the beginning of the profile, but instead the float immediately starts sampling and ascending toward the surface. Accumulated particles during the parking stage cause a distinctive hook at the bottom of the profile before they are released off the sensor back into the water. Although these data can be useful to expert users, they are not the <em>expected</em> data a user would want to find in an Argo profile and so the goal of this test is to flag these anomalous points.</p>
 <p>The test is written as follows in python:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ascending:</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> bbp.pres</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    pres[np.<span class="bu">abs</span>(pres) <span class="op">&gt;</span> <span class="dv">6000</span>] <span class="op">=</span> np.nan <span class="co"># remove fill values of 99999</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> np.sort(pres)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate deepest difference</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    deepest_diff <span class="op">=</span> pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> pres[<span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># deep points closer than 20m</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> deepest_diff <span class="op">&lt;</span> <span class="dv">20</span>:</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        parking_pres <span class="op">=</span> <span class="dv">1000</span> <span class="co"># placeholder, assumed for now</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># difference between parking pressure and </span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        parking_diff <span class="op">=</span> np.<span class="bu">abs</span>(pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> parking_pres)</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> parking_diff <span class="op">&lt;</span> <span class="dv">100</span>:</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="st">&#39;Performing parking hook test&#39;</span>)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># check for high points in deepest 50m of the profile</span></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">20</span>)) <span class="op">&amp;</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>))</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>            baseline <span class="op">=</span> np.median(bbp.value[ix]) <span class="op">+</span> <span class="fl">0.0002</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>            deep_above_baseline <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>)) <span class="op">&amp;</span> (bbp.value <span class="op">&gt;</span> baseline)</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>            all_passed <span class="op">=</span> all_passed <span class="kw">and</span> <span class="kw">not</span> <span class="bu">any</span>(deep_above_baseline)</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update only the bottom flags</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>            Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>deep_above_baseline)</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="ss">f&#39;Parking hook test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ascending:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> bbp.pres</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    pres[np.<span class="bu">abs</span>(pres) <span class="op">&gt;</span> <span class="dv">6000</span>] <span class="op">=</span> np.nan <span class="co"># remove fill values of 99999</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    pres <span class="op">=</span> np.sort(pres)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate deepest difference</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    deepest_diff <span class="op">=</span> pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> pres[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># deep points closer than 20m</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> deepest_diff <span class="op">&lt;</span> <span class="dv">20</span>:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        parking_pres <span class="op">=</span> <span class="dv">1000</span> <span class="co"># placeholder, assumed for now</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># difference between parking pressure and </span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        parking_diff <span class="op">=</span> np.<span class="bu">abs</span>(pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> parking_pres)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> parking_diff <span class="op">&lt;</span> <span class="dv">100</span>:</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="st">&#39;Performing parking hook test&#39;</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># check for high points in deepest 50m of the profile</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> (bbp.pres <span class="op">&lt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">20</span>)) <span class="op">&amp;</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>            baseline <span class="op">=</span> np.median(bbp.value[ix]) <span class="op">+</span> <span class="fl">0.0002</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>            deep_above_baseline <span class="op">=</span> (bbp.pres <span class="op">&gt;</span> (pres[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">50</span>)) <span class="op">&amp;</span> (bbp.value <span class="op">&gt;</span> baseline)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>            all_passed <span class="op">=</span> all_passed <span class="kw">and</span> <span class="kw">not</span> <span class="bu">any</span>(deep_above_baseline)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update only the bottom flags</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>            Flag.update_safely(bbp.qc, Flag.BAD, where<span class="op">=</span>deep_above_baseline)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.log(<span class="ss">f&#39;Parking hook test results: flags set to </span><span class="sc">{</span>new_flag<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
 </div>
 <p>The example profile for this test is float 6903197 cycle 26.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6903197_026.nc&quot;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">&quot;BD6903197_026.nc&quot;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth()<span class="op">*</span><span class="dv">2</span><span class="op">/</span><span class="dv">5</span>, fig.get_figheight())</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> read_nc_profile(<span class="st">&quot;data/&quot;</span> <span class="op">+</span> fn, mode<span class="op">=</span><span class="st">&quot;r+&quot;</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>ResetQCOperation().run(nc)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> check.run(nc)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;before: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>before:  Trace(
     value=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
-    qc=[b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;, [436 values], b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;],
+    qc=[b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;, [436 values], b&#39;0&#39;, b&#39;0&#39;, b&#39;0&#39;],
     adjusted=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
     adjusted_qc=[b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;, [436 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
     adjusted_error=[0.00027849164, 0.00032804598, 0.00030763133, [436 values], 0.00014784608, 0.0001886537, 0.00036820726],
     pres=[0.3, 1.0, 1.2, [436 values], 932.8, 932.8, 932.8],
     mtime=[masked, masked, masked, [436 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
-<pre><code>[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Setting previously unset flags for BBP to GOOD
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing missing data test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Missing data test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing high deep value
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] High deep value test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing noisy profile test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Noisy profile test results: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing negative bbp test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Negative bbp test result: flags set to b&#39;1&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing parking hook test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Parking hook test results: 9 points set to b&#39;4&#39;
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] No valid wavelength information found, setting lower limit of range check to -0.000025
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Applying global range test to BBP
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing negative spike test
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Calculating running median over window size 5
-[&lt;medsrtqc.nc.NetCDFProfile object at 0x000002561A39CDC0&gt;] Performing stuck value test on bbp</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>nc.prepare(tests)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bbp.run(nc)</span></code></pre></div>
+<pre><code>[medsrtqc.nc.NetCDFProfile log] Setting previously unset flags for BBP to GOOD
+[medsrtqc.nc.NetCDFProfile log] Performing missing data test
+[medsrtqc.nc.NetCDFProfile log] Missing data test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing high deep value
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] High deep value test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing noisy profile test
+[medsrtqc.nc.NetCDFProfile log] Noisy profile test results: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing negative bbp test
+[medsrtqc.nc.NetCDFProfile log] Negative bbp test result: flags set to 1
+[medsrtqc.nc.NetCDFProfile log] Performing parking hook test
+[medsrtqc.nc.NetCDFProfile log] Parking hook test results: 9 points set to 4
+[medsrtqc.nc.NetCDFProfile log] Applying global range test to BBP
+[medsrtqc.nc.NetCDFProfile log] Performing negative spike test
+[medsrtqc.nc.NetCDFProfile log] Calculating running median over window size 5
+[medsrtqc.nc.NetCDFProfile log] Performing stuck value test on bbp</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;after: &quot;</span>, nc[<span class="st">&quot;BBP700&quot;</span>])</span></code></pre></div>
 <pre><code>after:  Trace(
     value=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
-    qc=[b&#39;2&#39;, b&#39;2&#39;, b&#39;2&#39;, [436 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
+    qc=[b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;, [436 values], b&#39;4&#39;, b&#39;4&#39;, b&#39;4&#39;],
     adjusted=[0.0013924582, 0.00164023, 0.0015381566, [436 values], 0.00073923037, 0.00094326853, 0.0018410363],
     adjusted_qc=[b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;, [436 values], b&#39;1&#39;, b&#39;1&#39;, b&#39;1&#39;],
     adjusted_error=[0.00027849164, 0.00032804598, 0.00030763133, [436 values], 0.00014784608, 0.0001886537, 0.00036820726],
     pres=[0.3, 1.0, 1.2, [436 values], 932.8, 932.8, 932.8],
     mtime=[masked, masked, masked, [436 values], masked, masked, masked]
 )</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1070</span>, <span class="dv">800</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.0005</span>, <span class="fl">0.003</span>))</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plot_profile_flags(nc, ax<span class="op">=</span>ax, ylim<span class="op">=</span>(<span class="dv">1070</span>, <span class="dv">800</span>), xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.0005</span>, <span class="fl">0.003</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>nc.close()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="implementing-updated-backscatter-rtqc_files/figure-html5/run%20parking%20hook%20test-9.png" width="250" /></p>
 </div>
 <h3 id="summary-4">Summary</h3>
-<p>✅ BD6903197_027: 9 high value points at depth flagged as bad</p>
+<p>✅ BD6903197_027: 9 high value points at depth flagged as bad.</p>
 <h2 id="appendix">Appendix</h2>
 <h3 id="plotting-function">Plotting function</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_profile_flags(nc, ax<span class="op">=</span><span class="va">None</span>, ylim<span class="op">=</span>(<span class="dv">2000</span>, <span class="dv">0</span>), xlim<span class="op">=</span><span class="st">&quot;auto&quot;</span>):</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># put netcdf Profile into dataframe</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>(PRES<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].pres, BBP700<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].value, QC<span class="op">=</span>[s.decode() <span class="cf">for</span> s <span class="kw">in</span> nc[<span class="st">&quot;BBP700&quot;</span>].qc]))</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot results</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    sns.lineplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>, ax<span class="op">=</span>ax, sort<span class="op">=</span><span class="va">False</span>, legend<span class="op">=</span><span class="va">False</span>, estimator<span class="op">=</span><span class="va">None</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, hue<span class="op">=</span><span class="st">&quot;QC&quot;</span>, hue_order<span class="op">=</span>(<span class="st">&#39;0&#39;</span>, <span class="st">&#39;1&#39;</span>, <span class="st">&#39;2&#39;</span>, <span class="st">&#39;3&#39;</span>, <span class="st">&#39;4&#39;</span>), ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(xlim)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(ylim)</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_profile_flags(nc, ax<span class="op">=</span><span class="va">None</span>, ylim<span class="op">=</span>(<span class="dv">2000</span>, <span class="dv">0</span>), xlim<span class="op">=</span><span class="st">&quot;auto&quot;</span>):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># put netcdf Profile into dataframe</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>(</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>      PRES<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].pres, BBP700<span class="op">=</span>nc[<span class="st">&quot;BBP700&quot;</span>].value, </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>      QC<span class="op">=</span>[s.decode() <span class="cf">for</span> s <span class="kw">in</span> nc[<span class="st">&quot;BBP700&quot;</span>].qc]</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot results</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    sns.lineplot(</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>      data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, </span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      color<span class="op">=</span><span class="st">&quot;k&quot;</span>, ax<span class="op">=</span>ax, sort<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>      legend<span class="op">=</span><span class="va">False</span>, estimator<span class="op">=</span><span class="va">None</span>, zorder<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> sns.scatterplot(</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>      data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&quot;BBP700&quot;</span>, y<span class="op">=</span><span class="st">&quot;PRES&quot;</span>, hue<span class="op">=</span><span class="st">&quot;QC&quot;</span>, </span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>      hue_order<span class="op">=</span>(<span class="st">&quot;0&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>), ax<span class="op">=</span>ax, zorder<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(xlim)</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(ylim)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g</span></code></pre></div>
 </div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
