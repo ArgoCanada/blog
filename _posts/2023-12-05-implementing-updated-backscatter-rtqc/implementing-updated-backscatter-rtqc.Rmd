@@ -1,7 +1,8 @@
 ---
 title: "Implementing updated backscatter RTQC"
 description: |
-  Writing and testing a python implementation of the updated tests described in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2)
+  Writing and testing a python implementation of the updated tests described in Dall'Olmo et al. 2023
+preview: implementing-updated-backscatter-rtqc_files/figure-html5/missing data test-1.png
 author:
   - name: Christopher Gordon
     url: https://github.com/cgrdn
@@ -17,13 +18,17 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 ```
 
-In this post I will examine the new backscatter testing implemented in [medsrtqc](https://github.com/ArgoCanada/medsrtqc), a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the [official vocabulary](https://vocab.nerc.ac.uk/collection/R11/current/).
+In this post I will examine the updated backscatter testing described in [Dall'Olmo et al. 2023](https://open-research-europe.ec.europa.eu/articles/2-118/v2) implementation in [medsrtqc](https://github.com/ArgoCanada/medsrtqc), a python implementation of Argo Real Time Quality Control (RTQC). In its current state, the package contains the RTQC tests for chlorophyll (CHLA), backscatter (BBP) and pH, as well as many of standard tests listed in the [official vocabulary](https://vocab.nerc.ac.uk/collection/R11/current/).
+
+## Analysis Structure
 
 We will use the same floats and cycles shown as examples in [Dall'Olmo et al.](https://open-research-europe.ec.europa.eu/articles/2-118/v2), discuss the expected results, and then examine the results given by the package.
 
+For each test, code for that test is shown in python. This code is incomplete, as it is just snippets of the tests written in [medsrtqc](https://github.com/ArgoCanada/medsrtqc), however the code structure and variable names should be instructive should anyone want to re-purpose these functions. 
+
 A custom plotting function to show the flags of each profile is used throughout the post. The definition of that function can be found at the bottom of the post.
 
-The floats we will be analyzing will have already been QC'ed (in fact, most have been DMQC'ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will rely on the output of the rtqc log to evaluate the results of the tests. 
+The floats we will be analyzing will have already been QC'ed (in fact, most have been DMQC'ed), so most data will already be flagged appropriately, or in some cases the QC flags may have been elevated by the DMQC operator. For this reason, we will fully reset all flags to 0 to simulate the actual RTQC result. 
 
 
 ```{python functions and setup, include=FALSE}
@@ -101,6 +106,7 @@ self.log(f'Missing data test results: flags set to {new_flag}')
 The examples shown in the paper are on floats 1901339 cycle 1, 4900561 cycle 8, and 6901004 cycle 41. We expect to see the full profile flagged as 3 (probably bad), 3, and 4 (bad) respectively. 
 
 ```{python run missing data test, echo=TRUE}
+from medsrtqc.qc.util import ResetQCOperation
 from medsrtqc.qc.bbp import bbpTest
 from medsrtqc.nc import read_nc_profile
 from medsrtqc.qc.check import preTestCheck
@@ -116,6 +122,7 @@ bbp = bbpTest()
 # loop through each profile
 for fn, ax in zip(files, axes):
     nc = read_nc_profile("data/" + fn, mode="r+")
+    ResetQCOperation().run(nc)
     tests = check.run(nc)
     
     print("before: ", nc["BBP700"])
@@ -133,7 +140,7 @@ plt.show()
 
 `r emo::ji("check")` BD1901339_001: Flags are set to 3 as expected.
 
-`r emo::ji("check")` BD7900561_008: Fails the missing value test and tries to set flags to 3 since data exists in multiple bins, but flags are already set to 4 (probably by the D-mode operator) and package will (appropriately) not upgrade flags. Test performed as expected, though. 
+`r emo::ji("check")` BD7900561_008: Flags are set to 3 as expected. 
 
 `r emo::ji("check")` BD6901004_041: Flags are set to 4 as expected.
 
@@ -163,6 +170,7 @@ fig, ax = plt.subplots(constrained_layout=True)
 fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
 
 nc = read_nc_profile("data/" + fn, mode="r+")
+ResetQCOperation().run(nc)
 tests = check.run(nc)
 
 print("before: ", nc["BBP700"])
@@ -177,7 +185,7 @@ plt.show()
 
 ### Summary
 
-`r emo::ji("check")` BD3901531_125: Flags are set to 3 as expected. Some bottom points were previously set as 4 and could not be upgraded as described above.
+`r emo::ji("check")` BD3901531_125: Flags are set to 3 as expected. Some points at the bottom also fail the [Parking Hook Test].
 
 ## Noisy Profile Test
 
@@ -210,6 +218,7 @@ fig, ax = plt.subplots(constrained_layout=True)
 fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
 
 nc = read_nc_profile("data/" + fn, mode="r+")
+ResetQCOperation().run(nc)
 tests = check.run(nc)
 
 print("before: ", nc["BBP700"])
@@ -224,7 +233,7 @@ plt.show()
 
 ### Summary
 
-`r emo::ji("check")` BD6901151_079: Flags are set to 3 as expected. One bottom was previously set as 4 and could not be upgraded as described above. The float also failed the high deep value test. 
+`r emo::ji("check")` BD6901151_079: Flags are set to 3 as expected. One point also fails the [Parking Hook Test]. 
 
 ## Negative BBP Test
 
@@ -265,6 +274,7 @@ fig.set_size_inches(fig.get_figwidth()*4/5, fig.get_figheight())
 # loop through each profile
 for fn, ax in zip(files, axes):
     nc = read_nc_profile("data/" + fn, mode="r+")
+    ResetQCOperation().run(nc)
     tests = check.run(nc)
     
     print("before: ", nc["BBP700"])
@@ -280,9 +290,9 @@ plt.show()
 
 ### Summary
 
-`r emo::ji("check")` BD6901654_056: Top negative point marked as bad, rest of profile ok. 
+`r emo::ji("check")` BD6901654_056: Top negative point marked as bad, rest of profile ok. One point also fails the [Parking Hook Test]. 
 
-`r emo::ji("check")` BD6901151_007: Whole profile marked as bad.
+`r emo::ji("check")` BD6901151_007: Whole profile marked as bad as expected.
 
 ## Parking Hook Test
 
@@ -323,6 +333,7 @@ fig, ax = plt.subplots(constrained_layout=True)
 fig.set_size_inches(fig.get_figwidth()*2/5, fig.get_figheight())
 
 nc = read_nc_profile("data/" + fn, mode="r+")
+ResetQCOperation().run(nc)
 tests = check.run(nc)
 
 print("before: ", nc["BBP700"])
@@ -336,7 +347,7 @@ plt.show()
 ```
 ### Summary
 
-`r emo::ji("check")` BD6903197_027: 9 high value points at depth flagged as bad
+`r emo::ji("check")` BD6903197_027: 9 high value points at depth flagged as bad.
 
 ## Appendix
 
@@ -348,11 +359,22 @@ def plot_profile_flags(nc, ax=None, ylim=(2000, 0), xlim="auto"):
         fig, ax = plt.subplots()
 
     # put netcdf Profile into dataframe
-    df = pd.DataFrame(dict(PRES=nc["BBP700"].pres, BBP700=nc["BBP700"].value, QC=[s.decode() for s in nc["BBP700"].qc]))
+    df = pd.DataFrame(dict(
+      PRES=nc["BBP700"].pres, BBP700=nc["BBP700"].value, 
+      QC=[s.decode() for s in nc["BBP700"].qc]
+    ))
 
     # plot results
-    sns.lineplot(data=df, x="BBP700", y="PRES", color='k', ax=ax, sort=False, legend=False, estimator=None, zorder=0)
-    g = sns.scatterplot(data=df, x="BBP700", y="PRES", hue="QC", hue_order=('0', '1', '2', '3', '4'), ax=ax, zorder=1)
+    sns.lineplot(
+      data=df, x="BBP700", y="PRES", 
+      color="k", ax=ax, sort=False, 
+      legend=False, estimator=None, zorder=0
+    )
+    g = sns.scatterplot(
+      data=df, x="BBP700", y="PRES", hue="QC", 
+      hue_order=("0", "1", "2", "3", "4"), ax=ax, zorder=1
+    )
+    
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
 
