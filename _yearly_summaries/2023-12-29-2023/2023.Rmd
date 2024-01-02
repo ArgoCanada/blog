@@ -1,0 +1,129 @@
+---
+title: "2023"
+description: |
+  Argo Canada Deployment Summary for 2023
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2023-12-29
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+library(leaflet)
+use_condaenv("py39")
+```
+
+The map below shows completed deployments for 2023, coloured by institution. Locations represent deployment location, not last profile. Click the dots for information about the float.
+
+```{python data}
+import pandas as pd
+
+df = pd.read_csv('../../deployment/canada_deployments.csv')
+df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
+df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2023')]
+df = df.loc[df['DEPLOYMENT DATE'] < pd.Timestamp('01-01-2024')]
+df = df.sort_values('DEPLOYMENT DATE')
+df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
+df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
+df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
+df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
+
+mapper = {
+  'PROGRAM':'Program',
+  'INSTITUTE':'Institute',
+  'STATUS':'Status',
+  'MODEL':'Model',
+  'DEPLOYMENT DATE':'Date',
+  'DEPLOYMENT LAT':'Latitude',
+  'DEPLOYMENT LON':'Longitude',
+  'DEPLOYMENT SHIP':'Ship',
+  'IMEI':'IMEI',
+  'REF':'WMO',
+  'SERIAL NUMBER':'Serial No.',
+}
+
+df = df.rename(columns=mapper)
+df = df[mapper.values()]
+df = df.reset_index().drop('index', axis=1)
+table = df.drop('Program', axis=1)
+```
+
+```{r map, layout="l-page-outset"}
+pal <- colorFactor(
+  c("green", "purple", "blue", "yellow"),
+  levels = c("BIO", "IOS", "ONC", "Dal")
+)
+icons <- iconList(
+  OPERATIONAL = makeIcon("../../images/buoy.png", "../../images/buoy.png", 16, 16),
+  CONFIRMED = makeIcon("../../images/loading.png", "../../images/loading.png", 16, 16),
+  FAILED = makeIcon("../../images/x.png", "../../images/x.png", 16, 16)
+)
+
+leaflet() %>%
+  addTiles() %>%
+    setView(lng = -60, lat = 45, zoom = 2) %>%
+    addCircleMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      radius = 12,
+      stroke = FALSE,
+      fillColor = ~pal(py$df$Institute),
+      fillOpacity = 0.7,
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
+      )
+    ) %>%
+    addMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      icon = ~icons[py$df$Status],
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
+      )
+    )
+```
+
+## Deployment Summary
+
+In total, 33 floats were deployed in 2023. 15 core ARVOR floats (9 SBE, 6 RBR), 6 Oxygen-only ARVOR floats, 5 deep-ARVOR floats with DOXY sensors, and 7 PROVOR BGC floats. Of the BGC floats, 4 were 3-sensor floats with DOXY, CHLA, and BBP, 1 was a 4-sensor float with DOXY, CHLA, BBP, and pH, and 2 were 4-sensor floats with DOXY, CHLA, BBP, and radiometry. 
+
+By ocean basin, 19 floats were deployed in the Atlantic, 12 floats in the Pacific, and 2 floats in the Arctic.
+
+One float (4902617) was deployed and immediately entered end of life mode, collecting no profiles. Therefore, this float is not on OceanOps or in the Argo data system. However, because the float was deployed, it will retain its WMO number. 
+
+A complete list of deployed floats can be found below. 
+
+```{r table_1, layout="l-page-outset shaded"}
+knitr::kable(py$table)
+```
+
+## Notes from the year
+
+- 2 floats, one ARVOR and one PROVOR, failed the vacuum pressure portion of their self test and therefore are unfit for deployment. Awaiting word from NKE on next steps for these floats. 
+- The float that failed was an RBR float that had its firmware upgraded to include the ability to sample at 1Hz for a section of the water column. It is unclear if this has anything to do with the float's failure or not. 
+- Float 4902671, deployed in the Labrador Sea, was adopted by the Oceans 11 class from Horton High School. More info can be found on the [Canadian Adopt-a-float web page](https://sites.google.com/view/adopt-a-float-ca/data-explorer?authuser=0).
+- 2 floats with ice detection were deployed in the Beaufort Sea. At the time of writing this, they have not yet resurfaced from the seasonal ice coverage, but we hope to hear from them in the spring.
