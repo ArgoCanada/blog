@@ -1,0 +1,5 @@
+---
+title: "Argo Canada Development Blog"
+site: distill::distill_website
+listing: yearly_summaries
+---

@@ -11,14 +11,14 @@ library(leaflet)
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
 
-The map below shows completed and planned deployments for 2023, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
+The map below shows completed and planned deployments for 2024, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
 
 ```{python data}
 import pandas as pd
 
 df = pd.read_csv('deployment/canada_deployments.csv')
 df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
-df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2023')]
+df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2024')]
 df = df.sort_values('DEPLOYMENT DATE')
 df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
@@ -53,8 +53,9 @@ pal <- colorFactor(
   levels = c("BIO", "IOS", "ONC", "Dal")
 )
 icons <- iconList(
-  OPERATIONAL = makeIcon("images/buoy.png", "buoy.png", 16, 16),
-  CONFIRMED = makeIcon("images/loading.png", "loading.png", 16, 16)
+  OPERATIONAL = makeIcon("images/buoy.png", "images/buoy.png", 16, 16),
+  CONFIRMED = makeIcon("images/loading.png", "images/loading.png", 16, 16),
+  FAILED = makeIcon("images/x.png", "images/x.png", 16, 16)
 )
 
 leaflet() %>%
@@ -99,7 +100,7 @@ leaflet() %>%
     )
 ```
 
-## Deployments since Jan 1, 2023
+## Deployments since Jan 1, 2024
 
 ```{r table_1, layout="l-page-outset shaded"}
 knitr::kable(py$recent)
@@ -112,9 +113,11 @@ knitr::kable(py$plan)
 
 ### Other Deployment Information
 
-Although there is not yet a designated cruise or location, Argo Canada is sending 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.
+Although there is not yet a designated cruise or location, Argo Canada sent 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery in 2023. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.
 
 ## Inventory
+
+NOTE: Not updated for 2024 yet
 
 ```{python inventory}
 stock = pd.read_csv('deployment/inventory.csv')
@@ -143,7 +146,7 @@ The table below shows the number of "in stock" floats for each program/instituti
 knitr::kable(py$stock)
 ```
 
-This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. For BIO, the 6 floats being sent to Cape Town are also being accounted for in this table. For simplicity, all types of ARVOR models (except deep) are combined here.
+This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
 ```{r table_4, layout="l-body-outset shaded"}
 knitr::kable(py$remain)
