@@ -134,8 +134,6 @@ for i in plan.index:
     ix = (plan.loc[i].Program, plan.loc[i].Institute)
     f = plan.loc[i].Model
     remain.loc[ix, f] -= 1
-
-remain.loc[('Argo Canada','BIO'), 'ARVOR'] -= 6 # account for Cape Town
 ```
 
 The table below shows the number of "in stock" floats for each program/institution.
