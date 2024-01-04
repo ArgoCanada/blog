@@ -117,8 +117,6 @@ Although there is not yet a designated cruise or location, Argo Canada sent 6 AR
 
 ## Inventory
 
-NOTE: Not updated for 2024 yet
-
 ```{python inventory}
 stock = pd.read_csv('deployment/inventory.csv')
 
@@ -145,6 +143,8 @@ The table below shows the number of "in stock" floats for each program/instituti
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
+
+**_note: for BIO floats, 1 each of ARVOR and PROVOR floats have failed their vacuum test and will likely need to be returned to NKE for repair_
 
 This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
