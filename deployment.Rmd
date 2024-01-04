@@ -44,7 +44,7 @@ df = df[mapper.values()]
 df = df.reset_index().drop('index', axis=1)
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-plan   = df.loc[df.Status != 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
+plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
 ```
 
 ```{r map, layout="l-page-outset"}
