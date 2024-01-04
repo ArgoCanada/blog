@@ -113,7 +113,7 @@ In total, 33 floats were deployed in 2023. 15 core ARVOR floats (9 SBE, 6 RBR), 
 
 By ocean basin, 19 floats were deployed in the Atlantic, 12 floats in the Pacific, and 2 floats in the Arctic.
 
-One float (4902617) was deployed and immediately entered end of life mode, collecting no profiles. Therefore, this float is not on OceanOps or in the Argo data system. However, because the float was deployed, it will retain its WMO number. 
+One float (4902617) was deployed and immediately entered end of life mode, collecting no profiles. Therefore, this float is not on OceanOps or in the Argo data system. However, because the float was deployed, it will retain its WMO number. Another float (4902689) was deployed, sent technical data, and did not report again. This float also will not appear in the data system but will retain its WMO number, etc. 
 
 A complete list of deployed floats can be found below. 
 
@@ -124,6 +124,7 @@ knitr::kable(py$table)
 ## Notes from the year
 
 - 2 floats, one ARVOR and one PROVOR, failed the vacuum pressure portion of their self test and therefore are unfit for deployment. Awaiting word from NKE on next steps for these floats. 
-- The float that failed was an RBR float that had its firmware upgraded to include the ability to sample at 1Hz for a section of the water column. It is unclear if this has anything to do with the float's failure or not. 
+- One float that failed (4902617) was an RBR float that had its firmware upgraded to include the ability to sample at 1Hz for a section of the water column. It is unclear if this has anything to do with the float's failure or not.
+- The other float that failed (4902689) was another RBR float that had previous beached, been recovered, and refurbished by NKE.  
 - Float 4902671, deployed in the Labrador Sea, was adopted by the Oceans 11 class from Horton High School. More info can be found on the [Canadian Adopt-a-float web page](https://sites.google.com/view/adopt-a-float-ca/data-explorer?authuser=0).
 - 2 floats with ice detection were deployed in the Beaufort Sea. At the time of writing this, they have not yet resurfaced from the seasonal ice coverage, but we hope to hear from them in the spring.
