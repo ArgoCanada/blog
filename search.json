@@ -5,35 +5,35 @@
       "title": "About",
       "author": [],
       "contents": "\nThis site is an unofficial collection of posts related to the development of software to support the Argo international research program. Several projects related to this blog include argoFloats, argodata, and bgcArgoDMQC.\n\n\n\n",
-      "last_modified": "2024-02-05T20:07:11+00:00"
+      "last_modified": "2024-02-08T14:09:48+00:00"
     },
     {
       "path": "deployment.html",
       "title": "Deployment Planning",
       "author": [],
-      "contents": "\nThis page is used for Canadian Argo groups to coordinate deployment planning, in addition to OceanOps. To submit plans to the website, see instructions on the github page.\nThe map below shows completed and planned deployments for 2024, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.\n\n\n\n\n\n\nDeployments since Jan 1, 2024\n\nProgram\nInstitute\nModel\nDate\nLatitude\nLongitude\nShip\nIMEI\nWMO\nSerial No.\nArgo Canada\nIOS\nARVOR\n30 Jan, 2024\n-78.2596\n-171.3442\nLAURA BASSI\n300534063792910\n4902665\nAI2600-23CA009\nArgo Canada\nIOS\nARVOR\n03 Feb, 2024\n-76.3894\n-159.0156\nLAURA BASSI\n300534064001540\n4902668\nAI2600-23CA012\nArgo ONC\nONC\nDeep ARVOR\n04 Feb, 2024\n-61.8054\n-64.0131\nHESPERIDES\n300534063601830\n4902639\nAD2700-23CA007\nArgo ONC\nONC\nDeep ARVOR\n04 Feb, 2024\n-61.8045\n-64.0131\nHESPERIDES\n300534063500400\n4902638\nAD2700-23CA006\n\nPlanned Deployments\n\nProgram\nInstitute\nModel\nDate\nLatitude\nLongitude\nShip\nIMEI\nWMO\nSerial No.\nArgo Canada\nIOS\nARVOR\n14 Jan, 2024\n-73.0\n-170.0\nLAURA BASSI\n300534063792880\n4902672\nAI3500-23CA003\nArgo Canada\nIOS\nARVOR\n20 Jan, 2024\n-73.0\n-171.0\nLAURA BASSI\n300534063795430\n4902667\nAI2600-23CA011\nArgo Canada\nIOS\nARVOR\n26 Jan, 2024\n-74.5\n-168.5\nLAURA BASSI\n300534064001530\n4902669\nAI2600-23CA013\nArgo Canada\nBIO\nARVOR\n01 Feb, 2024\n13.5\n-78.0\nOCEANOLOG\n300534062474370\n4902609\nAI2600-22CA007\nArgo Dalhousie\nDal\nPROVOR\n14 May, 2024\n56.0\n-52.0\nCELTIC EXPLORER\n300125062423120\n4902686\nP53865-23CA003\nArgo Dalhousie\nDal\nPROVOR\n16 May, 2024\n56.5\n-51.5\nCELTIC EXPLORER\n300125062031400\n4902687\nP53865-23CA004\nArgo Dalhousie\nDal\nPROVOR\n18 May, 2024\n57.0\n-51.0\nCELTIC EXPLORER\n300125062035430\n4902688\nP53865-23CA005\nArgo UVic\nIOS\nPROVOR\n26 May, 2024\n50.0\n-145.0\nJOHN P. TULLY\n300125062909910\n4902690\nP53875-23CA001\n\nOther Deployment Information\nAlthough there is not yet a designated cruise or location, Argo Canada sent 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery in 2023. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.\nInventory\n\n\n\nThe table below shows the number of “in stock” floats for each program/institution.\n\nProgram\nInstitute\nARVOR\nARVOR+DO\nARVOR-RBR\nDeep ARVOR\nPROVOR\nArgo Canada\nBIO\n3\n1\n0\n0\n7\nArgo Canada\nIOS\n6\n4\n2\n0\n5\nArgo Canada\nSAEON\n5\n1\n0\n0\n0\nArgo ONC\nONC\n0\n0\n0\n13\n0\nArgo Dalhousie\nDal\n0\n0\n0\n0\n3\nArgo UVic\nIOS\n0\n0\n0\n0\n2\n\n**note: for BIO floats, 1 each of ARVOR and PROVOR floats have failed their vacuum test and will likely need to be returned to NKE for repair\nThis table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the “Planned Deployments” section.\n\nProgram\nInstitute\nARVOR\nDeep ARVOR\nPROVOR\nArgo Canada\nBIO\n3\n0\n7\nArgo Canada\nIOS\n9\n0\n5\nArgo Canada\nSAEON\n6\n0\n0\nArgo ONC\nONC\n0\n13\n0\nArgo Dalhousie\nDal\n0\n0\n0\nArgo UVic\nIOS\n0\n0\n1\n\n\n\n\n",
-      "last_modified": "2024-02-05T20:07:23+00:00"
+      "contents": "\nThis page is used for Canadian Argo groups to coordinate deployment planning, in addition to OceanOps. To submit plans to the website, see instructions on the github page.\nThe map below shows completed and planned deployments for 2024, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.\n\n\n\n\n\n\nDeployments since Jan 1, 2024\n\nProgram\nInstitute\nModel\nDate\nLatitude\nLongitude\nShip\nIMEI\nWMO\nSerial No.\nArgo Canada\nIOS\nARVOR\n30 Jan, 2024\n-78.2596\n-171.3442\nLAURA BASSI\n300534063792910\n4902665\nAI2600-23CA009\nArgo Canada\nIOS\nARVOR\n03 Feb, 2024\n-76.3894\n-159.0156\nLAURA BASSI\n300534064001540\n4902668\nAI2600-23CA012\nArgo ONC\nONC\nDeep ARVOR\n04 Feb, 2024\n-61.8054\n-64.0131\nHESPERIDES\n300534063601830\n4902639\nAD2700-23CA007\nArgo ONC\nONC\nDeep ARVOR\n04 Feb, 2024\n-61.8045\n-64.0131\nHESPERIDES\n300534063500400\n4902638\nAD2700-23CA006\nArgo Canada\nIOS\nARVOR\n06 Feb, 2024\n-76.2898\n-167.3679\nLAURA BASSI\n300534064001530\n4902669\nAI2600-23CA013\nArgo Canada\nIOS\nARVOR\n06 Feb, 2024\n-76.1249\n-167.5818\nLAURA BASSI\n300534063892280\n4902664\nAI2600-23CA008\nArgo Canada\nIOS\nARVOR\n06 Feb, 2024\n-75.9450\n-167.8319\nLAURA BASSI\n300534063795430\n4902667\nAI2600-23CA011\n\nPlanned Deployments\n\nProgram\nInstitute\nModel\nDate\nLatitude\nLongitude\nShip\nIMEI\nWMO\nSerial No.\nArgo Canada\nBIO\nARVOR\n01 Feb, 2024\n13.5\n-78.0\nOCEANOLOG\n300534062474370\n4902609\nAI2600-22CA007\nArgo Dalhousie\nDal\nPROVOR\n14 May, 2024\n56.0\n-52.0\nCELTIC EXPLORER\n300125062423120\n4902686\nP53865-23CA003\nArgo Dalhousie\nDal\nPROVOR\n16 May, 2024\n56.5\n-51.5\nCELTIC EXPLORER\n300125062031400\n4902687\nP53865-23CA004\nArgo Dalhousie\nDal\nPROVOR\n18 May, 2024\n57.0\n-51.0\nCELTIC EXPLORER\n300125062035430\n4902688\nP53865-23CA005\nArgo UVic\nIOS\nPROVOR\n26 May, 2024\n50.0\n-145.0\nJOHN P. TULLY\n300125062909910\n4902690\nP53875-23CA001\n\nOther Deployment Information\nAlthough there is not yet a designated cruise or location, Argo Canada sent 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery in 2023. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.\nInventory\n\n\n\nThe table below shows the number of “in stock” floats for each program/institution.\n\nProgram\nInstitute\nARVOR\nARVOR+DO\nARVOR-RBR\nDeep ARVOR\nPROVOR\nArgo Canada\nBIO\n3\n1\n0\n0\n7\nArgo Canada\nIOS\n6\n4\n2\n0\n5\nArgo Canada\nSAEON\n5\n1\n0\n0\n0\nArgo ONC\nONC\n0\n0\n0\n13\n0\nArgo Dalhousie\nDal\n0\n0\n0\n0\n3\nArgo UVic\nIOS\n0\n0\n0\n0\n2\n\n**note: for BIO floats, 1 each of ARVOR and PROVOR floats have failed their vacuum test and will likely need to be returned to NKE for repair\nThis table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the “Planned Deployments” section.\n\nProgram\nInstitute\nARVOR\nDeep ARVOR\nPROVOR\nArgo Canada\nBIO\n3\n0\n7\nArgo Canada\nIOS\n12\n0\n5\nArgo Canada\nSAEON\n6\n0\n0\nArgo ONC\nONC\n0\n13\n0\nArgo Dalhousie\nDal\n0\n0\n0\nArgo UVic\nIOS\n0\n0\n1\n\n\n\n\n",
+      "last_modified": "2024-02-08T14:10:09+00:00"
     },
     {
       "path": "index.html",
       "title": "Argo Canada Development Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-02-05T20:07:25+00:00"
+      "last_modified": "2024-02-08T14:10:09+00:00"
     },
     {
       "path": "notes.html",
       "title": "Argo Canada Development Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-02-05T20:07:26+00:00"
+      "last_modified": "2024-02-08T14:10:10+00:00"
     },
     {
       "path": "summaries.html",
       "title": "Argo Canada Development Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-02-05T20:07:27+00:00"
+      "last_modified": "2024-02-08T14:10:11+00:00"
     }
   ],
   "collections": ["posts/posts.json", "notes/notes.json", "yearly_summaries/yearly_summaries.json"]
