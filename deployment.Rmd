@@ -47,7 +47,9 @@ df = df.reset_index().drop('index', axis=1)
 mdf = pd.read_csv("deployment/ship_info.csv")
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
+recent_table = recent.drop('MODEL_DETAIL', axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
+plan_table = recent.drop('MODEL_DETAIL', axis=1)
 ```
 
 ```{r map, layout="l-page-outset"}
@@ -108,16 +110,16 @@ leaflet() %>%
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
   cty <- py$mdf$Country[py$mdf$Ship == name]
-  paste(emoji::emoji_name[tolower(cty)], name)
+  paste(emoji::emoji_name[paste("flag_",cty)], name)
 }
 py$recent$Ship <- lapply(py$recent$Ship, assign_country)
-knitr::kable(py$recent)
+knitr::kable(py$recent_table)
 ```
 ## Planned Deployments
 
 ```{r table_2, layout="l-page-outset shaded"}
 py$plan$Ship <- lapply(py$plan$Ship, assign_country)
-knitr::kable(py$plan)
+knitr::kable(py$plan_table)
 ```
 
 ### Other Deployment Information
@@ -130,19 +132,30 @@ Although there is not yet a designated cruise or location, Argo Canada sent 6 AR
 stock = pd.read_csv('deployment/inventory.csv')
 
 remain = pd.DataFrame({
-    'Program':stock.Program,
-    'Institute':stock.Institute,
-    'ARVOR':stock['ARVOR'] + stock['ARVOR+DO'] + stock['ARVOR-RBR'],
-    'Deep ARVOR':stock['Deep ARVOR'],
-    'PROVOR':stock['PROVOR']
+  'Program':stock.Program,
+  'Institute':stock.Institute,
+  'ARVOR-SBE':stock['ARVOR'],
+  'ARVOR+DO':stock['ARVOR+DO'],
+  'ARVOR-RBR':stock['ARVOR-RBR'],
+  'Deep ARVOR':stock['Deep ARVOR'],
+  'PROVOR':stock['PROVOR']
 })
 
 remain = remain.set_index(['Program', 'Institute'], drop=False)
 
+model_mapper = {
+  'ARVOR_SBE':'ARVOR-SBE',
+  'ARVOR+DO':'ARVOR+DO',
+  'ARVOR_RBR':'ARVOR-RBR',
+  'ARVOR_D':'Deep ARVOR',
+  'PROVOR_CTS4':'PROVOR',
+  'PROVOR_CTS5':'PROVOR'
+}
+
 for i in plan.index:
     ix = (plan.loc[i].Program, plan.loc[i].Institute)
-    f = plan.loc[i].Model
-    remain.loc[ix, f] -= 1
+    f = plan.loc[i].MODEL_DETAIL
+    remain.loc[ix, model_mapper[f]] -= 1
 ```
 
 The table below shows the number of "in stock" floats for each program/institution.
