@@ -31,6 +31,7 @@ mapper = {
   'INSTITUTE':'Institute',
   'STATUS':'Status',
   'MODEL':'Model',
+  'MODEL_DETAIL':'MODEL_DETAIL',
   'DEPLOYMENT DATE':'Date',
   'DEPLOYMENT LAT':'Latitude',
   'DEPLOYMENT LON':'Longitude',
@@ -49,7 +50,7 @@ mdf = pd.read_csv("deployment/ship_info.csv")
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
 recent_table = recent.drop('MODEL_DETAIL', axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-plan_table = recent.drop('MODEL_DETAIL', axis=1)
+plan_table = plan.drop('MODEL_DETAIL', axis=1)
 ```
 
 ```{r map, layout="l-page-outset"}
