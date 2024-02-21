@@ -120,9 +120,9 @@ A complete list of deployed floats can be found below.
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
   cty <- py$mdf$Country[py$mdf$Ship == name]
-  paste(emoji::emoji_name[paste("flag_",cty)], name)
+  paste(emoji::emoji_name[paste0("flag_", cty)], name)
 }
-py$table$Ship <- lapply(py$recent_table$Ship, assign_country)
+py$table$Ship <- lapply(py$table$Ship, assign_country)
 knitr::kable(py$table)
 ```
 
