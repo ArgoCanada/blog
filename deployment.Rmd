@@ -6,6 +6,7 @@ title: "Deployment Planning"
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
+library(emoji)
 # use_condaenv("py39")
 ```
 
@@ -42,6 +43,8 @@ mapper = {
 df = df.rename(columns=mapper)
 df = df[mapper.values()]
 df = df.reset_index().drop('index', axis=1)
+
+mdf = pd.read_csv("deployment/ship_info.csv")
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
@@ -103,11 +106,17 @@ leaflet() %>%
 ## Deployments since Jan 1, 2024
 
 ```{r table_1, layout="l-page-outset shaded"}
+assign_country <- function(name) {
+  cty <- py$mdf$Country[py$mdf$Ship == name]
+  paste(emoji::emoji_name[tolower(cty)], name)
+}
+py$recent$Ship <- lapply(py$recent$Ship, assign_country)
 knitr::kable(py$recent)
 ```
 ## Planned Deployments
 
 ```{r table_2, layout="l-page-outset shaded"}
+py$plan$Ship <- lapply(py$plan$Ship, assign_country)
 knitr::kable(py$plan)
 ```
 
