@@ -107,16 +107,16 @@ leaflet() %>%
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
-  cty = py$mdf$Country[py$mdf$Ship == name]
-  paste(emoji_name(tolower(cty)),name)
+  cty <- py$mdf$Country[py$mdf$Ship == name]
+  paste(emoji::emoji_name(tolower(cty)), name)
 }
-py$recent$Ship = lapply(py$recent$Ship, assign_country)
+py$recent$Ship <- lapply(py$recent$Ship, assign_country)
 knitr::kable(py$recent)
 ```
 ## Planned Deployments
 
 ```{r table_2, layout="l-page-outset shaded"}
-py$plan$Ship = lapply(py$plan$Ship, assign_country)
+py$plan$Ship <- lapply(py$plan$Ship, assign_country)
 knitr::kable(py$plan)
 ```
 
