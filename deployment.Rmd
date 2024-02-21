@@ -113,13 +113,13 @@ assign_country <- function(name) {
   cty <- py$mdf$Country[py$mdf$Ship == name]
   paste(emoji::emoji_name[paste("flag_",cty)], name)
 }
-py$recent$Ship <- lapply(py$recent$Ship, assign_country)
+py$recent_table$Ship <- lapply(py$recent_table$Ship, assign_country)
 knitr::kable(py$recent_table)
 ```
 ## Planned Deployments
 
 ```{r table_2, layout="l-page-outset shaded"}
-py$plan$Ship <- lapply(py$plan$Ship, assign_country)
+py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
 
