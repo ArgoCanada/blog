@@ -12,7 +12,16 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 05 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Canadian Polar Deployments</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2024-02-15-canadian-polar-deployments</link>
+      <description>A brief overview of recent deployments of Canadian floats in polar oceans.</description>
+      <guid>https://argocanada.github.io/blog/posts/2024-02-15-canadian-polar-deployments</guid>
+      <pubDate>Thu, 29 Feb 2024 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2024-02-15-canadian-polar-deployments/canadian-polar-deployments_files/figure-html5/maps-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Implementing updated backscatter RTQC</title>
       <dc:creator>Christopher Gordon</dc:creator>
