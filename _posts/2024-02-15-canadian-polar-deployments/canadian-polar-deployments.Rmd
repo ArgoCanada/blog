@@ -1,0 +1,168 @@
+---
+title: "Canadian Polar Deployments"
+description: |
+  A brief overview of recent deployments of Canadian floats in polar oceans.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-02-29
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+# use_condaenv("py39")
+```
+
+In this post we will summarize recent polar deployments of NKE ARVOR and look at their initial data. The deployments occurred in the Beaufort Sea in the Arctic Ocean, North of Alaska/Northwest Territories and the Ross Sea in the Southern Ocean. Ice avoidance parameters for each region will be shown. 
+
+All data will be pulled from the GDAC using [argopy](https://argopy.readthedocs.io/en/latest/index.html), code can be expanded in each section.
+
+```{python imports and setup, include=TRUE}
+### imports and setup
+
+import argopy
+
+from pathlib import Path
+from netCDF4 import Dataset
+import numpy as np
+
+import matplotlib.pyplot as plt
+import matplotlib.path as mpath
+import cmocean.cm as cmo
+
+import seaborn as sns
+sns.set(style="ticks", palette="colorblind")
+
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+```
+
+## Deployments
+
+Recent polar region deployments consist of 2 floats (4902610, 4902611) deployed in the Beaufort Sea by the Louis S. St. Laurent in September 2023, and 5 floats (4902664, 4902665, 4902667, 4902668, 4902669) deployed in the Ross Sea by the Italian ship Laura Bassi. 
+
+```{python maps, include=TRUE}
+
+# define some useful mapping functions
+def polarCentral_set_latlim(lat_lims, ax):
+  ax.set_extent([-180, 180, lat_lims[0], lat_lims[1]], ccrs.PlateCarree())
+  # Compute a circle in axes coordinates, which we can use as a boundary
+  # for the map. We can pan/zoom as much as we like - the boundary will be
+  # permanently circular.
+  theta = np.linspace(0, 2*np.pi, 100)
+  center, radius = [0.5, 0.5], 0.5
+  verts = np.vstack([np.sin(theta), np.cos(theta)]).T
+  circle = mpath.Path(verts * radius + center)
+  
+  ax.set_boundary(circle, transform=ax.transAxes)
+
+def add_map_features(ax):
+  ax.coastlines()
+  gl = ax.gridlines()
+  ax.add_feature(cfeature.BORDERS)
+  ax.add_feature(cfeature.LAND)
+  gl = ax.gridlines(draw_labels=True)
+
+
+# wmo numbers of the floats
+beaufort_wmos = [4902610, 4902611]
+ross_wmos = [4902664, 4902665, 4902667, 4902668, 4902669]
+
+# grab Argo index for each group
+index = argopy.ArgoIndex().load()
+beaufort_ix = index.search_wmo(beaufort_wmos).to_dataframe()
+ross_ix = index.search_wmo(ross_wmos).to_dataframe()
+
+# geo axis figures
+fig = plt.figure(constrained_layout=True)
+axes = [
+  fig.add_subplot(1, 2, 1, projection=ccrs.NorthPolarStereo()),
+  fig.add_subplot(1, 2, 2, projection=ccrs.SouthPolarStereo())
+]
+
+# bathymetry for plot
+bath_file = Path('/Users/GordonC/Documents/data/GEBCO/GEBCO_2020.nc')
+bath = Dataset(bath_file)
+blat = bath['lat'][:]
+blon = bath['lon'][:]
+elev = bath['elevation'][:]
+
+# subset/decimate bathymetry - really big array
+iy = np.logical_or(blat > 60, blat < -65)
+
+blat = blat[iy]
+elev = elev[iy,:]
+elev = -np.ma.masked_array(elev.data, elev > 0)
+
+N = 20
+blat = blat[::N]
+blon = blon[::N]
+elev = elev[::N,:]
+elev = elev[:,::N]
+
+for ix, ax in zip([beaufort_ix, ross_ix], axes):
+  # add bathymetry
+  im = ax.contourf(
+    blon, blat, elev, list(range(0, 3800, 200)),
+    transform=ccrs.PlateCarree(),
+    cmap=cmo.deep,
+    vmin=0, extend='max'
+  )
+  
+  # plot profiles so far
+  sns.scatterplot(
+    data=ix, x='longitude', y='latitude', 
+    hue='wmo', ax=ax, palette='Set2',
+    transform=ccrs.PlateCarree()
+  )
+  add_map_features(ax)
+
+# move legend so somewhere more friendly
+axes[0].legend(loc=3, bbox_to_anchor=(-0.25, 0.0))
+axes[1].legend(loc=4, bbox_to_anchor=(1.25, 0.0))
+
+# set limits
+polarCentral_set_latlim([65, 90], axes[0])
+polarCentral_set_latlim([-70, -90], axes[1])
+
+axes[0].set_title('Arctic Ocean - Beaufort Sea upper left', loc='left', fontsize=8, fontweight='bold')
+axes[1].set_title('Southern Ocean - Ross Sea lower left', loc='left', fontsize=8, fontweight='bold')
+
+plt.show()
+```
+
+## Ice Avoidance Configuration
+
+In addition to the basic configuration described here, complete ice avoidance parameters can be found on the [Argo Canada data management github page](https://github.com/ArgoCanada/argo-dm/tree/main/float-programming/ISA_configs). The Ice Sensing Algorithm (ISA) works by measuring temperatures in a defined near-surface depth window, and if the median temperature is lower than the threshold temperature set by the user, inferring that there will be ice coverage above. Clearly, the proper threshold temperature will depend on the region and water properties, and so should be carefully selected. 
+
+```{r ISA parameter table, layout="l-body shaded"}
+df = read.csv('data/ISA_parameters.csv')
+knitr::kable(df, caption='ISA parameters')
+```
+
+## Initial Data
+
+```{python data, include=TRUE}
+beaufort_df = df = argopy.DataFetcher().float(beaufort_wmos).to_dataframe()
+ross_df = argopy.DataFetcher().float(ross_wmos).to_dataframe()
+
+fig, axes = plt.subplots(2, 2, sharex=False, sharey=True, constrained_layout=True)
+for axrow, varname in zip(axes, ['TEMP', 'PSAL']):
+  for ax, df in zip(axrow, [beaufort_df, ross_df]):
+    sns.scatterplot(
+      data=df, x=varname, y='PRES', 
+      hue='PLATFORM_NUMBER', legend=False, 
+      palette='Set2', ax=ax, linewidth=0.2
+    )
+axes[0,0].set_ylim((2050, -50))
+axes[0,0].set_title('Beaufort Sea', loc='left', fontweight='bold')
+axes[0,1].set_title('Ross Sea', loc='left', fontweight='bold')
+fig.set_size_inches(fig.get_figwidth(), 1.66*fig.get_figheight())
+plt.show()
+```
