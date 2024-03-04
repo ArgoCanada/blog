@@ -27,6 +27,9 @@ jobs:
         run: |
           pip install pandas
           pip install seaborn
+          pip install netCDF4
+          pip install cartopy
+          pip install cmocean
           pip install git+http://github.com/euroargodev/argopy.git@master
 
       - name: Install R dependencies
