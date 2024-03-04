@@ -155,14 +155,20 @@ ross_df = argopy.DataFetcher().float(ross_wmos).to_dataframe()
 fig, axes = plt.subplots(2, 2, sharex=False, sharey=True, constrained_layout=True)
 for axrow, varname in zip(axes, ['TEMP', 'PSAL']):
   for ax, df in zip(axrow, [beaufort_df, ross_df]):
+    # remove bad conductivity values from one float w/ broken cell
+    df = df.loc[df.PSAL > 30]
     sns.scatterplot(
       data=df, x=varname, y='PRES', 
-      hue='PLATFORM_NUMBER', legend=False, 
+      hue='PLATFORM_NUMBER', 
       palette='Set2', ax=ax, linewidth=0.2
     )
 axes[0,0].set_ylim((2050, -50))
 axes[0,0].set_title('Beaufort Sea', loc='left', fontweight='bold')
 axes[0,1].set_title('Ross Sea', loc='left', fontweight='bold')
+axes[0,0].legend(loc=3, fontsize=10)
+axes[0,1].legend(loc=3, fontsize=10)
+axes[1,0].get_legend().remove()
+axes[1,1].get_legend().remove()
 fig.set_size_inches(fig.get_figwidth(), 1.66*fig.get_figheight())
 plt.show()
 ```
