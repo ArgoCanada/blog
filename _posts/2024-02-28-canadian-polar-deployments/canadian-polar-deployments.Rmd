@@ -150,7 +150,7 @@ knitr::kable(df, caption='ISA parameters')
 
 In the Beaufort Sea, both floats completed two profiles before going under the ice. We hope to hear from both floats towards the end of this summer/early fall. 
 
-In the Ross Sea, one floats (4902665) appears to have broken its conductivity cell upon deployment, perhaps due to icing or temperature shock. Salinity data exists for the first profile, but is all bad. We have not heard from this float since, so it has either completely failed or gone under the ice. There is a small chance if it went under the ice that future data might be viable is the conductivity cell had frozen but not broken, if the ice melts off while the float is at depth (~0.5 deg C water).
+In the Ross Sea, one floats (4902665) appears to have broken its conductivity cell upon deployment, perhaps due to icing or temperature shock. Salinity data exists for the first profile, but is all bad. We have not heard from this float since, so it has either completely failed or gone under the ice. There is a small chance if it went under the ice that future data might be viable if the conductivity cell had frozen but not broken, and the ice melts off while the float is at depth (~0.5$^\circ$C water).
 
 The other 4 floats deployed in the Ross Sea all had successful deployments. For the first part of their mission (up to 2 weeks for some floats, a few days for others) they performed near-daily (31 hour) cycles in order to maximize data collection before they go under the ice. At the end of February they were switched back to near 10-day (235 hour) cycles so that they do not over-collect data while under the ice and run out of onboard memory space. 
 
@@ -171,8 +171,8 @@ for axrow, varname in zip(axes, ['TEMP', 'PSAL']):
 _ = axes[0,0].set_ylim((2050, -50))
 _ = axes[0,0].set_title('Beaufort Sea', loc='left', fontweight='bold')
 _ = axes[0,1].set_title('Ross Sea', loc='left', fontweight='bold')
-_ = axes[0,0].legend(loc=3, fontsize=10)
-_ = axes[0,1].legend(loc=3, fontsize=10)
+_ = axes[0,0].legend(loc=4)
+_ = axes[0,1].legend(loc=3)
 _ = axes[1,0].get_legend().remove()
 _ = axes[1,1].get_legend().remove()
 fig.set_size_inches(fig.get_figwidth(), 1.66*fig.get_figheight())
