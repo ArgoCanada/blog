@@ -1621,7 +1621,7 @@ Show code
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot profiles so far</span></span>
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  sns.scatterplot(</span>
 <span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>ix, x<span class="op">=</span><span class="st">&#39;longitude&#39;</span>, y<span class="op">=</span><span class="st">&#39;latitude&#39;</span>, </span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">&#39;wmo&#39;</span>, ax<span class="op">=</span>ax, palette<span class="op">=</span><span class="st">&#39;Set2&#39;</span>,</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">&#39;wmo&#39;</span>, ax<span class="op">=</span>ax, palette<span class="op">=</span><span class="st">&#39;colorblind&#39;</span>,</span>
 <span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>ccrs.PlateCarree()</span>
 <span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>  add_map_features(ax)</span>
@@ -1682,6 +1682,9 @@ Show code
 </table>
 </div>
 <h2 id="initial-data">Initial Data</h2>
+<p>In the Beaufort Sea, both floats completed two profiles before going under the ice. We hope to hear from both floats towards the end of this summer/early fall.</p>
+<p>In the Ross Sea, one floats (4902665) appears to have broken its conductivity cell upon deployment, perhaps due to icing or temperature shock. Salinity data exists for the first profile, but is all bad. We have not heard from this float since, so it has either completely failed or gone under the ice. There is a small chance if it went under the ice that future data might be viable is the conductivity cell had frozen but not broken, if the ice melts off while the float is at depth (~0.5 deg C water).</p>
+<p>The other 4 floats deployed in the Ross Sea all had successful deployments. For the first part of their mission (up to 2 weeks for some floats, a few days for others) they performed near-daily (31 hour) cycles in order to maximize data collection before they go under the ice. At the end of February they were switched back to near 10-day (235 hour) cycles so that they do not over-collect data while under the ice and run out of onboard memory space.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1694,31 +1697,25 @@ Show code
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axrow, varname <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="st">&#39;TEMP&#39;</span>, <span class="st">&#39;PSAL&#39;</span>]):</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> ax, df <span class="kw">in</span> <span class="bu">zip</span>(axrow, [beaufort_df, ross_df]):</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove bad conductivity values from one float w/ broken cell</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.loc[df.PSAL <span class="op">&gt;</span> <span class="dv">30</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    df.PSAL.loc[df.PSAL <span class="op">&lt;</span> <span class="dv">28</span>] <span class="op">=</span> np.nan</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    sns.scatterplot(</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      data<span class="op">=</span>df, x<span class="op">=</span>varname, y<span class="op">=</span><span class="st">&#39;PRES&#39;</span>, </span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      hue<span class="op">=</span><span class="st">&#39;PLATFORM_NUMBER&#39;</span>, </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      palette<span class="op">=</span><span class="st">&#39;Set2&#39;</span>, ax<span class="op">=</span>ax, linewidth<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      palette<span class="op">=</span><span class="st">&#39;colorblind&#39;</span>, ax<span class="op">=</span>ax, linewidth<span class="op">=</span><span class="fl">0.2</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_ylim((<span class="dv">2050</span>, <span class="op">-</span><span class="dv">50</span>))</span></code></pre></div>
-</details>
-<pre><code>(2050.0, -50.0)</code></pre>
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_title(<span class="st">&#39;Beaufort Sea&#39;</span>, loc<span class="op">=</span><span class="st">&#39;left&#39;</span>, fontweight<span class="op">=</span><span class="st">&#39;bold&#39;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_title(<span class="st">&#39;Ross Sea&#39;</span>, loc<span class="op">=</span><span class="st">&#39;left&#39;</span>, fontweight<span class="op">=</span><span class="st">&#39;bold&#39;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">3</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">3</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].get_legend().remove()</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].get_legend().remove()</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth(), <span class="fl">1.66</span><span class="op">*</span>fig.get_figheight())</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">0</span>,<span class="dv">0</span>].set_ylim((<span class="dv">2050</span>, <span class="op">-</span><span class="dv">50</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">0</span>,<span class="dv">0</span>].set_title(<span class="st">&#39;Beaufort Sea&#39;</span>, loc<span class="op">=</span><span class="st">&#39;left&#39;</span>, fontweight<span class="op">=</span><span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">0</span>,<span class="dv">1</span>].set_title(<span class="st">&#39;Ross Sea&#39;</span>, loc<span class="op">=</span><span class="st">&#39;left&#39;</span>, fontweight<span class="op">=</span><span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">0</span>,<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">3</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">0</span>,<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">3</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">1</span>,<span class="dv">0</span>].get_legend().remove()</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> axes[<span class="dv">1</span>,<span class="dv">1</span>].get_legend().remove()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>fig.set_size_inches(fig.get_figwidth(), <span class="fl">1.66</span><span class="op">*</span>fig.get_figheight())</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 </details>
 <p><img src="canadian-polar-deployments_files/figure-html5/data-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
