@@ -16,7 +16,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
-# use_condaenv("py39")
+use_condaenv("py39")
 ```
 
 In this post we will summarize recent polar deployments of NKE ARVOR and look at their initial data. The deployments occurred in the Beaufort Sea in the Arctic Ocean, North of Alaska/Northwest Territories and the Ross Sea in the Southern Ocean. Ice avoidance parameters for each region will be shown. 
@@ -118,7 +118,7 @@ for ix, ax in zip([beaufort_ix, ross_ix], axes):
   # plot profiles so far
   sns.scatterplot(
     data=ix, x='longitude', y='latitude', 
-    hue='wmo', ax=ax, palette='Set2',
+    hue='wmo', ax=ax, palette='colorblind',
     transform=ccrs.PlateCarree()
   )
   add_map_features(ax)
@@ -148,6 +148,12 @@ knitr::kable(df, caption='ISA parameters')
 
 ## Initial Data
 
+In the Beaufort Sea, both floats completed two profiles before going under the ice. We hope to hear from both floats towards the end of this summer/early fall. 
+
+In the Ross Sea, one floats (4902665) appears to have broken its conductivity cell upon deployment, perhaps due to icing or temperature shock. Salinity data exists for the first profile, but is all bad. We have not heard from this float since, so it has either completely failed or gone under the ice. There is a small chance if it went under the ice that future data might be viable is the conductivity cell had frozen but not broken, if the ice melts off while the float is at depth (~0.5 deg C water).
+
+The other 4 floats deployed in the Ross Sea all had successful deployments. For the first part of their mission (up to 2 weeks for some floats, a few days for others) they performed near-daily (31 hour) cycles in order to maximize data collection before they go under the ice. At the end of February they were switched back to near 10-day (235 hour) cycles so that they do not over-collect data while under the ice and run out of onboard memory space. 
+
 ```{python data, include=TRUE}
 beaufort_df = df = argopy.DataFetcher().float(beaufort_wmos).to_dataframe()
 ross_df = argopy.DataFetcher().float(ross_wmos).to_dataframe()
@@ -156,19 +162,19 @@ fig, axes = plt.subplots(2, 2, sharex=False, sharey=True, constrained_layout=Tru
 for axrow, varname in zip(axes, ['TEMP', 'PSAL']):
   for ax, df in zip(axrow, [beaufort_df, ross_df]):
     # remove bad conductivity values from one float w/ broken cell
-    df = df.loc[df.PSAL > 30]
+    df.PSAL.loc[df.PSAL < 28] = np.nan
     sns.scatterplot(
       data=df, x=varname, y='PRES', 
       hue='PLATFORM_NUMBER', 
-      palette='Set2', ax=ax, linewidth=0.2
+      palette='colorblind', ax=ax, linewidth=0.2
     )
-axes[0,0].set_ylim((2050, -50))
-axes[0,0].set_title('Beaufort Sea', loc='left', fontweight='bold')
-axes[0,1].set_title('Ross Sea', loc='left', fontweight='bold')
-axes[0,0].legend(loc=3, fontsize=10)
-axes[0,1].legend(loc=3, fontsize=10)
-axes[1,0].get_legend().remove()
-axes[1,1].get_legend().remove()
+_ = axes[0,0].set_ylim((2050, -50))
+_ = axes[0,0].set_title('Beaufort Sea', loc='left', fontweight='bold')
+_ = axes[0,1].set_title('Ross Sea', loc='left', fontweight='bold')
+_ = axes[0,0].legend(loc=3, fontsize=10)
+_ = axes[0,1].legend(loc=3, fontsize=10)
+_ = axes[1,0].get_legend().remove()
+_ = axes[1,1].get_legend().remove()
 fig.set_size_inches(fig.get_figwidth(), 1.66*fig.get_figheight())
 plt.show()
 ```
