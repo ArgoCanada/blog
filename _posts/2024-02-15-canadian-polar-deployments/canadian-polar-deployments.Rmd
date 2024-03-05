@@ -16,7 +16,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
-use_condaenv("py39")
+# use_condaenv("py39")
 ```
 
 In this post we will summarize recent polar deployments of NKE ARVOR and look at their initial data. The deployments occurred in the Beaufort Sea in the Arctic Ocean, North of Alaska/Northwest Territories and the Ross Sea in the Southern Ocean. Ice avoidance parameters for each region will be shown. 
