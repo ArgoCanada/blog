@@ -55,8 +55,8 @@ plan_table = plan.drop('MODEL_DETAIL', axis=1)
 
 ```{r map, layout="l-page-outset"}
 pal <- colorFactor(
-  c("green", "purple", "blue", "yellow"),
-  levels = c("BIO", "IOS", "ONC", "Dal")
+  c("green", "purple", "blue", "yellow","green"),
+  levels = c("BIO", "IOS", "ONC", "Dal","SAEON")
 )
 icons <- iconList(
   OPERATIONAL = makeIcon("images/buoy.png", "images/buoy.png", 16, 16),
@@ -110,8 +110,12 @@ leaflet() %>%
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
-  cty <- py$mdf$Country[py$mdf$Ship == name]
-  paste(emoji::emoji_name[paste0("flag_", cty)], name)
+  if (is.na(name)) {
+    paste0('')
+  } else {
+    cty <- py$mdf$Country[py$mdf$Ship == name]
+    paste(emoji::emoji_name[paste0("flag_", cty)], name)
+  }
 }
 py$recent_table$Ship <- lapply(py$recent_table$Ship, assign_country)
 knitr::kable(py$recent_table)
