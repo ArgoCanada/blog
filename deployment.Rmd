@@ -135,7 +135,7 @@ stock = pd.read_csv('deployment/inventory.csv')
 remain = pd.DataFrame({
   'Program':stock.Program,
   'Institute':stock.Institute,
-  'ARVOR-SBE':stock['ARVOR'],
+  'ARVOR-SBE':stock['ARVOR-SBE'],
   'ARVOR+DO':stock['ARVOR+DO'],
   'ARVOR-RBR':stock['ARVOR-RBR'],
   'Deep ARVOR':stock['Deep ARVOR'],
