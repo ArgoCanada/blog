@@ -12,7 +12,16 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 29 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Update: Argo Canada Surfacing Times</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2024-03-11-update-argo-canada-surfacing-times</link>
+      <description>An update on "randomizing" surfacing times ahead of the Argo Steering Team meeting.</description>
+      <guid>https://argocanada.github.io/blog/posts/2024-03-11-update-argo-canada-surfacing-times</guid>
+      <pubDate>Mon, 11 Mar 2024 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2024-03-11-update-argo-canada-surfacing-times/update-argo-canada-surfacing-times_files/figure-html5/plot-1.png" medium="image" type="image/png" width="2244" height="960"/>
+    </item>
     <item>
       <title>Canadian Polar Deployments</title>
       <dc:creator>Christopher Gordon</dc:creator>
