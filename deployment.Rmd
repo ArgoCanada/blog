@@ -25,6 +25,7 @@ df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
 df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
 df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
+df['DEPLOYMENT SHIP'] = [s if pd.notna(s) else '' for s in df['DEPLOYMENT SHIP']]
 
 mapper = {
   'PROGRAM':'Program',
@@ -110,12 +111,8 @@ leaflet() %>%
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
-  if (is.na(name)) {
-    paste0('')
-  } else {
-    cty <- py$mdf$Country[py$mdf$Ship == name]
-    paste(emoji::emoji_name[paste0("flag_", cty)], name)
-  }
+  cty <- py$mdf$Country[py$mdf$Ship == name]
+  paste(emoji::emoji_name[paste0("flag_", cty)], name)
 }
 py$recent_table$Ship <- lapply(py$recent_table$Ship, assign_country)
 knitr::kable(py$recent_table)
