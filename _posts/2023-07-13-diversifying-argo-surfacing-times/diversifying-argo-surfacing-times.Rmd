@@ -15,7 +15,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
-use_condaenv("py39")
+# use_condaenv("py39")
 ```
 
 A 2021 paper by [Johnson and Bif (2021)](https://doi.org/10.1038/s41561-021-00807-z) demonstrated that diel cycles of oxygen can be observed using the Argo network as a collective set of sensors. More recently, [Stoer and Fennel (2022)](https://doi.org/10.1002/lol2.10295) used similar methodology on particle backscatter to estimate Net Primary Production (NPP) from diel cycles in carbon biomass. Each of these recent papers apply the method [Gille (2012)](https://doi.org/10.1029/2012JC007883) demonstrated for diel cycles of temperature to biogeochemical variables. The calculation of the diel cycle depends on multiple factors, one of them being that floats included in the analysis do not surface at a fixed or few times of day for every profile. Instead, floats must demonstrate good temporal coverage of a 24hr period with near even occurrences.

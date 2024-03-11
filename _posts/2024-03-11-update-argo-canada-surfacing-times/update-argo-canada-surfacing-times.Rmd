@@ -1,0 +1,121 @@
+---
+title: "Update: Argo Canada Surfacing Times"
+description: |
+  An update on "randomizing" surfacing times ahead of the Argo Steering Team meeting. 
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-03-11
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+# use_condaenv("py39")
+```
+
+This post is a simplified update of a previous post, [Diversifying Argo Surfacing Times](https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times/) ahead of the AST. We will use the latest Argo index file to check on local surfacing times of Argo Canada floats, broken down by float type. Python code is can be expanded to show each step. 
+
+```{python py setup and load index, echo=TRUE, results=FALSE}
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style="ticks", palette="colorblind")
+
+# load the global index
+global_index = pd.read_csv(
+  "ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt.gz", 
+  compression="gzip", header=8
+)
+# subset to only the MEDS DAC, profiles with valid dates
+meds = global_index.loc[global_index.file.str.contains('meds')]
+meds = meds.loc[meds.date.notna()]
+
+# convert date to pandas timestamps, take only profiles from the last 3 years
+meds["date"] = meds.date.astype(str)\
+  .apply(lambda x: x.replace(".0", ""))\
+  .apply(pd.Timestamp, tz="utc")
+meds = meds.loc[meds.date > pd.Timestamp("01-2022", tz="utc")]
+```
+
+For each float type, different methods can be used depending on the float mission parameter set to vary the surfacing time of day. Argo Canada currently operates [x] kinds of floats: MetOcean NOVA, NKE ARVOR (SBE and RBR), NKE PROVOR (CTS4 and CTS5 - different operating systems), and NKE deep ARVOR. 
+
+- MetOcean NOVA floats: there are few surviving NOVA floats, but support for 2-way communication and/or cycle time variation is not available. _Therefore, these floats will not comply with the time of day recommendation_.
+- NKE ARVOR: Cycle time is defined in hours, so as long as the chosen cycle time is not a multiple of 24 (or better yet, not a multiple of 4 or 6), good diurnal coverage will be achieved throughout the float's lifetime. Originally we had chosen 245 hours (10 days plus 5 hours) for our cycle time, but at the recommendation of NKE reduced to 235 hours (10 days minus 5 hours) as they felt this would be more likely to achieve more cycles in the battery lifetime of the float. 
+- NKE PROVOR CTS4: These floats use a parameter that defines the time of day the float attempts to surface. Therefore, to comply with the TOD recommendation, must be semi-actively piloted. We use github actions to reprogram this parameter following each cycle, which can be read more about in the post "[Automated Updates for NKE PROVOR Surfacing Times](https://argocanada.github.io/blog/posts/2023-10-18-automated-updates-for-nke-provor-surfacing-times/)"
+- NKE PROVOR CTS5: similar to the ARVORs, a cycle time can be defined. At this stage, Canada has two CTS5 floats deployed by Dalhousie University in the Labrador Sea, operating on 125 hour (5 day plus 5 hour) cycles times. 
+- NKE Deep ARVOR: Deep ARVOR floats define their cycle times as an integer number of days, therefore their surfacing time cannot be effectively varied. This is something we have brought to NKE's attention and will continue to communicate with them in hopes that following versions will allow for TOD variance. _These floats will not comply with the time of day recommendation_. 
+
+```{python local times, echo=TRUE, results=FALSE}
+import timezonefinder
+tf = timezonefinder.TimezoneFinder()
+import pytz
+
+profiler_type = {
+    "865":"NOVA",
+    "843":"POPS",
+    "844":"ARVOR_SBE",
+    "846":"APEX",
+    "878":"ARVOR_RBR",
+    "838":"ARVOR_DEEP",
+    "836":"PROVOR_CTS4",
+    "834":"PROVOR_CTS5",
+}
+
+# exclude invalid locations
+meds = meds.loc[(meds.latitude.notna()) & (meds.longitude.notna())]
+
+# get timezone, local time, and hour at surface for each profile
+meds["timezone"] = [
+  pytz.timezone(tf.certain_timezone_at(lat=lat, lng=lon))\
+  for lat, lon in zip(meds.latitude, meds.longitude)
+]
+meds["local_time"] = [utc_time.tz_convert(tz) for utc_time, tz in zip(meds.date, meds.timezone)]
+meds["surface_hour"] = [local_time.hour + 0.5 for local_time in meds.local_time]
+
+# add a column for WMO number as well as platform name
+meds["WMO"] = [int(s.split("/")[1]) for s in meds.file]
+meds["cycle"] = [int(s.split("_")[1].split('.')[0].replace('D','')) for s in meds.file]
+meds["platform"] = [profiler_type[f"{p}"] for p in meds.profiler_type]
+# create column for profile year
+meds["year"] = [d.year for d in meds.local_time]
+sub = meds.loc[meds.year > 2022]
+```
+
+The plot below shows a histogram of Argo Canada profiles in 2023 and 2024. 
+
+```{python plot, echo=TRUE, results=TRUE}
+# create a FacetGrid that will plot by year, 2022, 2023
+g = sns.displot(
+  sub, x="surface_hour", col="year", hue="platform", 
+  kind="hist", bins=list(range(24)), multiple="stack", 
+  facet_kws=dict(despine=False, sharey=False)
+)
+g.fig.set_dpi(300)
+g.fig.set_constrained_layout(True)
+plt.show()
+```
+
+Finally, we use the code below to check if any floats, excluding NOVA floats, have a low standard deviation of surfacing times. 
+
+```{python audit results, echo=TRUE}
+meds = meds.loc[meds.platform != "NOVA"]
+for wmo in meds["WMO"].unique():
+  if meds.loc[meds.WMO == wmo].surface_hour.std() < 4:
+    print(
+        meds.loc[meds.WMO == wmo].platform.iloc[0],
+        wmo, 
+        f"{meds.loc[meds.WMO == wmo].cycle.iloc[-1]:d}\t",
+        f"{meds.loc[meds.WMO == wmo].surface_hour.std():.1f}",
+        meds.loc[meds.WMO == wmo].date.iloc[-1],
+        meds.loc[meds.WMO == wmo].timezone.iloc[0]
+    )
+```
+
+The only floats that show up are two ARVOR floats that failed after 1-2 profiles and the deep floats that define cycle time as an integer number of days. 
