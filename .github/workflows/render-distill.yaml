@@ -55,7 +55,7 @@ jobs:
       - name: Deploy site to the gh-pages branch
         if: success() && (github.ref == 'refs/heads/master')
         run: |
-          cp -rf _site/* pages-clone/
+          cp -rf docs/* pages-clone/
           cd pages-clone
           git add -A
           git commit -m 'Rebuild site' || echo "No changes to commit"
