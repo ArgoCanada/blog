@@ -19,7 +19,7 @@ library(reticulate)
 # use_condaenv("py39")
 ```
 
-This post is a simplified update of a previous post, [Diversifying Argo Surfacing Times](https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times/) ahead of the AST. We will use the latest Argo index file to check on local surfacing times of Argo Canada floats, broken down by float type. Python code is can be expanded to show each step. 
+This post is a simplified update of a previous post, [Diversifying Argo Surfacing Times](https://argocanada.github.io/blog/posts/2023-07-13-diversifying-argo-surfacing-times/) ahead of the AST. We will use the latest Argo index file to check on local surfacing times of Argo Canada floats, broken down by float type. Python code can be expanded to show each step. 
 
 ```{python py setup and load index, echo=TRUE, results=FALSE}
 import pandas as pd
