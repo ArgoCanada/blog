@@ -1,4 +1,4 @@
 Parameter,Beaufort Sea Value,Ross Sea Value
-Start Pressure Detection,20,50
-Stop Pressure Detection,10,30
-Temperature Threshold,-1.800,-1.225
+Start Pressure Detection (dbar),20,50
+Stop Pressure Detection (dbar),10,30
+Temperature Threshold (milli deg C),-1210,-1810
