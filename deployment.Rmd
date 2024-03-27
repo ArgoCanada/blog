@@ -151,7 +151,11 @@ model_mapper = {
   'ARVOR_RBR':'ARVOR-RBR',
   'ARVOR_D':'Deep ARVOR',
   'PROVOR_CTS4':'PROVOR',
-  'PROVOR_CTS5':'PROVOR'
+  'PROVOR_CTS4+pH':'PROVOR',
+  'PROVOR_CTS5':'PROVOR',
+  'PROVOR_CTS5+pH':'PROVOR',
+  'PROVOR_CTS5+SUNA':'PROVOR',
+
 }
 
 for i in plan.index:
