@@ -175,11 +175,13 @@ knitr::kable(py$table)
 ```
 
 Beaufort:
+
 - Both Beaufort Sea floats have resurfaced! 4902610 not on GDAC yet.
 - ISA does not seem to have prevented floats from approaching/bumping into the ice
 - Lost some data - ex. 4902611 did 3 cycles before going under ice, but newly sent data starts at cycle 13: reduce vertical resolution before next season?
 
 Ross:
+
 - Most floats have not reported since near deployment time, but 4902664 just reported on June 16, not on GDAC yet
 
 
