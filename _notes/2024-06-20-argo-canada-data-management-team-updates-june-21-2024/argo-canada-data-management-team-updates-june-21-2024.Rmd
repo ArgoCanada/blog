@@ -1,0 +1,224 @@
+---
+title: "Argo Canada Data Management Team Updates - June 21, 2024"
+description: |
+  Summary of updates for meeting taking plaace on June 21, 2024.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-06-20
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(leaflet)
+library(emoji)
+library(reticulate)
+# use_condaenv("py39")
+```
+
+```{python imports and setup, include=FALSE}
+### imports and setup
+
+import argopy
+import argopandas as argo
+
+from pathlib import Path
+from netCDF4 import Dataset
+import numpy as np
+
+import matplotlib.pyplot as plt
+import matplotlib.path as mpath
+import cmocean.cm as cmo
+
+import pandas as pd
+import seaborn as sns
+sns.set(style="ticks", palette="colorblind")
+```
+
+Chris' notes before the meeting are in regular text. _Notes taken during the meeting are in italics_. 
+
+## Recent Deployments
+
+Recent deployments (since May 1) include 5 floats in the Lab Sea (3 Dal CTS5, 2 BIO CTS4), 1 float deployed from the sailing vessel Oceanolog (read more [here](https://sailforscience.com/a-day/)), and 2 floats deployed along line P (1 deep ARVOR, 1 CTS4 w/ Nitrate).
+
+Going a little further back, in April 4 floats were deployed, 2 on the AZMP (BIO CTS4) and 2 southeast of South Africa (ARVOR).
+
+Dal floats: profiled daily while ship was in the area, now on 5-day cycles. Parking at 2000m to use as a pseudo-sediment trap via the BBP parking hook (see [here](https://argocanada.github.io/blog/posts/2023-12-05-implementing-updated-backscatter-rtqc/#parking-hook-test) for an example)
+
+Nitrate float (4902679) is not on GDAC yet (Nitrate processing in progress), profiling daily?
+
+```{python data, include=FALSE}
+import pandas as pd
+
+df = pd.read_csv('../../deployment/canada_deployments.csv')
+df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
+df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('05-01-2024')]
+df = df.sort_values('DEPLOYMENT DATE')
+df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
+df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
+df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
+df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
+df['DEPLOYMENT SHIP'] = [s if pd.notna(s) else '' for s in df['DEPLOYMENT SHIP']]
+
+mapper = {
+  'PROGRAM':'Program',
+  'INSTITUTE':'Institute',
+  'STATUS':'Status',
+  'MODEL':'Model',
+  'MODEL_DETAIL':'MODEL_DETAIL',
+  'DEPLOYMENT DATE':'Date',
+  'DEPLOYMENT LAT':'Latitude',
+  'DEPLOYMENT LON':'Longitude',
+  'DEPLOYMENT SHIP':'Ship',
+  'IMEI':'IMEI',
+  'REF':'WMO',
+  'SERIAL NUMBER':'Serial No.',
+}
+
+df = df.rename(columns=mapper)
+df = df[mapper.values()]
+df = df.reset_index().drop('index', axis=1)
+
+mdf = pd.read_csv("../../deployment/ship_info.csv")
+
+recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
+recent_table = recent.drop('MODEL_DETAIL', axis=1)
+plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
+plan_table = plan.drop('MODEL_DETAIL', axis=1)
+```
+
+```{r map, layout="l-page-outset", echo=FALSE}
+pal <- colorFactor(
+  c("green", "purple", "blue", "yellow","green"),
+  levels = c("BIO", "IOS", "ONC", "Dal","SAEON")
+)
+icons <- iconList(
+  OPERATIONAL = makeIcon("../../images/buoy.png", "../../images/buoy.png", 16, 16),
+  CONFIRMED = makeIcon("../../images/loading.png", "../../images/loading.png", 16, 16),
+  FAILED = makeIcon("../../images/x.png", "../../images/x.png", 16, 16)
+)
+
+leaflet() %>%
+  addTiles() %>%
+    setView(lng = -60, lat = 45, zoom = 2) %>%
+    addCircleMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      radius = 12,
+      stroke = FALSE,
+      fillColor = ~pal(py$df$Institute),
+      fillOpacity = 0.7,
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
+      )
+    ) %>%
+    addMarkers(
+      data = py$df,
+      lat = py$df$Latitude,
+      lng = py$df$Longitude,
+      icon = ~icons[py$df$Status],
+      popup = paste0(
+        "WMO: ", py$df$WMO,
+        "<br/>",
+        "Model: ", py$df$Model,
+        "<br/>",
+        "Program: ", py$df$Program, ", ", py$df$Institute,
+        "<br/>",
+        "Deployment Date: ", py$df$Date,
+        "<br/>",
+        "Ship: ", py$df$Ship
+      )
+    )
+
+knitr::kable(py$recent_table)
+```
+
+## Arctic & Antarctic Floats
+
+```{python arctic summary, include=FALSE}
+# wmo numbers of the floats
+beaufort_wmos = [4902610, 4902611]
+ross_wmos = [4902664, 4902665, 4902667, 4902668, 4902669]
+
+# grab Argo index for each group
+index = argopy.ArgoIndex().load()
+beaufort_ix = index.search_wmo(beaufort_wmos).to_dataframe()
+ross_ix = index.search_wmo(ross_wmos).to_dataframe()
+
+hl = index.search_wmo(beaufort_wmos + ross_wmos).to_dataframe()
+
+table = pd.DataFrame({
+  'WMO':[wmo for wmo in hl.wmo.unique()],
+  'Basin':['Beaufort Sea' if wmo in beaufort_ix.wmo.values else 'Ross Sea' for wmo in hl.wmo.unique()],
+  'Deployment Date':[hl.loc[hl.wmo == wmo].date.min().strftime('%b %d, %Y') for wmo in hl.wmo.unique()],
+  'Last Cycle':[hl.loc[hl.wmo == wmo].cyc.max() for wmo in hl.wmo.unique()],
+  'Last Cycle Date':[hl.loc[hl.wmo == wmo].date.max().strftime('%b %d, %Y') for wmo in hl.wmo.unique()],
+})
+  
+```
+
+```{r table, include=TRUE, echo=FALSE, layout="l-body-outset shaded"}
+knitr::kable(py$table)
+```
+
+Beaufort:
+
+- Both Beaufort Sea floats have resurfaced! 4902610 not on GDAC yet.
+- ISA does not seem to have prevented floats from approaching/bumping into the ice
+- Lost some data - ex. 4902611 did 3 cycles before going under ice, but newly sent data starts at cycle 13: reduce vertical resolution before next season?
+
+Ross:
+
+- Most floats have not reported since near deployment time, but 4902664 just reported on June 16, not on GDAC yet
+
+
+```{python beaufort float data, include=FALSE, echo=FALSE}
+
+ix = argo.float(4902611).prof
+data = ix.levels[['PRES', 'TEMP', 'PSAL']]
+
+fig, axes = plt.subplots(1, 2, sharey=True)
+for ax, v in zip(axes, ['TEMP', 'PSAL']):
+  sns.lineplot(
+    data=data, x=v, y='PRES', hue='file', style='N_PROF',
+    legend=False, sort=False, estimator=None,
+    palette='Blues', ax=ax
+  )
+
+ax.set_ylim((2050, -50))
+```
+
+```{python plot show}
+plt.show()
+```
+
+## Nitrate
+
+Writing of Nitrate RTQC code is in progress. Official documentation is [here](https://archimer.ifremer.fr/doc/00732/84370/89380.pdf). RTQC for Nitrate includes: 
+
+- global range test
+- spike test
+- stuck value test
+- grey list test
+- nitrate specific tests
+
+Specific tests include checking for saturation of the spectrophotometer, absorbance at 240nm (evaluate sensor optics) and error fitting to a model. There is also a check for high bisulfide concentrations such as in the black sea, but these are special cases and likely only going to be evaluated by expert researchers. 
+
+Like oxygen, unadjusted nitrate is flagged as 3 by default. If TEMP_QC is 4, NITRATE_QC is also 4, and if PSAL_QC is 4, NITRATE_QC should be 3 as well, including for adjusted, but this can be reviewed at the DMQC step. 
+
+## Near Surface Sampling
+
+At the most recent AST Brian King presented on an evaluation of Argo floats sampling all the way to the surface. The defauly configuration of the CTD pump for NKE floats is to turn off the pump at 5dbar. I am in the process of changing this parameter to 2dbar for all floats and will use as the default going forward. 
