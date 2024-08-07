@@ -1,7 +1,7 @@
 ---
 title: "Argo Canada Data Management Team Updates - June 21, 2024"
 description: |
-  Summary of updates for meeting taking plaace on June 21, 2024.
+  Summary of updates for meeting taking place on June 21, 2024.
 author:
   - name: Christopher Gordon
     url: https://github.com/cgrdn
@@ -38,8 +38,6 @@ import pandas as pd
 import seaborn as sns
 sns.set(style="ticks", palette="colorblind")
 ```
-
-Chris' notes before the meeting are in regular text. _Notes taken during the meeting are in italics_. 
 
 ## Recent Deployments
 
