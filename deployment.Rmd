@@ -114,7 +114,13 @@ assign_country <- function(name) {
   cty <- py$mdf$Country[py$mdf$Ship == name]
   paste(emoji::emoji_name[paste0("flag_", cty)], name)
 }
+
+link_efm <- function(wmo) {
+  paste0("[",wmo,"](https://fleetmonitoring.euro-argo.eu/float/",wmo,")")
+}
+
 py$recent_table$Ship <- lapply(py$recent_table$Ship, assign_country)
+py$recent_table$WMO <- lapply(py$recent_table$WMO, link_efm)
 knitr::kable(py$recent_table)
 ```
 ## Planned Deployments
@@ -154,8 +160,8 @@ model_mapper = {
   'PROVOR_CTS4+pH':'PROVOR',
   'PROVOR_CTS5':'PROVOR',
   'PROVOR_CTS5+pH':'PROVOR',
+  'PROVOR_CTS4+SUNA':'PROVOR',
   'PROVOR_CTS5+SUNA':'PROVOR',
-
 }
 
 for i in plan.index:

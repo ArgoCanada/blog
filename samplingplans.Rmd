@@ -1,0 +1,49 @@
+---
+title: "Argo Canada Sampling Plans"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+On this page you will find definitions of the typical sampling plans Argo Canada uses for their floats depending on model, payload, and mission. 
+
+# MetOcean
+
+## NOVA
+
+### nova-default
+
+### dova-default
+
+# NKE
+
+## ARVOR
+
+### arvor-core-default
+
+### arvor-doxy-default
+
+### arvor-rbr-1hz
+
+## PROVOR CTS4
+
+### provor-cts4-configx-default
+
+### provor-cts4-configy-default
+
+### provor-cts4-configz-default
+
+## PROVOR CTS5
+
+### provor-cts5-configx-default
+
+### provor-cts5-configx-colocate
+
+### provor-cts5-configx-deeppark
+
+# Teledyne-Webb
+
+## APEX
+
+### apex-historical
