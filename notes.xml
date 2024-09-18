@@ -12,7 +12,15 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Argo Technical Workshop - Argo Canada Debrief</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/notes/2024-09-17-argo-technical-workshop-argo-canada-debrief</link>
+      <description>Relevant notes from the Argo Technical Workshop held September 10-13 in Seattle, WA</description>
+      <guid>https://argocanada.github.io/blog/notes/2024-09-17-argo-technical-workshop-argo-canada-debrief</guid>
+      <pubDate>Tue, 17 Sep 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Argo Canada Data Management Team Updates - June 21, 2024</title>
       <dc:creator>Christopher Gordon</dc:creator>
