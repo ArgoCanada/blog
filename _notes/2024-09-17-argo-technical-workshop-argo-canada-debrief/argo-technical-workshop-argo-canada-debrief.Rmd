@@ -1,0 +1,91 @@
+---
+title: "Argo Technical Workshop - Argo Canada Debrief"
+description: |
+  Relevant notes from the Argo Technical Workshop held September 10-13 in Seattle, WA
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-09-17
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Meeting Notes
+
+### Effort to standardize the Argo mission
+
+Discussion surrounding the technical details of standardizing the Argo mission, including cycle timing (not equal exactly 10 days) and park depth sampling (hourly T/S, 6-hour S). More experienced user groups are going to setup their floats as they see, and the goal is not to control how these groups set up their floats, but to ensure smaller users that may not change the floats from their default configuration have a compliant setup. This setup is 
+
+Also, *Argo Canada's sampling is not very typical of the array* - we chose a setup that maximized the number of 1 dbar bins within our Iridium plan. 2 dbar bins throughout the water column is more common (CSIRO, Ifremer) or at least to 1000 dbar (UW), with 1 dbar bins only at the very surface. Our current setup returns just under 675 points (18-22 sbd messages, ~6kB). Moving to 1/2/10 with 20/1000 depth thresholds would result in 610 points. 
+
+### Connection with TWR
+
+Connecting with TWR staff was a helpful part of the week including getting some hands on experience with APEX floats. Pre-deployment testing will be similar, though there are some differences in deployment. General notes:
+
+- shipped in IDLE (pressure activation) mode
+- work with floats though terminal emulator as before, but physical connection rather than bluetooth
+- based on physical connection, could have a much easier shipboard setup to test floats (ex. dedicated laptop, macro to run test, teraterm always open and active)
+- can fill bottom of the float (? there is a word for this) using a bucket to encourage faster sinking
+- TWR developing in house tool for production testing that they want to eventually have users access - opportunity to be beta users
+- TWR will contact us for RUDICS activation
+- Large amount of onboard storage, all test information, pressure inquiries in IDLE mode stored
+- Will need to provide rough deployment regions before order is complete, floats need to be specifically ballasted
+
+### Sharing Raw Files w/ Manufacturers
+
+Strong recommendation to share raw data with float manufacturers so that they have access to the engineering data when helping address issues. Easy with SBD (add manufacturer email address to distribution list) but slightly more complicated with RUDICS. Will work with TWR to ensure they have access to RUDICS data (mirror on their server perhaps?). 
+
+### Data Stream - upcoming new sensor on Dal float
+
+Dalhousie is purchasing a PROVOR CTS5 that will be equipped with an RBR Tridente sensor instead of the SBS FLBB sensor. Data format coming from the float should be very similar, maybe different naming structure, but also may be differences in QC, processing, etc. Something to keep in mind. 
+
+### Polar Deployments
+
+Talked with Noe about deployments near ice - they will often let the float start its mission on deck (start to try to sink) in order to have the float sink faster and therefore reduce chance of hitting ice.
+
+### Next Generation ARVOR
+
+NKE presented the next generation of ARVOR float. Hardware/structure is very similar, but software/firmware will have major upgrades and will address some of our complaints/issues from the past. Available 2025.
+
+### Future of Argo Tech
+
+Argo Tech plans to host quarterly virtual meetings and bi-annual in-person meetings. Next in person meeting September 2026 (WHOI?).
+
+Next two meetings will tentatively discuss float profiling, timing, parking, and the report to be made to the AST. 
+
+## Action Items
+
+A meeting report is being produced, however some action items are more relevant to Argo Canada than others. Those are listed here. Note that at the time of writing this the action items are still subject to change.
+
+2. *Data capture on pre-deployment testing: use binary or numerical scale to represent the level of pre-deployment dockside testing performed on a float.*
+
+This will encourage testing and allow for analysis of float failures in context of knowing the float was in working order as close to deployment as possible. Data capture methodology to be determined. Meta file may be a good place to store this data, however Argo Tech recognizes the challenges associated with additions to the data system.
+
+3. *Improved sharing of post-deployment logs with vendors.*
+
+Transmitted data and engineering log info should be sent to vendors so that they may monitor float performance as well. For SBD, simply add the preferred vendor email to the distribution list. For floats on RUDICS communication, collaborate with vendors to arrange appropriate access. 
+
+Argo Tech asks for support as needed from AST/ADMT as DACs may need to facilitate.
+
+Argo Tech asks vendors to review and analyze data as it is submitted.
+
+5. *Enhance understanding of float failure modes.*
+
+Larger user groups should track float failures and present analysis at bi-annual Argo Tech meetings and/or updates at quarterly virtual meetings (see SIO failure analysis presentation as an example). Any systematic failures should be communicated to the vendors and the Argo Tech group to prevent deployment of compromised floats.
+
+6. *Improve fault identification and record-keeping.*
+
+This action item is a call for improved record keeping prior to float deployment. This includes logging all interactions with the float, for example using date-stamped terminal logs. In addition, any problems discovered during float testing/ballasting/assembly should be formally recorded by the end user and shared with the vendor, even in cases where the problem can be fixed without any required RMA or similar action from vendors. WHOI maintains a github for this type of information, which is a good example to follow. 
+
+17. *User groups will use ticketing systems provided by vendors for all float issues.*
+
+User groups, especially those with close relationships with float vendors or sensor manufacturers, will often bypass the typical customer service portals these companies have in place in favor of direct contact with a representative they may have a personal relationship with. Bypassing these types of ticketing systems however can lead to issues not being properly tracked internally by the vendors.
+
+User groups should be motivated to use these ticketing systems as it is the best way for vendors to track issues, and make changes to their products based on that information. It is a way for both end users and vendors to contribute to the progress/reliability of a given float/sensor.
+
