@@ -1547,22 +1547,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="meeting-notes">Meeting Notes</h2>
 <h3 id="effort-to-standardize-the-argo-mission">Effort to standardize the Argo mission</h3>
-<p>Discussion surrounding the technical details of standardizing the Argo mission, including cycle timing (not equal exactly 10 days) and park depth sampling (hourly T/S, 6-hour S). More experienced user groups are going to setup their floats as they see, and the goal is not to control how these groups set up their floats, but to ensure smaller users that may not change the floats from their default configuration have a compliant setup. This setup is</p>
-<p>Also, <em>Argo Canada’s sampling is not very typical of the array</em> - we chose a setup that maximized the number of 1 dbar bins within our Iridium plan. 2 dbar bins throughout the water column is more common (CSIRO, Ifremer) or at least to 1000 dbar (UW), with 1 dbar bins only at the very surface. Our current setup returns just under 675 points (18-22 sbd messages, ~6kB). Moving to 1/2/10 with 20/1000 depth thresholds would result in 610 points.</p>
+<p>Discussion surrounding the technical details of standardizing the Argo mission, including cycle timing (not equal exactly 10 days) and park depth sampling (hourly T/P, 6-hour S). More experienced user groups will still set up their floats as they see fit. The goal is not to control how these type of groups program their floats, but to ensure smaller users that may not change the floats from their default configuration have an Argo mission compliant setup.</p>
+<p>Also, <em>Argo Canada’s sampling is not very typical of the array</em> - we chose a setup that maximized the number of 1 dbar bins within our Iridium plan. 2 dbar bins throughout the water column is more common (CSIRO, Ifremer) or at least to 1000 dbar (UW), with 1 dbar bins only at the very surface. Our current setup returns just under 675 points (18-22 sbd messages, ~6kB). Moving to 1/2/10 with 20/1000 depth thresholds would result in 610 points. Our current park sample strategy is the NKE default, 12 hours, with some exceptions (Dal PROVORs sampling hourly).</p>
 <h3 id="connection-with-twr">Connection with TWR</h3>
 <p>Connecting with TWR staff was a helpful part of the week including getting some hands on experience with APEX floats. Pre-deployment testing will be similar, though there are some differences in deployment. General notes:</p>
 <ul>
 <li>shipped in IDLE (pressure activation) mode</li>
 <li>work with floats though terminal emulator as before, but physical connection rather than bluetooth</li>
-<li>based on physical connection, could have a much easier shipboard setup to test floats (ex. dedicated laptop, macro to run test, teraterm always open and active)</li>
+<li>based on physical connection, could have a much easier shipboard setup to test floats (ex. dedicated laptop, macro to run test, teraterm always open and active); unsure if TWR supplies necessary connection?</li>
 <li>can fill bottom of the float (? there is a word for this) using a bucket to encourage faster sinking</li>
 <li>TWR developing in house tool for production testing that they want to eventually have users access - opportunity to be beta users</li>
 <li>TWR will contact us for RUDICS activation</li>
 <li>Large amount of onboard storage, all test information, pressure inquiries in IDLE mode stored</li>
 <li>Will need to provide rough deployment regions before order is complete, floats need to be specifically ballasted</li>
 </ul>
+<h3 id="changes-to-pre-deployment-routine">Changes to Pre-deployment Routine</h3>
+<p>An emphasis on <em>dockside</em> testing was made, to (1) ensure problems do not arise in transport to a ship and (2) this also minimizes startup time as the GPS almanac will update. Typically we have testing within 1-2 months of a float going on a ship, but I would like to move that up to at least test the week of.</p>
 <h3 id="sharing-raw-files-w-manufacturers">Sharing Raw Files w/ Manufacturers</h3>
-<p>Strong recommendation to share raw data with float manufacturers so that they have access to the engineering data when helping address issues. Easy with SBD (add manufacturer email address to distribution list) but slightly more complicated with RUDICS. Will work with TWR to ensure they have access to RUDICS data (mirror on their server perhaps?).</p>
+<p>Strong recommendation to share raw data with float manufacturers so that they have access to the engineering data when helping address issues. Easy with SBD (add manufacturer email address to distribution list) but slightly more complicated with RUDICS. Will work with TWR to ensure they have access to RUDICS data (mirror on their server perhaps?). Does NKE already have access to the general RUDICS server? Do we need to revoke that?</p>
 <h3 id="data-stream---upcoming-new-sensor-on-dal-float">Data Stream - upcoming new sensor on Dal float</h3>
 <p>Dalhousie is purchasing a PROVOR CTS5 that will be equipped with an RBR Tridente sensor instead of the SBS FLBB sensor. Data format coming from the float should be very similar, maybe different naming structure, but also may be differences in QC, processing, etc. Something to keep in mind.</p>
 <h3 id="polar-deployments">Polar Deployments</h3>
