@@ -109,7 +109,7 @@ leaflet() %>%
 
 ## Deployments since Jan 1, 2024
 
-To date we have deployed `r nrow(py$recent_table)` floats in 2024: `r nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_SBE'])` ARVOR-SBE, `r nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_RBR'])` ARVOR-RBR, `r nrow(py$recent_table[py$recent_table$Detail == 'ARVOR+DO'])` ARVOR+DO, `r nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_D'])` Deep ARVOR+DO,, `r nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS4'])+nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS4+SUNA'])` PROVOR CTS4, and `r nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS5'])` PROVOR CTS5.
+To date we have deployed `r nrow(py$recent)` floats in 2024: `r nrow(py$recent[py$recent$Detail == 'ARVOR_SBE'])` ARVOR-SBE, `r nrow(py$recent[py$recent$Detail == 'ARVOR_RBR'])` ARVOR-RBR, `r nrow(py$recent[py$recent$Detail == 'ARVOR+DO'])` ARVOR+DO, `r nrow(py$recent_table[py$recent$Detail == 'ARVOR_D'])` Deep ARVOR+DO,, `r nrow(py$recent[py$recent$Detail == 'PROVOR_CTS4'])+nrow(py$recent[py$recent$Detail == 'PROVOR_CTS4+SUNA'])` PROVOR CTS4, and `r nrow(py$recent[py$recent$Detail == 'PROVOR_CTS5'])` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
@@ -131,11 +131,6 @@ knitr::kable(py$recent_table)
 py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
-
-### Other Deployment Information
-
-Although there is not yet a designated cruise or location, Argo Canada sent 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery in 2023. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.
-
 ## Inventory
 
 ```{python inventory}
@@ -177,8 +172,6 @@ The table below shows the number of "in stock" floats for each program/instituti
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
-
-**_note: for BIO floats, 1 each of ARVOR and PROVOR floats have failed their vacuum test and will likely need to be returned to NKE for repair_
 
 This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
