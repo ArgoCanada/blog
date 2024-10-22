@@ -32,7 +32,7 @@ mapper = {
   'INSTITUTE':'Institute',
   'STATUS':'Status',
   'MODEL':'Model',
-  'MODEL_DETAIL':'MODEL_DETAIL',
+  'MODEL_DETAIL':'Detail',
   'DEPLOYMENT DATE':'Date',
   'DEPLOYMENT LAT':'Latitude',
   'DEPLOYMENT LON':'Longitude',
@@ -49,11 +49,9 @@ df = df.reset_index().drop('index', axis=1)
 mdf = pd.read_csv("deployment/ship_info.csv")
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-recent_table = recent.drop('MODEL_DETAIL', axis=1)
-recent_table = recent.drop('IMEI', axis=1)
+recent_table = recent.drop(['IMEI', 'Model'], axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-plan_table = plan.drop('MODEL_DETAIL', axis=1)
-plan_table = plan.drop('IMEI', axis=1)
+plan_table = plan.drop(['IMEI', 'Model'], axis=1)
 ```
 
 ```{r map, layout="l-page-outset"}
@@ -81,7 +79,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
@@ -98,7 +96,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
@@ -110,6 +108,8 @@ leaflet() %>%
 ```
 
 ## Deployments since Jan 1, 2024
+
+To date we have deployed `nrow(py$recent_table)` floats in 2024: `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_SBE'])` ARVOR-SBE, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_RBR'])` ARVOR-RBR, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR+DO'])` ARVOR+DO, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_D'])` Deep ARVOR+DO,, `nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS4'])+nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS4+SUNA'])` PROVOR CTS4, and `nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS5'])` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
@@ -168,7 +168,7 @@ model_mapper = {
 
 for i in plan.index:
     ix = (plan.loc[i].Program, plan.loc[i].Institute)
-    f = plan.loc[i].MODEL_DETAIL
+    f = plan.loc[i].Detail
     remain.loc[ix, model_mapper[f]] -= 1
 ```
 
