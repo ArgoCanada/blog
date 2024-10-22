@@ -117,7 +117,7 @@ leaflet() %>%
 
 ## Deployments since Jan 1, 2024
 
-To date we have deployed `r py$nfloats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO,, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
+To date we have deployed `r py$n_floats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO,, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
