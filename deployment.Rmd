@@ -49,9 +49,9 @@ df = df.reset_index().drop('index', axis=1)
 mdf = pd.read_csv("deployment/ship_info.csv")
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-recent_table = recent.drop('IMEI', axis=1)
+recent_table = recent.drop(['IMEI', 'Model'], axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-plan_table = plan.drop('IMEI', axis=1)
+plan_table = plan.drop(['IMEI', 'Model'], axis=1)
 ```
 
 ```{r map, layout="l-page-outset"}
@@ -79,7 +79,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
@@ -96,7 +96,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
