@@ -52,6 +52,14 @@ recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index()
 recent_table = recent.drop(['IMEI', 'Model'], axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
 plan_table = plan.drop(['IMEI', 'Model'], axis=1)
+
+n_floats = recent.shape[0]
+n_sbe  = recent.loc[recent.Detail == 'ARVOR_SBE'].shape[0]
+n_rbr  = recent.loc[recent.Detail == 'ARVOR_RBR'].shape[0]
+n_do   = recent.loc[recent.Detail == 'ARVOR+DO'].shape[0]
+n_deep = recent.loc[recent.Detail == 'ARVOR_D'].shape[0]
+n_cts4 = recent.loc[recent.Detail == 'PROVOR_CTS4'].shape[0]+recent.loc[recent.Detail == 'PROVOR_CTS4+SUNA'].shape[0]
+n_cts5 = recent.loc[recent.Detail == 'PROVOR_CTS5'].shape[0]
 ```
 
 ```{r map, layout="l-page-outset"}
@@ -109,7 +117,7 @@ leaflet() %>%
 
 ## Deployments since Jan 1, 2024
 
-To date we have deployed `py recent.shape[0]` floats in 2024: `py recent.loc[recent.Detail == 'ARVOR_SBE'].shape[0]` ARVOR-SBE, `py recent.loc[recent$Detail == 'ARVOR_RBR'].shape[0]` ARVOR-RBR, `py recent.loc[recent$Detail == 'ARVOR+DO'].shape[0]` ARVOR+DO, `py recent_table[recent$Detail == 'ARVOR_D'].shape[0]` Deep ARVOR+DO,, `py recent[py$recent$Detail == 'PROVOR_CTS4'].shape[0]+recent.loc[recent$Detail == 'PROVOR_CTS4+SUNA'].shape[0]` PROVOR CTS4, and `py recent.loc[recent$Detail == 'PROVOR_CTS5'].shape[0]` PROVOR CTS5.
+To date we have deployed `r py$nfloats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO,, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
