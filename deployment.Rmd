@@ -32,7 +32,7 @@ mapper = {
   'INSTITUTE':'Institute',
   'STATUS':'Status',
   'MODEL':'Model',
-  'MODEL_DETAIL':'MODEL_DETAIL',
+  'MODEL_DETAIL':'Detail',
   'DEPLOYMENT DATE':'Date',
   'DEPLOYMENT LAT':'Latitude',
   'DEPLOYMENT LON':'Longitude',
@@ -111,7 +111,7 @@ leaflet() %>%
 
 ## Deployments since Jan 1, 2024
 
-To date we have deployed `nrow(py$mdf)` floats in 2024: `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'ARVOR_SBE'])` ARVOR-SBE, `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'ARVOR_RBR'])` ARVOR-RBR, `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'ARVOR+DO'])` ARVOR+DO, `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'ARVOR_D'])` Deep ARVOR+DO,, `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'PROVOR_CTS4'])+nrow(py$mdf[py$mdf$MODEL_DETAIL == 'PROVOR_CTS4+SUNA'])` PROVOR CTS4, and `nrow(py$mdf[py$mdf$MODEL_DETAIL == 'PROVOR_CTS5'])` PROVOR CTS5.
+To date we have deployed `nrow(py$recent_table)` floats in 2024: `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_SBE'])` ARVOR-SBE, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_RBR'])` ARVOR-RBR, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR+DO'])` ARVOR+DO, `nrow(py$recent_table[py$recent_table$Detail == 'ARVOR_D'])` Deep ARVOR+DO,, `nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS4'])+nrow(py$recent_table[py$recent_table$MODEL_DETAIL == 'PROVOR_CTS4+SUNA'])` PROVOR CTS4, and `nrow(py$recent_table[py$recent_table$Detail == 'PROVOR_CTS5'])` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
