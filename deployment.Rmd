@@ -32,7 +32,7 @@ mapper = {
   'INSTITUTE':'Institute',
   'STATUS':'Status',
   'MODEL':'Model',
-  'MODEL_DETAIL':'MODEL_DETAIL',
+  'MODEL_DETAIL':'Detail',
   'DEPLOYMENT DATE':'Date',
   'DEPLOYMENT LAT':'Latitude',
   'DEPLOYMENT LON':'Longitude',
@@ -49,9 +49,17 @@ df = df.reset_index().drop('index', axis=1)
 mdf = pd.read_csv("deployment/ship_info.csv")
 
 recent = df.loc[df.Status == 'OPERATIONAL'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-recent_table = recent.drop('MODEL_DETAIL', axis=1)
+recent_table = recent.drop(['IMEI', 'Model'], axis=1)
 plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().drop('index', axis=1)
-plan_table = plan.drop('MODEL_DETAIL', axis=1)
+plan_table = plan.drop(['IMEI', 'Model'], axis=1)
+
+n_floats = recent.shape[0]
+n_sbe  = recent.loc[recent.Detail == 'ARVOR_SBE'].shape[0]
+n_rbr  = recent.loc[recent.Detail == 'ARVOR_RBR'].shape[0]
+n_do   = recent.loc[recent.Detail == 'ARVOR+DO'].shape[0]
+n_deep = recent.loc[recent.Detail == 'ARVOR_D'].shape[0]
+n_cts4 = recent.loc[recent.Detail == 'PROVOR_CTS4'].shape[0]+recent.loc[recent.Detail == 'PROVOR_CTS4+SUNA'].shape[0]
+n_cts5 = recent.loc[recent.Detail == 'PROVOR_CTS5'].shape[0]
 ```
 
 ```{r map, layout="l-page-outset"}
@@ -79,7 +87,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
@@ -96,7 +104,7 @@ leaflet() %>%
       popup = paste0(
         "WMO: ", py$df$WMO,
         "<br/>",
-        "Model: ", py$df$Model,
+        "Model: ", py$df$Detail,
         "<br/>",
         "Program: ", py$df$Program, ", ", py$df$Institute,
         "<br/>",
@@ -108,6 +116,8 @@ leaflet() %>%
 ```
 
 ## Deployments since Jan 1, 2024
+
+To date we have deployed `r py$nfloats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO,, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
@@ -129,11 +139,6 @@ knitr::kable(py$recent_table)
 py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
-
-### Other Deployment Information
-
-Although there is not yet a designated cruise or location, Argo Canada sent 6 ARVOR floats to Cape Town, South Africa via the RRS Discovery in 2023. These floats will be deployed in the Western Indian Ocean where there is a significant gap in the Argo array.
-
 ## Inventory
 
 ```{python inventory}
@@ -166,7 +171,7 @@ model_mapper = {
 
 for i in plan.index:
     ix = (plan.loc[i].Program, plan.loc[i].Institute)
-    f = plan.loc[i].MODEL_DETAIL
+    f = plan.loc[i].Detail
     remain.loc[ix, model_mapper[f]] -= 1
 ```
 
@@ -175,8 +180,6 @@ The table below shows the number of "in stock" floats for each program/instituti
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
-
-**_note: for BIO floats, 1 each of ARVOR and PROVOR floats have failed their vacuum test and will likely need to be returned to NKE for repair_
 
 This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
