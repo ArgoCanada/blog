@@ -82,11 +82,13 @@ plt.show()
 
 From the rightmost bar it is clear that we are now deploying a diverse set of floats, with additional models/sensors to be added in the next few years.
 
-The following `r py$nstock` floats are left "in stock", including P43205-22CA004 and P53875-23CA001 which are planned for deployment later this year:
+The following `r py$nstock` floats are left "in stock", including P43205-22CA004 and P53875-23CA001 which are planned for deployment later this year. This also includes 2 RBR floats that are due to return to BIO following testing at NKE, and 2 ARVORs and 1 PROVOR CTS4 that are being refurbished for elevated vacuum pressure. 
 
 ```{r table 1, layout="l-body shaded"}
 knitr::kable(py$stock)
 ```
+
+\
 
 Finally, the following floats are on order:
 
