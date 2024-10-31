@@ -1,0 +1,20 @@
+---
+title: "ADMT-25 Meeting Notes"
+description: |
+  Notes and action items from the 25th Argo Data Management Team meeting held in Trieste, Italy.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-10-30
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+

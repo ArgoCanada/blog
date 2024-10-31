@@ -1,0 +1,95 @@
+---
+title: "Canadian Argo: Future Planning and Coordination"
+description: |
+  Contains: info on deployments, planning, float inventory, and expected orders.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2024-10-31
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_condaenv("py39")
+```
+
+```{python imports and load dataframe}
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('../../deployment/ArgoCanada.csv')
+df = df.loc[df.Scientist != 'Marcel Babin']
+df['Date'] = [
+  pd.Timestamp(
+    year=int(row.Datestring.split('/')[0]),
+    month=int(row.Datestring.split('/')[1]),
+    day=int(row.Datestring.split('/')[2]),
+    hour=int(row.Time.split(':')[0]),
+    minute=int(row.Time.split(':')[1])
+  ) if not pd.isna(row.Datestring) else pd.NaT for _, row in df.iterrows() 
+]
+df['Year'] = [d.year for d in df.Date]
+
+n_deployed = df.loc[df.Date.notna()].shape[0]
+earliest = df.Date.min().year
+n2022 = df.loc[df.Year == 2022].shape[0]
+n2023 = df.loc[df.Year == 2023].shape[0]
+n2024 = df.loc[df.Year == 2024].shape[0]
+
+deployed = df.loc[df.Date.notna()]
+
+stock = df.loc[df.Date.isna()]
+stock = stock.reset_index().loc[:, ['WMO', 'Serial', 'Model']]
+nstock = stock.shape[0]
+
+order = pd.DataFrame(
+  dict(
+    Institute=['DFO', 'DFO', 'Dal', 'Dal'],
+    Number=[7, 7, 10, 17],
+    Float=['APEX', 'APEX', 'PROVOR CTS5', 'PROVOR CTS5'],
+    Sensors=['SBE CTD', 'RBR CTD', 'SBE CTD, DO Optope, RBR Tridente, OCR', 'SBE CTD, DO Optope, RBR Tridente, OCR, Trios OPUS']
+  )
+)
+
+```
+
+Since `r py$earliest`, Argo Canada has deployed `r py$n_deployed` floats. In recent years, Canada has deployed `r py$n2022` in 2022, `r py$n2023` in 2023, and `r py$n2024` so far in 2024, with 2 planned deployments remaining for the year. 
+
+```{python deployments graph, layout="l-body"}
+
+deployments = pd.DataFrame(
+  dict(
+    Year = deployed.Year.astype(int).unique(),
+    Deployments = [deployed.loc[df.Year == y].shape[0] for y in deployed.Year.unique()],
+    Cumulative = [deployed.loc[df.Year <= y].shape[0] for y in deployed.Year.unique()]
+  )
+)
+
+g = sns.histplot(deployed, x='Year', hue='Model', multiple='stack', bins=np.arange(2011.5, 2025.5, 1), palette='colorblind')
+ax = g.axes.twinx()
+sns.lineplot(deployments, x='Year', y='Cumulative', ax=ax)
+plt.show()
+
+```
+
+From the rightmost bar it is clear that we are now deploying a diverse set of floats, with additional models/sensors to be added in the next few years.
+
+The following `r py$nstock` floats are left "in stock", including P43205-22CA004 and P53875-23CA001 which are planned for deployment later this year:
+
+```{r table 1, layout="l-body shaded"}
+knitr::kable(py$stock)
+```
+
+Finally, the following floats are on order:
+
+```{r table 2, layout="l-body shaded"}
+knitr::kable(py$order)
+```
