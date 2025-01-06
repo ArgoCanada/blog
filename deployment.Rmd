@@ -181,8 +181,9 @@ The table below shows the number of "in stock" floats for each program/instituti
 knitr::kable(py$stock)
 ```
 
-This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
+<!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
 ```{r table_4, layout="l-body-outset shaded"}
 knitr::kable(py$remain)
 ```
+  -->
