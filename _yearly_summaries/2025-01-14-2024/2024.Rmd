@@ -53,7 +53,7 @@ mapper = {
 df = df.rename(columns=mapper)
 df = df[mapper.values()]
 df = df.reset_index().drop('index', axis=1)
-table = df.drop(['Program', 'Detail', 'IMEI', ], axis=1)
+table = df.drop(['Program', 'Detail', 'IMEI', 'Basin'], axis=1)
 
 mdf = pd.read_csv("../../deployment/ship_info.csv")
 
