@@ -55,7 +55,7 @@ order = pd.DataFrame(
     Institute=['DFO', 'DFO', 'Dal', 'Dal'],
     Number=[7, 7, 10, 17],
     Float=['APEX', 'APEX', 'PROVOR CTS5', 'PROVOR CTS5'],
-    Sensors=['SBE CTD', 'RBR CTD', 'SBE CTD, DO Optope, RBR Tridente, OCR', 'SBE CTD, DO Optope, RBR Tridente, OCR, Trios OPUS']
+    Sensors=['SBE CTD', 'RBR CTD', 'SBE CTD, DO Optope, pH, RBR Tridente, OCR', 'SBE CTD, DO Optope, pH, RBR Tridente, OCR, Trios OPUS']
   )
 )
 
