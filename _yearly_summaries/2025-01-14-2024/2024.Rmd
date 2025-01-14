@@ -1,11 +1,11 @@
 ---
-title: "2023"
+title: "2024"
 description: |
-  Argo Canada Deployment Summary for 2023
+  Argo Canada Deployment Summary for 2024
 author:
   - name: Christopher Gordon
     url: https://github.com/cgrdn
-date: 2023-12-29
+date: 2024-01-14
 output:
   distill::distill_article:
     self_contained: false
@@ -26,8 +26,8 @@ import pandas as pd
 
 df = pd.read_csv('../../deployment/canada_deployments.csv')
 df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
-df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2023')]
-df = df.loc[df['DEPLOYMENT DATE'] < pd.Timestamp('01-01-2024')]
+df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('31-12-2023')]
+df = df.loc[df['DEPLOYMENT DATE'] < pd.Timestamp('01-01-2025')]
 df = df.sort_values('DEPLOYMENT DATE')
 df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
@@ -39,6 +39,8 @@ mapper = {
   'INSTITUTE':'Institute',
   'STATUS':'Status',
   'MODEL':'Model',
+  'MODEL_DETAIL':'Detail',
+  'BASIN':'Basin',
   'DEPLOYMENT DATE':'Date',
   'DEPLOYMENT LAT':'Latitude',
   'DEPLOYMENT LON':'Longitude',
@@ -51,15 +53,29 @@ mapper = {
 df = df.rename(columns=mapper)
 df = df[mapper.values()]
 df = df.reset_index().drop('index', axis=1)
-table = df.drop('Program', axis=1).drop('MODEL_DETAIL', axis=1)
+table = df.drop(['Program', 'Detail', 'IMEI', ], axis=1)
 
 mdf = pd.read_csv("../../deployment/ship_info.csv")
+
+n_floats = df.shape[0]
+n_sbe  = df.loc[df.Detail == 'ARVOR_SBE'].shape[0]
+n_rbr  = df.loc[df.Detail == 'ARVOR_RBR'].shape[0]
+n_do   = df.loc[df.Detail == 'ARVOR+DO'].shape[0]
+n_deep = df.loc[df.Detail == 'ARVOR_D'].shape[0]
+n_cts4 = df.loc[df.Detail == 'PROVOR_CTS4'].shape[0]+df.loc[df.Detail == 'PROVOR_CTS4+SUNA'].shape[0]+df.loc[df.Detail == 'PROVOR_CTS4+pH'].shape[0]
+n_cts5 = df.loc[df.Detail == 'PROVOR_CTS5'].shape[0]
+
+n_atl  = df.loc[df.Basin == 'ATL'].shape[0]
+n_pac  = df.loc[df.Basin == 'PAC'].shape[0]
+n_arc  = df.loc[df.Basin == 'ARC'].shape[0]
+n_sou  = df.loc[df.Basin == 'SOU'].shape[0]
+n_ind  = df.loc[df.Basin == 'IND'].shape[0]
 ```
 
 ```{r map, layout="l-page-outset"}
 pal <- colorFactor(
-  c("green", "purple", "blue", "yellow"),
-  levels = c("BIO", "IOS", "ONC", "Dal")
+  c("green", "purple", "blue", "yellow", "green"),
+  levels = c("BIO", "IOS", "ONC", "Dal", "SAEON")
 )
 icons <- iconList(
   OPERATIONAL = makeIcon("../../images/buoy.png", "../../images/buoy.png", 16, 16),
@@ -111,11 +127,9 @@ leaflet() %>%
 
 ## Deployment Summary
 
-In total, 33 floats were deployed in 2023. 15 core ARVOR floats (9 SBE, 6 RBR), 6 Oxygen-only ARVOR floats, 5 deep-ARVOR floats with DOXY sensors, and 7 PROVOR BGC floats. Of the BGC floats, 4 were 3-sensor floats with DOXY, CHLA, and BBP, 1 was a 4-sensor float with DOXY, CHLA, BBP, and pH, and 2 were 4-sensor floats with DOXY, CHLA, BBP, and radiometry. 
+In total, `r py$n_floats` floats were deployed in 2024. `r py$n_rbr + py$n_sbe` core ARVOR floats (`r py$n_sbe` SBE, `r py$n_rbr` RBR), `r py$n_do` Oxygen-only ARVOR floats, `r py$n_deep` deep-ARVOR floats with DOXY sensors, and `r py$n_cts4 + py$n_cts5` PROVOR BGC floats. Of the BGC floats, 8 were 3-sensor floats with DOXY, CHLA, and BBP, 3 were 4-sensor floats with DOXY, CHLA, BBP, and radiometry, and 2 were 4-sensor floats with DOXY, CHLA, BBP, and NITRATE. 
 
-By ocean basin, 19 floats were deployed in the Atlantic, 12 floats in the Pacific, and 2 floats in the Arctic.
-
-One float (4902617) was deployed and immediately entered end of life mode, collecting no profiles. Therefore, this float is not on OceanOps or in the Argo data system. However, because the float was deployed, it will retain its WMO number. Another float (4902689) was deployed, sent technical data, and did not report again. This float also will not appear in the data system but will retain its WMO number, etc. 
+By ocean basin, `r py$n_atl` floats were deployed in the Atlantic, `r py$n_pac`  in the Pacific, `r py$n_arc`  in the Arctic, `r py$n_ind` in the Indian, and `r py$n_sou` in the Southern Ocean.
 
 A complete list of deployed floats can be found below. 
 
@@ -136,8 +150,9 @@ knitr::kable(py$table)
 
 ## Notes from the year
 
-- 2 floats, one ARVOR and one PROVOR, failed the vacuum pressure portion of their self test and therefore are unfit for deployment. Awaiting word from NKE on next steps for these floats. 
-- One float that failed (4902617) was an RBR float that had its firmware upgraded to include the ability to sample at 1Hz for a section of the water column. It is unclear if this has anything to do with the float's failure or not.
-- The other float that failed (4902689) was another RBR float that had previous beached, been recovered, and refurbished by NKE.  
-- Float 4902671, deployed in the Labrador Sea, was adopted by the Oceans 11 class from Horton High School. More info can be found on the [Canadian Adopt-a-float web page](https://sites.google.com/view/adopt-a-float-ca/data-explorer?authuser=0).
-- 2 floats with ice detection were deployed in the Beaufort Sea. At the time of writing this, they have not yet resurfaced from the seasonal ice coverage, but we hope to hear from them in the spring.
+- One float ([4902609](https://fleetmonitoring.euro-argo.eu/float/4902609)) was deployed from the sailing vessel Oceanolog as part of Sail for Science - read about it here: [Sail for Science: A-day](https://sailforscience.com/a-day/)
+- One deployed float (4902565) in the Beaufort Sea never properly activated and/or returned any technical or profile data. 
+- Multiple floats in the Ross Sea, Beaufort Sea, and even one in Baffin Bay ([4902531](https://fleetmonitoring.euro-argo.eu/float/4902531), deployed in 2021!) emerged from under ice to report profiles.
+- One float ARVOR-SBE experienced vacuum pressure issues and was not deployed, returned to NKE, and repaired. Currently this float is being shipped back to IOS. 
+- NKE & RBR recalled 2 ARVOR-RBR floats for investigation as a number of this model across the Argo network were experiencing a rapid power drawdown resulting in premature end of float life. No systematic problem was discovered and these floats are being returned to IOS, ready to deploy. 
+- One float ([]()) deployed off South Africa failed after x profiles, reason still to be determined.
