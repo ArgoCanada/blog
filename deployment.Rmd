@@ -7,19 +7,19 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
 library(emoji)
-# use_condaenv("py39")
+use_condaenv("py39")
 ```
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
 
-The map below shows completed and planned deployments for 2024, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
+The map below shows completed and planned deployments for 2025, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
 
 ```{python data}
 import pandas as pd
 
 df = pd.read_csv('deployment/canada_deployments.csv')
 df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
-df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2024')]
+df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2025')]
 df = df.sort_values('DEPLOYMENT DATE')
 df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
@@ -117,7 +117,7 @@ leaflet() %>%
 
 ## Deployments since Jan 1, 2024
 
-To date we have deployed `r py$nfloats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO,, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
+To date we have deployed `r py$n_floats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
@@ -142,7 +142,7 @@ knitr::kable(py$plan_table)
 
 _Note_: The two PROVOR floats planned for deplpyment on line P from the Tully are awaiting replacement radiometry sensors as they were originally shipped with incorrect wavelength configurations, so those deployments should be regarded as tentative. 
 
-## Inventory
+## Planning & Inventory
 
 ```{python inventory}
 stock = pd.read_csv('deployment/inventory.csv')
@@ -154,7 +154,9 @@ remain = pd.DataFrame({
   'ARVOR+DO':stock['ARVOR+DO'],
   'ARVOR-RBR':stock['ARVOR-RBR'],
   'Deep ARVOR':stock['Deep ARVOR'],
-  'PROVOR':stock['PROVOR']
+  'PROVOR':stock['PROVOR'],
+  'APEX-SBE':stock['APEX-SBE'],
+  'APEX-RBR':stock['APEX-RBR']
 })
 
 remain = remain.set_index(['Program', 'Institute'], drop=False)
@@ -178,11 +180,28 @@ for i in plan.index:
     remain.loc[ix, model_mapper[f]] -= 1
 ```
 
-The table below shows the number of "in stock" floats for each program/institution.
+The table below shows floats "in stock" at various institutions.
 
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
+
+### Planned Missions
+
+The following are planned missions that floats could be deployed on.
+
+#### Atlantic
+
+- Spring AZMP, Scotian Shelf, April 1-21, Endeavor
+- AZOMP, Labrador Sea, April 24 - May 28, L'Atlante
+- Fall AZMP, Scotian Shelf, ~Sept-Oct, NOC Vessel?
+
+Most cruises reviewed from the last Atlantic Coordination Meeting did not have compatible dates and/or loading locations. 
+
+#### Pacific
+
+- Line P, Spring/Fall, Tully
+- Beaufort, LSSL?
 
 <!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
