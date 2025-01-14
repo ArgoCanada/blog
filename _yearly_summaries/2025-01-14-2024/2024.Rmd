@@ -155,4 +155,4 @@ knitr::kable(py$table)
 - Multiple floats in the Ross Sea, Beaufort Sea, and even one in Baffin Bay ([4902531](https://fleetmonitoring.euro-argo.eu/float/4902531), deployed in 2021!) emerged from under ice to report profiles.
 - One float ARVOR-SBE experienced vacuum pressure issues and was not deployed, returned to NKE, and repaired. Currently this float is being shipped back to IOS. 
 - NKE & RBR recalled 2 ARVOR-RBR floats for investigation as a number of this model across the Argo network were experiencing a rapid power drawdown resulting in premature end of float life. No systematic problem was discovered and these floats are being returned to IOS, ready to deploy. 
-- One float ([]()) deployed off South Africa failed after x profiles, reason still to be determined.
+- One float ([4902653](https://fleetmonitoring.euro-argo.eu/float/4902653)) deployed off South Africa failed after 4 profiles, reason still to be determined.
