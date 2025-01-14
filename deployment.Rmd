@@ -172,6 +172,8 @@ model_mapper = {
   'PROVOR_CTS5+pH':'PROVOR',
   'PROVOR_CTS4+SUNA':'PROVOR',
   'PROVOR_CTS5+SUNA':'PROVOR',
+  'APEX_SBE':'APEX-SBE',
+  'APEX_RBR':'APEX-RBR',
 }
 
 for i in plan.index:
@@ -189,19 +191,6 @@ knitr::kable(py$stock)
 ### Planned Missions
 
 The following are planned missions that floats could be deployed on.
-
-#### Atlantic
-
-- Spring AZMP, Scotian Shelf, April 1-21, Endeavor
-- AZOMP, Labrador Sea, April 24 - May 28, L'Atlante
-- Fall AZMP, Scotian Shelf, ~Sept-Oct, NOC Vessel?
-
-Most cruises reviewed from the last Atlantic Coordination Meeting did not have compatible dates and/or loading locations. 
-
-#### Pacific
-
-- Line P, Spring/Fall, Tully
-- Beaufort, LSSL?
 
 <!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
