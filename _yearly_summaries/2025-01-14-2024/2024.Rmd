@@ -16,7 +16,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
-use_condaenv("py39")
+# use_condaenv("py39")
 ```
 
 The map below shows completed deployments for 2023, coloured by institution. Locations represent deployment location, not last profile. Click the dots for information about the float.
