@@ -12,9 +12,7 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+
 
 Summary of relevant actions from the 25th Argo Data Management Team held in Trieste, Italy during October 21-25, 2024. All actions are linked to a github issue in order to effectively track their progress.
 
@@ -50,3 +48,5 @@ Summary of relevant actions from the 25th Argo Data Management Team held in Trie
 
 - For NOVA and deep ARVOR floats, should indicate time-of-day (TOD) sampling in config variable in meta file. More widely, Chris and Anh need to review/update meta config variables on a per-float-type basis. _Action: Chris and Anh to review/update config variables in meta file to match float configuration as well as TOD sampling._ ([#14](https://github.com/ArgoCanada/argo-dm/issues/14))
 - Ice avoidance information should be stored in netCDF files as well. See John Gilson's presentation. _Action: Ice floats should have ISA info included in netCDF file._ ([#15](https://github.com/ArgoCanada/argo-dm/issues/15))
+```{.r .distill-force-highlighting-css}
+```

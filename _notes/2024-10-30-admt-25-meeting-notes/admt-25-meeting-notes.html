@@ -1500,7 +1500,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="admt-25-meeting-notes_files/header-attrs-2.27/header-attrs.js"></script>
+  <script src="admt-25-meeting-notes_files/header-attrs-2.29/header-attrs.js"></script>
   <script src="admt-25-meeting-notes_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="admt-25-meeting-notes_files/popper-2.6.0/popper.min.js"></script>
   <link href="admt-25-meeting-notes_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1548,20 +1548,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>This post contains a summary of my notes from the 25th Argo Data Management Team held in Trieste, Italy during October 21-25, 2024. All actions will be linked to a github issue in order to effectively track their progress.</p>
 <h2 id="day-1">Day 1</h2>
 <ul>
-<li>Nathan Briggs pointed out that MEDS CTS5 floats appear to be jumping to discrete longitudes. It is all floats so likely a bug/rounding error in their processing at the DAC level. WMO numbers: 4902684-4902688. <em>Action: look into location info on these floats, find source of discrete longitude jumps.</em></li>
-<li>Remove inactive, DMQC’ed floats from the greylist (which will soon be renamed). <em>Action: check for any inactive, already D-moded floats on existing greylist.</em></li>
+<li>Nathan Briggs pointed out that MEDS CTS5 floats appear to be jumping to discrete longitudes. It is all floats so likely a bug/rounding error in their processing at the DAC level. WMO numbers: 4902684-4902688. <em>Action: look into location info on these floats, find source of discrete longitude jumps.</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/3">#3</a>)</li>
+<li>Remove inactive, DMQC’ed floats from the greylist (which will soon be renamed). <em>Action: check for any inactive, already D-moded floats on existing greylist.</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/4">#4</a>)</li>
 </ul>
 <h2 id="day-2">Day 2</h2>
 <ul>
-<li>Dalhousie is buying new floats with RBR Tridente (chlorophyll, backscatter, 3rd channel) and Trios Opus (nitrate) sensors. These sensors are new to the MEDS data system and in different stages of the Argo data system as well. Tridente sensors are in the experimental phase and will need to be placed in the aux directory at the GDAC, not in the main data system. The Opus sensor I am not sure what phase it is in but may also need to go in the aux directory. <em>Action: (1) verify current sensor phase of the Opus sensor (experimental, pilot, etc) (2) establish processing of Tridente and Opus sensors at MEDS (3) establish new RTQC of Tridente and Opus sensors at MEDS (at least 1+ ADMT away, will await updated manual).</em></li>
-<li>High quality shipboard measurements alongside deployment of floats equipped with Tridente sensors will be helpful for validation and acceptance into the main data system. See Nathan Briggs TTT presentation. <em>Action: coordinate with Dalhousie to ensure these floats are deployed alongside such measurements, such as on AZMP or AZOMP missions.</em></li>
+<li>Dalhousie is buying new floats with RBR Tridente (chlorophyll, backscatter, 3rd channel) and Trios Opus (nitrate) sensors. These sensors are new to the MEDS data system and in different stages of the Argo data system as well. Tridente sensors are in the experimental phase and will need to be placed in the aux directory at the GDAC, not in the main data system. The Opus sensor I am not sure what phase it is in but may also need to go in the aux directory. <em>Action: (1) verify current sensor phase of the Opus sensor (experimental, pilot, etc) (2) establish processing of Tridente and Opus sensors at MEDS (3) establish new RTQC of Tridente and Opus sensors at MEDS (at least 1+ ADMT away, will await updated manual).</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/5">#5</a>)</li>
+<li>High quality shipboard measurements alongside deployment of floats equipped with Tridente sensors will be helpful for validation and acceptance into the main data system. See Nathan Briggs TTT presentation. <em>Action: coordinate with Dalhousie to ensure these floats are deployed alongside such measurements, such as on AZMP or AZOMP missions.</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/6">#6</a>)</li>
 </ul>
 <h2 id="day-3">Day 3</h2>
 <ul>
-<li>Some MEDS DOXY_QC=1 still in data system. <em>Action: check remaining DOXY_QC=1, find source, fix.</em></li>
-<li>BBP_ADJUSTED not being filled in RT at MEDS. <em>Action: fill BBP_ADJUSTED in RT with 1:1 copy of BBP.</em></li>
+<li>Some MEDS DOXY_QC=1 still in data system. <em>Action: check remaining DOXY_QC=1, find source, fix.</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/7">#7</a>)</li>
+<li>BBP_ADJUSTED not being filled in RT at MEDS. <em>Action: fill BBP_ADJUSTED in RT with 1:1 copy of BBP.</em> (<a href="https://github.com/ArgoCanada/argo-dm/issues/8">#8</a>)</li>
 <li>IRRADIANCE manual being updated. <em>Action: verify that current processing/flagging of RT irradiance data is correct.</em></li>
-<li>Nitrate in oxygen deficient zones - see Josh Plant’s presentation. <em>Action: check on oxygen profiles from floats with Nitrate sensors.</em></li>
+<li>Nitrate in oxygen deficient zones - see Josh Plant’s presentation. <em>Action: check on oxygen profiles from floats with Nitrate sensors.</em>(<a href="https://github.com/ArgoCanada/argo-dm/issues/9">#9</a>)</li>
 <li>Upon implementation of geographically defined CHLA adjustment, must fill SCIENTIFIC_CALIB fields. <em>Action: await official documentation on implementation, request standard formulation of SCIENTIFIC_CALIB fields for homogeneity in the data system.</em></li>
 <li>Josh Plant now using WOA23 for oxygen audit over WOA18. <em>Action: update reference source for bgcArgoDMQC package.</em></li>
 <li>Josh Plant pointed out some MEDS floats with variable gains. I recognized the WMO numbers as floats that had been adjusted by Henry Bittig. The three of us discussed and Henry explained that this was from a batch of optodes that were batch calibrated with poor temperature characterization. Thus the gains are temperature dependent, but correct. <em>No action required.</em></li>
