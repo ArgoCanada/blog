@@ -54,18 +54,39 @@ plan   = df.loc[df.Status == 'CONFIRMED'].drop('Status', axis=1).reset_index().d
 plan_table = plan.drop(['IMEI', 'Model'], axis=1)
 
 n_floats = recent.shape[0]
-n_sbe  = recent.loc[recent.Detail == 'ARVOR_SBE'].shape[0]
-n_rbr  = recent.loc[recent.Detail == 'ARVOR_RBR'].shape[0]
-n_do   = recent.loc[recent.Detail == 'ARVOR+DO'].shape[0]
-n_deep = recent.loc[recent.Detail == 'ARVOR_D'].shape[0]
-n_cts4 = recent.loc[recent.Detail == 'PROVOR_CTS4'].shape[0]+recent.loc[recent.Detail == 'PROVOR_CTS4+SUNA'].shape[0]
-n_cts5 = recent.loc[recent.Detail == 'PROVOR_CTS5'].shape[0]
+
+model_mapper = {
+  'ARVOR_SBE':'ARVOR-SBE',
+  'ARVOR+DO':'ARVOR-SBE with Oxygen',
+  'ARVOR_RBR':'ARVOR-RBR',
+  'ARVOR_D':'Deep ARVOR with Oxygen',
+  'PROVOR_CTS4':'PROVOR CTS4',
+  'PROVOR_CTS4+pH':'PROVOR CTS4 with pH',
+  'PROVOR_CTS5':'PROVOR CTS5',
+  'PROVOR_CTS5+pH':'PROVOR CTS5 with pH',
+  'PROVOR_CTS4+SUNA':'PROVOR CTS4 with Nitrate',
+  'PROVOR_CTS5+SUNA':'PROVOR CTS5 with Nitrate',
+  'APEX_SBE':'APEX-SBE',
+  'APEX_RBR':'APEX-RBR',
+}
+
+if n_floats == 0:
+  summary_string = 'So far in 2025 we have not deployed any floats.'
+else:
+  summary_string = f'To date we have deployed {n_floats} floats in 2025: '
+  for flt in recent.Detail.unique():
+    n = recent.loc[recent.Detail == flt].shape[0]
+    if n > 0:
+      summary_string += f'{n} {model_mapper[flt]}, '
+  summary_string = summary_string[:-2]
+  summary_string += '.'
+
 ```
 
 ```{r map, layout="l-page-outset"}
 pal <- colorFactor(
-  c("green", "purple", "blue", "yellow","green"),
-  levels = c("BIO", "IOS", "ONC", "Dal","SAEON")
+  c("green", "purple", "blue", "yellow", "green"),
+  levels = c("BIO", "IOS", "ONC", "Dal", "SAEON")
 )
 icons <- iconList(
   OPERATIONAL = makeIcon("images/buoy.png", "images/buoy.png", 16, 16),
@@ -115,9 +136,9 @@ leaflet() %>%
     )
 ```
 
-## Deployments since Jan 1, 2024
+## Deployments since Jan 1, 2025
 
-To date we have deployed `r py$n_floats` floats in 2024: `r py$n_sbe` ARVOR-SBE, `r py$n_rbr` ARVOR-RBR, `r py$n_do` ARVOR+DO, `r py$n_deep` Deep ARVOR+DO, `r py$n_cts4` PROVOR CTS4, and `r py$n_cts5` PROVOR CTS5.
+`r py$summary_string`
 
 ```{r table_1, layout="l-page-outset shaded"}
 assign_country <- function(name) {
