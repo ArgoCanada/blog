@@ -30,7 +30,7 @@ jobs:
           pip install netCDF4
           pip install cartopy
           pip install cmocean
-          pip install git+http://github.com/euroargodev/argopy.git@master
+          pip install argopy
 
       - name: Install R dependencies
         run: |
