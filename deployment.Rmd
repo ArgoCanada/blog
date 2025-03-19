@@ -7,6 +7,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
 library(emoji)
+py_install("pandas")
 # use_condaenv("py39")
 ```
 
