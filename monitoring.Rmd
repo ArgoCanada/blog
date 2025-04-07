@@ -27,12 +27,14 @@ bgc_index = bgc_index.loc[bgc_index.dac == 'meds']
 # get profiles that were pushed to the GDAC on this day
 now = pd.Timestamp('now', tz='utc')
 date_of_interest = pd.Timestamp(now.year, now.month, now.day) - pd.Timedelta(days=2)
+# for testing purposes use Jan 22, all float types reported
+date_of_interest = pd.Timestamp(2025, 1, 22)
 core_index = core_index.loc[(core_index.date > date_of_interest) & (core_index.date < date_of_interest + pd.Timedelta(days=1))]
 bgc_index = bgc_index.loc[(bgc_index.date > date_of_interest) & (bgc_index.date < date_of_interest + pd.Timedelta(days=1))]
 
 def bgc_type(index, wmo):
-  for v in ['CHLA', 'BBP700', 'NITRATE', 'DOWNWELLING_IRRADIANCE', 'pH']:
-    if v in index.loc[index.wmo == wmo].parameters:
+  for v in ['CHLA', 'BBP700', 'NITRATE', 'pH']:
+    if v in index.loc[index.wmo == wmo].parameters.iloc[0]:
       return 'BGC'
   
   return 'DO-only'
@@ -123,13 +125,14 @@ def size_figure(n, m, fig, wspace=0.5):
 # core plots
 for ix, row in core_index.iterrows():
   data = argopy.DataFetcher().profile(row.wmo, row.cyc).to_dataframe()
+  print(data)
   fig, axes = plt.subplots(1, 3)
   for ax, v in zip(axes, ['TEMP', 'PSAL']):
     leg = True if v == 'TEMP' else False
     sns.scatterplot(
       data=data, x=v, y='PRES', hue=f'{v}_QC', 
-      hue_order=[1, 2, 3, 4, 5, 6, 7, 8, 9], 
-      palette=['green', 'yellow', 'orange', 'red', 'blue', 'blue', 'blue', 'blue', 'blue'], 
+      hue_order=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
+      palette=['grey', 'green', 'yellow', 'orange', 'red', 'blue', 'blue', 'blue', 'blue', 'blue'], 
       linewidth=0.2, legend=leg, ax=ax
     )
     if leg:
@@ -143,6 +146,5 @@ for ix, row in core_index.iterrows():
   info = info + f'\n({row.latitude:.2f}, {row.longitude:.2f}), N = {data.shape[0]}'
   
   axes[0].set_title(info, loc='left')
-  fig.savefig('test.png', bbox_inches='tight', dpi=250)
-  plt.close(fig)
+plt.show()
 ```
