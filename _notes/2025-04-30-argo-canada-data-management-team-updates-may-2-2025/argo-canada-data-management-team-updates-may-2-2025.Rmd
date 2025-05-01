@@ -30,7 +30,7 @@ See [deployments page](https://argocanada.github.io/blog/deployment.html) - 6 Co
 
 ### RTQC
 
-- Raphaëlle Suazede presented at AST (result?) on updated version of the fluorescence/chlorophyll physiological ratio for populating CHLA_ADJUSTED. The file was circulated for feedback ahead of AST, you can read my comments here, but overall very easy to use/implement and the use of netCDF file format allowed for inclusion of metadata that made for easy/consistent construction of SCIENTIFIC_CALIB_COMMENT. On the other hand, the .nc file format also means that the python package `netCDF4` will be required in the RTQC package - unsure at this point if that will be challenging on the server side; if that is the case we can figure out a workaround.
+- Raphaëlle Suazede presented at AST (result?) on updated version of the fluorescence/chlorophyll physiological ratio for populating CHLA_ADJUSTED. The file was circulated for feedback ahead of AST, you can read my comments [here](https://github.com/OneArgo/ADMT/issues/58), but overall very easy to use/implement and the use of netCDF file format allowed for inclusion of metadata that made for easy/consistent construction of SCIENTIFIC_CALIB_COMMENT. On the other hand, the .nc file format also means that the python package `netCDF4` will be required in the RTQC package - unsure at this point if that will be challenging on the server side; if that is the case we can figure out a workaround.
 - Some incorrect flagging of CHLA data due to how LAST_DARK_CHLA (fluorometer dark count from previous profile) is accessed/saved. Chris to work out; github issue open [here](https://github.com/ArgoCanada/medsrtqc/issues/48).
 
 ### New Sensors
