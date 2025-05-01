@@ -48,4 +48,4 @@ See [deployments page](https://argocanada.github.io/blog/deployment.html) - 6 Co
 
 - Float in the Laurentian Channel: [5907190](https://fleetmonitoring.euro-argo.eu/float/5907190)
 - Float in its 4th year (since August 2021!) on top of Flemish Cap: [4902489](https://fleetmonitoring.euro-argo.eu/float/4902489)
-
+- Our oldest active float was deployed from the Hudson 7 years ago today!! [4902439](https://fleetmonitoring.euro-argo.eu/float/4902439)
