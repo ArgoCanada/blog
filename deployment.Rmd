@@ -208,10 +208,6 @@ The table below shows floats "in stock" at various institutions.
 knitr::kable(py$stock)
 ```
 
-### Planned Missions
-
-The following are planned missions that floats could be deployed on.
-
 <!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
 ```{r table_4, layout="l-body-outset shaded"}
