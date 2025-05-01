@@ -162,8 +162,6 @@ py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
 
-_Note_: The two PROVOR floats planned for deplpyment on line P from the Tully are awaiting replacement radiometry sensors as they were originally shipped with incorrect wavelength configurations, so those deployments should be regarded as tentative. 
-
 ## Planning & Inventory
 
 ```{python inventory}
