@@ -1,0 +1,51 @@
+---
+title: "Argo Canada Data Management Team Updates - May 2, 2025"
+description: |
+  Summary of updates for meeting taking place on May 2, 2025.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2025-05-02
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Deployments
+
+See [deployments page](https://argocanada.github.io/blog/deployment.html) - 6 Core floats deployed this year; 9 Core, 5+ BGC, 3 Deep planned for remainder of the year. 25 floats total in OceanOps plans currently reaching out to 2026 (APEX floats in Ross Sea, last in-stock Deep ARVORs).
+
+## BGC Data Management
+
+### DMQC
+
+- DOXY DMQC: some floats done but requiring filecheck - will send to Anh once that step is complete.
+- Running SAGE for eligible floats, still needs some verification but will make in-air gain simpler to used in DMQC process.
+- [bgcArgoDMQC](https://github.com/ArgoCanada/bgcArgoDMQC) package will get some updates this summer - ambition to add pH and Nitrate DMQC routines from PMEL.
+
+### RTQC
+
+- Raphaëlle Suazede presented at AST (result?) on updated version of the fluorescence/chlorophyll physiological ratio for populating CHLA_ADJUSTED. The file was circulated for feedback ahead of AST, you can read my comments here, but overall very easy to use/implement and the use of netCDF file format allowed for inclusion of metadata that made for easy/consistent construction of SCIENTIFIC_CALIB_COMMENT. On the other hand, the .nc file format also means that the python package `netCDF4` will be required in the RTQC package - unsure at this point if that will be challenging on the server side; if that is the case we can figure out a workaround.
+- Some incorrect flagging of CHLA data due to how LAST_DARK_CHLA (fluorometer dark count from previous profile) is accessed/saved. Chris to work out; github issue open [here](https://github.com/ArgoCanada/medsrtqc/issues/48).
+
+### New Sensors
+
+- Previously discussed, but a reminder: integration of RBR Tridente FLBB and TriOS Opus Nitrate sensors will require that these data go into the aux directory while the sensors are in the experimental phase. They will _not_ go in the main file. 
+- There are minimal requirements for these data while the sensors are in the experimental phase. From the draft document describing the progression of new sensors and parameters through the Argo data system: "Data from experimental sensors should be distributed on the GDACs in the auxiliary (‘aux’) directory, along with a readme file that describes the format and content of the data file submissions or with a self-explanatory format.  Initially, there is no defined vocabulary for the profile or meta data for experimental sensors, though Argo strongly suggests using existing names if possible." This means we could initially directly upload the decoded CTS5 hex file with a README file describing the format.
+- In transition, netCDF file in the usual format and with the usual names can be uploaded to the aux directory. This is a requirement for demonstrating "Data management viability" for the sensor to go from experimental to pilot phase.
+
+## Meetings
+
+- Regular BGC Argo DMQC virtual meetings are being planned (ADMT action item [#161](https://github.com/OneArgo/ADMT/issues/161)). The first is May 14, 2025, 10-12 Pacific time. Email has not been circulated yet but will be through the usual OceanOps mailing lists. I have volunteered/been asked to present on the python package and will include some difficult floats as well.
+- Not really a data management group, but the Argo Tech Community of Practice has its first virtual meeting on February 27, 2025 (review meeting report, action items, prep for AST), and Pat McMahon presented at AST. Next meeting is June 4, likely topic is float failure mode analysis. Action items for the group are managed through github ([here](https://github.com/OneArgo/ArgoTechCoP/issues)) and certainly some are relevant to the data system (see issues tagged [data](https://github.com/OneArgo/ArgoTechCoP/issues?q=is%3Aissue%20state%3Aopen%20label%3Adata)).
+
+## Other Interesting Things
+
+- Float in the Laurentian Channel: [5907190](https://fleetmonitoring.euro-argo.eu/float/5907190)
+- Float in its 4th year (since August 2021!) on top of Flemish Cap: [4902489](https://fleetmonitoring.euro-argo.eu/float/4902489)
+- Our oldest active float was deployed from the Hudson 7 years ago today!! [4902439](https://fleetmonitoring.euro-argo.eu/float/4902439)

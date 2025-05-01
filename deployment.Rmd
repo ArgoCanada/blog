@@ -162,8 +162,6 @@ py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
 
-_Note_: The two PROVOR floats planned for deplpyment on line P from the Tully are awaiting replacement radiometry sensors as they were originally shipped with incorrect wavelength configurations, so those deployments should be regarded as tentative. 
-
 ## Planning & Inventory
 
 ```{python inventory}
@@ -209,10 +207,6 @@ The table below shows floats "in stock" at various institutions.
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
-
-### Planned Missions
-
-The following are planned missions that floats could be deployed on.
 
 <!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
 
