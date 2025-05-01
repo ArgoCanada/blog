@@ -1,0 +1,20 @@
+---
+title: "Argo Canada Data Management Team Updates - May 2, 2025"
+description: |
+  Summary of updates for meeting taking place on May 2, 2025.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2025-05-02
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
