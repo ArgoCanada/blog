@@ -27,6 +27,7 @@ See [deployments page](https://argocanada.github.io/blog/deployment.html) - 6 Co
 - DOXY DMQC: some floats done but requiring filecheck - will send to Anh once that step is complete.
 - Running SAGE for eligible floats, still needs some verification but will make in-air gain simpler to used in DMQC process.
 - [bgcArgoDMQC](https://github.com/ArgoCanada/bgcArgoDMQC) package will get some updates this summer - ambition to add pH and Nitrate DMQC routines from PMEL.
+- Zarah, Herminio, Anh, Chris working on better understanding/fixing in-air partial pressure of oxygen PPOX_DOXY in trajectory files.
 
 ### RTQC
 
