@@ -1,0 +1,220 @@
+---
+title: "Performance of Canadian Argo Floats in the Ross Sea"
+description: |
+  A short analysis of the performance and survivial of NKE ARVOR floats deployed by Argo Canada in the Ross Sea.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2025-05-28
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+In 2024 and 2025, 7 Canadian floats have been deployed in the Ross Sea. WMO numbers 4902664, 4902665, 4902667, 4902668, 4902669 were deployed in February of 2024 from the Italian ship Laura Bassi, and 4902698, 4902704 in Febraury 2025 from the New Zealand ship Tangaroa. All floats to date have been NKE ARVOR floats with SBE CTD sensors. The table below shows the floats, their total number of cycles to date, and their last reported profile on the GDAC. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_condaenv("py39")
+```
+
+
+```{python load packages and data, include=TRUE}
+from glob import glob
+
+import numpy as np
+import pandas as pd
+import shapely
+import argopy
+
+import matplotlib
+import matplotlib.path as mpath
+import matplotlib.pyplot as plt
+import seaborn as sns
+import cmocean
+
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+import cartopy.io.shapereader as shpreader
+
+# ross sea polygon
+poly1 = [
+  [-180, -72.3602310],
+  [-180, -79.0829159],
+  [-180, -81.6554355],
+  [-134.8828304, -80.5127760],
+  [-124.6875179, -76.4070910],
+  [-122.9297054, -71.0360127],
+  [-180, -64.4222495],
+  [-180, -72.6770458],
+]
+poly2 = [
+  [144.3359554, -72.3602310],
+  [144.6875179, -79.0829159],
+  [180, -71.6554355],
+  [180, -70.5127760],
+  [180, -76.4070910],
+  [180, -71.0360127],
+  [133.4375179, -64.4222495],
+  [144.6875179, -72.6770458],
+]
+polygon1 = shapely.geometry.Polygon(poly1)
+polygon2 = shapely.geometry.Polygon(poly2)
+
+# load index, points inside polygon / meds floats
+meds_wmos = [4902664, 4902665, 4902667, 4902668, 4902669, 4902698, 4902704]
+ix = argopy.ArgoIndex().to_dataframe()
+ix = ix.loc[([(polygon1.contains(shapely.geometry.Point(x, y))) | (polygon2.contains(shapely.geometry.Point(x, y))) for x, y in zip(ix.longitude, ix.latitude)])]
+meds = ix.loc[ix.dac == 'meds']
+
+fill = meds.wmo.unique().shape[0]*[pd.NA]
+df = pd.DataFrame({
+  'WMO':meds.wmo.unique(),
+  'Deployment Date':fill,
+  'Last Reported':fill,
+  'Cycle Number':fill
+})
+df = df.set_index('WMO')
+
+for wmo in meds.wmo.unique():
+  df.loc[wmo, 'Deployment Date'] = meds.loc[meds.wmo == wmo, 'date'].min().strftime('%d %b, %Y')
+  df.loc[wmo, 'Last Reported'] = meds.loc[meds.wmo == wmo, 'date'].max().strftime('%d %b, %Y')
+  df.loc[wmo, 'Cycle Number'] = meds.loc[meds.wmo == wmo, 'cyc'].max()
+  
+```
+
+```{r table, include=TRUE}
+knitr::kable(py$df)
+```
+
+In summary, we have lost 2 floats for sure: 4902665 which had a broken conductivity cell we believe due to freezing at deployment, and 4902667 which we have not heard from since the first time it would have gone under the ice in 2024. 4902664 is likely also dead. It last reported profiles in December 2024, and then sent a few SBD messages in March of this year, but nothing since. This did contain a profile of about 300m. This has not made it to the GDAC - Chris will follow up with Anh. 4902668 and 4902669 also reported profiles in March of this year and then likely went under ice. 
+
+The floats deployed this year have also gone under the ice, but we unintentionally left set to profile daily (hence the elevated cycle counts relative to floats floats deployed a year earlier). Unfortunately this will result in data loss when they come out from under the ice and high battery consumption.
+
+```{python map, include=TRUE}
+# define some useful mapping functions
+def polarCentral_set_latlim(lat_lims, ax):
+  ax.set_extent([-180, 180, lat_lims[0], lat_lims[1]], ccrs.PlateCarree())
+  # Compute a circle in axes coordinates, which we can use as a boundary
+  # for the map. We can pan/zoom as much as we like - the boundary will be
+  # permanently circular.
+  theta = np.linspace(0, 2*np.pi, 100)
+  center, radius = [0.5, 0.5], 0.5
+  verts = np.vstack([np.sin(theta), np.cos(theta)]).T
+  circle = mpath.Path(verts * radius + center)
+  
+  ax.set_boundary(circle, transform=ax.transAxes)
+
+def add_map_features(ax):
+  ax.coastlines()
+  gl = ax.gridlines()
+  ax.add_feature(cfeature.BORDERS)
+  ax.add_feature(cfeature.LAND)
+  gl = ax.gridlines(draw_labels=True)
+
+def load_bathymetry(zip_file_url):
+    """Read zip file from Natural Earth containing bathymetry shapefiles"""
+    # Download and extract shapefiles
+    import io
+    import zipfile
+
+    import requests
+    r = requests.get(zip_file_url)
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    z.extractall("ne_10m_bathymetry_all/")
+
+    # Read shapefiles, sorted by depth
+    shp_dict = {}
+    files = glob('ne_10m_bathymetry_all/*.shp')
+    assert len(files) > 0
+    files.sort()
+    depths = []
+    for f in files:
+        depth = '-' + f.split('_')[-1].split('.')[0]  # depth from file name
+        depths.append(depth)
+        bbox = (-180, -90, 180, -50)  # (x0, y0, x1, y1)
+        nei = shpreader.Reader(f, bbox=bbox)
+        shp_dict[depth] = nei
+    depths = np.array(depths)[::-1]  # sort from surface to bottom
+    return depths, shp_dict
+
+
+
+depths_str, shp_dict = load_bathymetry('https://naturalearth.s3.amazonaws.com/' + '10m_physical/ne_10m_bathymetry_all.zip')
+# Construct a discrete colormap with colors corresponding to each depth
+depths = depths_str.astype(int)
+N = len(depths)
+nudge = 0.01  # shift bin edge slightly to include data
+boundaries = [min(depths)] + sorted(depths+nudge)  # low to high
+norm = matplotlib.colors.BoundaryNorm(boundaries, N)
+depth_cm = cmocean.cm.deep.resampled(N)
+colors_depths = depth_cm(norm(depths))
+
+fig = plt.figure(constrained_layout=True)
+ax = fig.add_subplot(projection=ccrs.SouthPolarStereo())
+# add features, bathy
+add_map_features(ax)
+for i, depth_str in enumerate(depths_str):
+  ax.add_geometries(
+    shp_dict[depth_str].geometries(),
+    crs=ccrs.PlateCarree(),
+    color=colors_depths[i], zorder=1
+  )
+# plot profiles so far
+sns.scatterplot(
+  data=ix, x='longitude', y='latitude', 
+  hue='wmo', ax=ax, palette='colorblind',
+  transform=ccrs.PlateCarree(), zorder=2,
+  legend=False, s=2, linewidth=0.1
+)
+polarCentral_set_latlim([-65, -90], ax)
+```
+
+The above map shows all profiles in the area. The figure below shows the lifetime of each float in the area, where the beginning of the line represents the deployment date of the float and the end of the line represents the date of the last reported profile. Each line is an individual float. Colors show float models (platform_code in the Argo index file). 844 are mondern ARVOR floats like ours. The MEDS floats are in a thicker blue line near the top. 
+
+```{python survival plot, include=TRUE}
+index = []
+delta = []
+
+for wmo in ix.wmo.unique():
+    sub = ix.loc[ix.wmo == wmo]
+    index.append(sub.cyc.idxmin())
+    index.append(sub.cyc.idxmax())
+    delta.append(pd.Timestamp('now') - sub.date.loc[index[-1]])
+    delta.append(pd.Timestamp('now') - sub.date.loc[index[-1]])
+
+ix = ix.loc[index]
+ix['delta'] = delta
+
+ix = ix.loc[~ix.index.duplicated()]
+ct = [ix.loc[ix.wmo == wmo].shape[0]*[i] for i,wmo in enumerate(ix.wmo.unique())]
+ix['count'] = [
+    x
+    for xs in ct
+    for x in xs
+]
+
+fig, ax = plt.subplots()
+g = sns.lineplot(
+    data=ix, x='date', y='count', 
+    hue='profiler_code', units='wmo',
+    palette='muted', linewidth=0.5,
+    sort=False, estimator=None, ax=ax
+)
+sns.lineplot(
+    data=ix.loc[ix.dac == 'meds'],
+    x='date', y='count', 
+    hue='profiler_code', units='wmo',
+    palette='muted', linewidth=1.5,
+    sort=False, estimator=None, ax=ax
+)
+
+ax.set_ylabel('')
+ax.set_yticks([])
+ax.minorticks_on()
+
+plt.show()
+```
+
+Unsurprisingly there are a lot of shorter-lived units compared to more typical deployment locations, but also some floats that have had long lives. For the moment I am just doing this by eye but having lost 2 and decent prospects for 5 that feels like about the right ratio, especially given we know the reason for one (broken conductivity cell) and have learned that can be avoided. 
