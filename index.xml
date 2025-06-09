@@ -12,7 +12,16 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 11 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 May 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Performance of Canadian Argo Floats in the Ross Sea</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2025-05-28-performance-of-canadian-argo-floats-in-the-ross-sea</link>
+      <description>A short analysis of the performance and survivial of NKE ARVOR floats deployed by Argo Canada in the Ross Sea.</description>
+      <guid>https://argocanada.github.io/blog/posts/2025-05-28-performance-of-canadian-argo-floats-in-the-ross-sea</guid>
+      <pubDate>Wed, 28 May 2025 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2025-05-28-performance-of-canadian-argo-floats-in-the-ross-sea/performance-of-canadian-argo-floats-in-the-ross-sea_files/figure-html5/map-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Update: Argo Canada Surfacing Times</title>
       <dc:creator>Christopher Gordon</dc:creator>
