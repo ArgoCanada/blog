@@ -7,8 +7,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 library(leaflet)
 library(emoji)
-py_install("pandas")
-# use_condaenv("py39")
+# py_install("pandas")
 ```
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
@@ -20,13 +19,13 @@ import pandas as pd
 
 df = pd.read_csv('deployment/canada_deployments.csv')
 df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
-df = df.loc[df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2025')]
+df = df.loc[(df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2025')) | (df['DEPLOYMENT DATE'].isna())]
 df = df.sort_values('DEPLOYMENT DATE')
-df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') for d in df['DEPLOYMENT DATE']]
+df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') if pd.notna(d) else '' for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
 df['IMEI'] = [str(int(i)) if pd.notna(i) else '' for i in df.IMEI]
 df['SERIAL NUMBER'] = [s if pd.notna(s) else '' for s in df['SERIAL NUMBER']]
-df['DEPLOYMENT SHIP'] = [s if pd.notna(s) else '' for s in df['DEPLOYMENT SHIP']]
+df['DEPLOYMENT SHIP'] = [s if pd.notna(s) else ' ' for s in df['DEPLOYMENT SHIP']]
 
 mapper = {
   'PROGRAM':'Program',
@@ -162,55 +161,24 @@ py$plan_table$Ship <- lapply(py$plan_table$Ship, assign_country)
 knitr::kable(py$plan_table)
 ```
 
-## Planning & Inventory
+## Inventory & Orders
 
 ```{python inventory}
-stock = pd.read_csv('deployment/inventory.csv')
+stock = df.loc[~df.Status.isin(['CONFIRMED', 'OPERATIONAL', 'FAILED'])]
+stock = stock.drop(['IMEI', 'Model', 'Date', 'Latitude', 'Longitude', 'Ship'], axis=1).sort_values('Status').reset_index().drop('index', axis=1)
 
-remain = pd.DataFrame({
-  'Program':stock.Program,
-  'Institute':stock.Institute,
-  'ARVOR-SBE':stock['ARVOR-SBE'],
-  'ARVOR+DO':stock['ARVOR+DO'],
-  'ARVOR-RBR':stock['ARVOR-RBR'],
-  'Deep ARVOR':stock['Deep ARVOR'],
-  'PROVOR':stock['PROVOR'],
-  'APEX-SBE':stock['APEX-SBE'],
-  'APEX-RBR':stock['APEX-RBR']
-})
-
-remain = remain.set_index(['Program', 'Institute'], drop=False)
-
-model_mapper = {
-  'ARVOR_SBE':'ARVOR-SBE',
-  'ARVOR+DO':'ARVOR+DO',
-  'ARVOR_RBR':'ARVOR-RBR',
-  'ARVOR_D':'Deep ARVOR',
-  'PROVOR_CTS4':'PROVOR',
-  'PROVOR_CTS4+pH':'PROVOR',
-  'PROVOR_CTS5':'PROVOR',
-  'PROVOR_CTS5+pH':'PROVOR',
-  'PROVOR_CTS4+SUNA':'PROVOR',
-  'PROVOR_CTS5+SUNA':'PROVOR',
-  'APEX_SBE':'APEX-SBE',
-  'APEX_RBR':'APEX-RBR',
-}
-
-for i in plan.index:
-    ix = (plan.loc[i].Program, plan.loc[i].Institute)
-    f = plan.loc[i].Detail
-    remain.loc[ix, model_mapper[f]] -= 1
+# build summary string
+summary_string = f'{stock.shape[0]} floats are currently in stock or on order with no active deployment plans: '
+for flt in stock.Detail.unique():
+  n = stock.loc[stock.Detail == flt].shape[0]
+  if n > 0:
+    summary_string += f'{n} {model_mapper[flt]}, '
+summary_string = summary_string[:-2]
+summary_string += '.'
 ```
 
-The table below shows floats "in stock" at various institutions.
+`r py$summary_string`
 
 ```{r table_3, layout="l-body-outset shaded"}
 knitr::kable(py$stock)
 ```
-
-<!-- This table shows what the standing stock of floats will be for each program/institution will be following the completion of the deployments listed in the "Planned Deployments" section. 
-
-```{r table_4, layout="l-body-outset shaded"}
-knitr::kable(py$remain)
-```
-  -->

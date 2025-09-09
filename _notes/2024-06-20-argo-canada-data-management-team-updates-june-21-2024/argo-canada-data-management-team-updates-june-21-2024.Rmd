@@ -17,7 +17,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(leaflet)
 library(emoji)
 library(reticulate)
-# use_condaenv("py39")
 ```
 
 ```{python imports and setup, include=FALSE}
