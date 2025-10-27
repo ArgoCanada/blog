@@ -1,0 +1,50 @@
+---
+title: "[DRAFT] FAQ: Bias in Dissolved Oxygen Data due to Optode Response Time"
+description: |
+  A short description of expected potential biases in Argo DOXY data caused by sensor response time
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2025-10-23
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### Oxygen Optode Response Time
+
+Dissolved oxygen is measured on Argo floats by oxygen optodes, which use a concentration-sensitive foil. Diffusion of oxygen into this sensitive foil is required for an accurate measurement, but this takes time. This means that for a sensor observing changing oxygen conditions (such as an Argo float ascending through an oxygen gradient), there will be a systematic bias in the measurement.
+
+The animation below shows a simplified version of this effect. As the float rises through the water column observing the actual oxygen profile (black line), we see the observation on ascent (blue line) shows a smaller concentration that the true value (or equivalently, the oxygen gradient appears shallower than reality). On descent (orange line), the opposite effect is produced: observations are of higher concentration than the true value, and the gradient appears deeper than reality.
+
+```{r out.width = "400px"}
+knitr::include_graphics("oxygen_response_time_concept_video.gif")
+```
+
+In low-gradient areas where the oxygen profile is near vertical, the observations are very close to the true value. Errors due to the response time of the sensor will be most important where there are changes in oxygen concentration.
+
+There are many factors that can contribute to the response time of a sensor, temperature and flow velocity at the sensor foil being the most important, but also sensor type and whether that sensor is pumped (i.e. plumbed in with the CTD).
+
+### What does this mean for Argo data? Has Argo data been adjusted to correct for sensor response time?
+
+Most Argo data is collected on the float's ascent. This does not mean that the entire dataset will be biased low or high as the direction of the bias will depend on the sign of the gradient as well (i.e. is oxygen increasing or decreasing with depth). This does mean, however, that if you are working with a set of data in a given region for example, and that region has a predominant "typical" dissolved oxygen profile, that most data will be biased in a similar way. 
+
+As discussed above, many factors can contribute to the response time of a sensor, making it a difficult (but not impossible!) correction to perform. At this time, the vast majority of Argo data will not be corrected for response time. The correction may be implemented by expert quality controllers in the Argo data system, meaning some floats may have it. As with all data, it is recommended that Argo data users check the `SCIENTIFIC_CALIB_COMMENT` field to fully understand what adjustments may have been made to the data. 
+
+### What is the magnitude of a typical bias?
+
+The magnitude of the bias will depend on the magnitude of the oxygen gradient, with the largest bias occurring near the largest gradients in the profile. In strong gradients, the bias can reach up to 20-30 $\mu$mol kg$^{-1}$. 
+
+_Comment from Chris: this feels like a good FAQ question, but also the answer feels a bit misleading and makes it sound like oxygen data without response time correction could be really bad. Not sure if this should stay in or if it just needs some more careful wording._
+
+### Further Reading
+
+- Bittig Henry C., Fiedler Björn, Scholz Roland, Krahmann Gerd, Körtzinger Arne, (2014), Time response of oxygen optodes on profiling platforms and its dependence on flow speed and temperature, Limnology and Oceanography: Methods, 12. https://doi.org/10.4319/lom.2014.12.617.
+- Bittig, H. C. and Körtzinger, A.: Technical note: Update on response times, in-air measurements, and in situ drift for oxygen optodes on profiling platforms, Ocean Sci., 13, 1–11, https://doi.org/10.5194/os-13-1-2017, 2017.
+- Gordon, C., Fennel, K., Richards, C., Shay, L. K., and Brewster, J. K.: Can ocean community production and respiration be determined by measuring high-frequency oxygen profiles from autonomous floats?, Biogeosciences, 17, 4119–4134, https://doi.org/10.5194/bg-17-4119-2020, 2020.
+- Cervania, A. A., & Hamme, R. C. (2024). Isopycnal shoaling causes interannual variability in oxygen on isopycnals in the subarctic northeast Pacific. Journal of Geophysical Research: Oceans, 129, e2023JC020414. https://doi.org/10.1029/2023JC020414.
