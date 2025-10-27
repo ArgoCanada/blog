@@ -1,0 +1,8 @@
+Serial,WMO,Date,Action,Result,Vbatt,VacuumPressure,TerminalLogFile,Comment
+P5389B-25CA007,4902725,22-10-2025,autotest-nosky,pass,10.8,712.8,,
+P5389A-25CA004,4902719,22-10-2025,autotest-nosky,pass,10.8,719.2,,
+P5389A-25CA006,4902721,22-10-2025,autotest-nosky,pass,10.8,714.7,,"Radiometer bracket snapped/broken, tested sensor and seemed fine, will evaluate output for gross error"
+P5389B-25CA005,4902723,22-10-2025,autotest-nosky,pass,10.8,711.2,,
+P5389A-25CA005,4902720,22-10-2025,autotest-nosky,pass,10.8,715.4,,
+P5389B-25CA006,4902724,22-10-2025,autotest-nosky,pass,10.8,707.8,,
+P5389A-25CA008,4902722,22-10-2025,autotest-nosky,pass,10.9,713.9,,"Forklift hole in end of crate near float head but do not suspect it hit to float or to find any damage"
