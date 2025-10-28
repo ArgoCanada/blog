@@ -12,7 +12,16 @@
       <link>https://argocanada.github.io/blog/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 28 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>[DRAFT] FAQ: Bias in Dissolved Oxygen Data due to Optode Response Time</title>
+      <dc:creator>Christopher Gordon</dc:creator>
+      <link>https://argocanada.github.io/blog/posts/2025-10-23-draft-faq-bias-in-dissolved-oxygen-data-due-to-optode-response-time</link>
+      <description>A short description of expected potential biases in Argo DOXY data caused by sensor response time</description>
+      <guid>https://argocanada.github.io/blog/posts/2025-10-23-draft-faq-bias-in-dissolved-oxygen-data-due-to-optode-response-time</guid>
+      <pubDate>Thu, 23 Oct 2025 00:00:00 +0000</pubDate>
+      <media:content url="https://argocanada.github.io/blog/posts/2025-10-23-draft-faq-bias-in-dissolved-oxygen-data-due-to-optode-response-time/oxygen_response_time_concept_video.gif" medium="image" type="image/gif"/>
+    </item>
     <item>
       <title>Performance of Canadian Argo Floats in the Ross Sea</title>
       <dc:creator>Christopher Gordon</dc:creator>
