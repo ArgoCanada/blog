@@ -5,7 +5,8 @@ df = pd.read_csv('canada_deployments.csv')
 serial_map = pd.read_csv('nke_serial_info.csv').set_index('serial_prefix')
 
 # NKE floats only, write APEX interpreter later
-df = df.loc[(df.STATUS == 'CONFIRMED') & (df.MODEL != 'APEX')]
+df = df.loc[df.STATUS == 'CONFIRMED']
+df['SERIAL NUMBER'] = [sn if len(sn.split('-')) > 1 else f'TWR-{sn}' for sn in df['SERIAL NUMBER']]
 df = df.drop(['STATUS', 'MODEL', 'MODEL_DETAIL', 'BASIN'], axis=1)
 df['MODEL'] = [serial_map.loc[s.split('-')[0], 'model'] for s in df['SERIAL NUMBER']]
 df['SENSOR_MODEL'] = [serial_map.loc[s.split('-')[0], 'sensor_model'] for s in df['SERIAL NUMBER']]
