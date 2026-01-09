@@ -10,3 +10,7 @@ P5389A-25CA008,4902722,22-10-2025,autotest-nosky,pass,10.9,713.9,,"Forklift hole
 AI2600-24CA006,4902697,05-11-2025,autotest,pass,10.7,608,AI2600-23CA006_autotest_pre-shipment.log,"Autotest before shipping to New Zealand for deployment in Ross Sea"
 10888,4902717,07-11-2025,comms-test,fail,,,10888_20251107_TWR_RUDICS_Test_with_JN.log,"Re-ran test with Jess on the phone. Similar issue, Jess going to consult Brian about potential server side issues."
 10888,4902717,12-11-2025,comms-test,pass,,,10888_20251112_TWR_RUDICS_Test.log,"Connection was poor but login and file upload/download eventually ran successfully"
+P5389A-25CA002,,05-12-2025,autotest-nosky,pass,10.8,707.4,,"sd: not present in autotest, followup"
+P5389B-25CA003,,05-12-2025,autotest-nosky,pass,10.8,708.2,,
+P5389A-25CA009,,05-12-2025,autotest-nosky,pass,10.8,709.3,,
+10878,,18-12-2025,autotest,pass,,,,"Configuration and predeployment test for Labrador ICE NAV mission"
