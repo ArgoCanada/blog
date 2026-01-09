@@ -13,3 +13,4 @@ AI2600-24CA006,4902697,05-11-2025,autotest,pass,10.7,608,AI2600-23CA006_autotest
 P5389A-25CA002,,05-12-2025,autotest-nosky,pass,10.8,707.4,,"sd: not present in autotest, followup"
 P5389B-25CA003,,05-12-2025,autotest-nosky,pass,10.8,708.2,,
 P5389A-25CA009,,05-12-2025,autotest-nosky,pass,10.8,709.3,,
+10878,,18-12-2025,autotest,pass,,,,"Configuration and predeployment test for Labrador ICE NAV mission"
