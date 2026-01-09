@@ -149,3 +149,22 @@ knitr::kable(py$table)
 
 ## Notes from the year
 
+### Deployments and Float Performance
+
+- Fewer deployments this year (20) relative to recent years (2024: 38, 2023: 33). This can be attributed to a few reasons such as the recall of RBR floats, switch to Teledyne APEX floats which remain without a RUDICS server, and deployment of our final NKE floats (except 2 RBR-ARVOR awaiting warranty, 1 SBE-ARVOR and 1 PROVOR being shipped back to BIO following repair, 2 deep ARVORs). 
+- Anticipate more in 2026 with the RUDICS server getting set up, return of RBR floats, and more (~30) Dalhousie floats being delivered.
+- Under-ice floats have been surviving relatively well, but with some data loss due to memory limitations on multiple profiles under ice. Short status on their performance here: [Performance of Canadian Argo Floats in the Ross Sea](https://argocanada.github.io/blog/posts/2025-05-28-performance-of-canadian-argo-floats-in-the-ross-sea/), a short analysis to be repeated soon as several Ross Sea floats have surfaced recently.
+
+### Teledyne RUDICS Service
+
+- Our current RUDICS setup for NKE floats does not support the required software/protocols used by the APEX floats so a new server is being setup. 
+- Doing this through SSC/MetOcean was cost-prohibitive, so attempting to setup over DFO cloud service. This seems possible but is moving slowly along. 
+- Teledyne will allow us to use their RUDICS server in the meantime so that communication services will not be an obstacle for getting floats in the water.
+
+### RBR Recall
+
+- RBR CTDs experienced cracking ceramics with exposure to ~2000dbar pressure. RBR replacing ceramics on undeployed floats with deep ceramic. Committed to 
+- 7 Teledyne APEX floats currently returned/being repaired.
+- 2 NKE ARVOR floats are at IOS awaiting repair. These floats are from 2023 and NKE will evaluate the health of their batteries when the CTDs are replaced. 
+- 3-5 deployed floats we believe could have experienced cracked ceramics after deployment. Report submitted to RBR and will see which/how many they will provide replacement for. 
+- Discussion can be seen on github: [RBR Ceramics issue tag](https://github.com/ArgoCanada/QC-forum/issues?q=is%3Aissue%20label%3Arbr-ceramics)
