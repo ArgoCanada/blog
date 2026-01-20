@@ -19,7 +19,7 @@ import pandas as pd
 
 df = pd.read_csv('deployment/canada_deployments.csv')
 df['DEPLOYMENT DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
-df = df.loc[(df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2025')) | (df['DEPLOYMENT DATE'].isna())]
+df = df.loc[(df['DEPLOYMENT DATE'] > pd.Timestamp('01-01-2026')) | (df['DEPLOYMENT DATE'].isna())]
 df = df.sort_values('DEPLOYMENT DATE')
 df['DEPLOYMENT DATE'] = [d.strftime('%d %b, %Y') if pd.notna(d) else '' for d in df['DEPLOYMENT DATE']]
 df['REF'] = [str(int(w)) if pd.notna(w) else '' for w in df.REF]
