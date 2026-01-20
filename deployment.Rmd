@@ -136,7 +136,7 @@ leaflet() %>%
     )
 ```
 
-## Deployments since Jan 1, 2025
+## Deployments since Jan 1, 2026
 
 `r py$summary_string`
 
