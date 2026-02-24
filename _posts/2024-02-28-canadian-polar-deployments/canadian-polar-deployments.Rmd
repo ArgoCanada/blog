@@ -71,13 +71,15 @@ def add_map_features(ax):
 
 
 # wmo numbers of the floats
-beaufort_wmos = [4902610, 4902611]
-ross_wmos = [4902664, 4902665, 4902667, 4902668, 4902669]
+beaufort_wmos = [4902558, 4902610, 4902611]
+ross_wmos = [4902664, 4902665, 4902667, 4902668, 4902669, 4902698, 4902704, 4902697]
 
 # grab Argo index for each group
-index = argopy.ArgoIndex().load()
-beaufort_ix = index.search_wmo(beaufort_wmos).to_dataframe()
-ross_ix = index.search_wmo(ross_wmos).to_dataframe()
+beaufort_data = argopy.DataFetcher(parallel=True).float(beaufort_wmos)
+ross_data = argopy.DataFetcher(parallel=True).float(ross_wmos)
+beaufort_ix = beaufort_data.index
+ross_ix = ross_data.index
+
 
 # geo axis figures
 fig = plt.figure(constrained_layout=True)
@@ -87,7 +89,7 @@ axes = [
 ]
 
 # bathymetry for plot
-bath_file = Path('/Users/GordonC/Documents/data/GEBCO/GEBCO_2020.nc')
+bath_file = Path('/Users/GordonC/Documents/data/GEBCO/GEBCO_2020.nc').absolute()
 bath = Dataset(bath_file)
 blat = bath['lat'][:]
 blon = bath['lon'][:]
@@ -155,8 +157,8 @@ In the Ross Sea, one floats (4902665) appears to have broken its conductivity ce
 The other 4 floats deployed in the Ross Sea all had successful deployments. For the first part of their mission (up to 2 weeks for some floats, a few days for others) they performed near-daily (31 hour) cycles in order to maximize data collection before they go under the ice. At the end of February they were switched back to near 10-day (235 hour) cycles so that they do not over-collect data while under the ice and run out of onboard memory space. 
 
 ```{python data, include=TRUE}
-beaufort_df = df = argopy.DataFetcher().float(beaufort_wmos).to_dataframe()
-ross_df = argopy.DataFetcher().float(ross_wmos).to_dataframe()
+beaufort_df = beaufort_data.to_dataframe()
+ross_df = ross_data.to_dataframe()
 
 fig, axes = plt.subplots(2, 2, sharex=False, sharey=True, constrained_layout=True)
 for axrow, varname in zip(axes, ['TEMP', 'PSAL']):

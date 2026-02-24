@@ -1,0 +1,41 @@
+---
+title: "argopy CANYON-B and CONTENT Trial"
+description: |
+  Using argopy to get Nutrient and Carbonate data.
+author:
+  - name: Christopher Gordon
+    url: https://github.com/cgrdn
+date: 2026-02-10
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+```
+
+```{python load packages and data, include=TRUE}
+
+import matplotlib.pyplot as plt
+
+import argopy
+import cmocean
+
+wmo = 4902688
+flt = argopy.DataFetcher(ds='bgc').float(wmo)
+ds = flt.to_xarray()
+ds.argo.canyon_b.predict(['NO3', 'pCO2'])
+
+fig, axes = plt.subplots(3, 1, sharex=True, sharey=True)
+
+ds.plot.scatter(x='CYCLE_NUMBER', y='PRES', hue='DOXY', ax=axes[0], cmap=cmocean.cm.dense, linewidths=0)
+ds.plot.scatter(x='CYCLE_NUMBER', y='PRES', hue='NO3', ax=axes[1], cmap=cmocean.cm.matter, linewidths=0)
+ds.plot.scatter(x='CYCLE_NUMBER', y='PRES', hue='pCO2', ax=axes[2], cmap=cmocean.cm.amp, linewidths=0)
+
+axes[0].set_ylim((250, -10))
+
+```
+
