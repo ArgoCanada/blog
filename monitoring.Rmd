@@ -1,0 +1,150 @@
+---
+title: "Daily Monitoring"
+description: |
+  Summary of Argo Data reported from the MEDS DAC 2 days ago. 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+library(leaflet)
+library(emoji)
+use_condaenv("py39")
+```
+
+```{python fetch data}
+import pandas as pd
+import argopy
+
+# get argo index
+core_index = argopy.ArgoIndex().to_dataframe()
+bgc_index = argopy.ArgoIndex(index_file='bgc-b').to_dataframe()
+
+# only interested in MEDS floats
+core_index = core_index.loc[core_index.dac == 'meds']
+bgc_index = bgc_index.loc[bgc_index.dac == 'meds']
+
+# get profiles that were pushed to the GDAC on this day
+now = pd.Timestamp('now', tz='utc')
+date_of_interest = pd.Timestamp(now.year, now.month, now.day) - pd.Timedelta(days=2)
+# for testing purposes use Jan 22, all float types reported
+date_of_interest = pd.Timestamp(2025, 1, 22)
+core_index = core_index.loc[(core_index.date > date_of_interest) & (core_index.date < date_of_interest + pd.Timedelta(days=1))]
+bgc_index = bgc_index.loc[(bgc_index.date > date_of_interest) & (bgc_index.date < date_of_interest + pd.Timedelta(days=1))]
+
+def bgc_type(index, wmo):
+  for v in ['CHLA', 'BBP700', 'NITRATE', 'pH']:
+    if v in index.loc[index.wmo == wmo].parameters.iloc[0]:
+      return 'BGC'
+  
+  return 'DO-only'
+
+map_info = pd.DataFrame({
+  'platform':[p.split(' ')[0] for p in core_index.profiler],
+  'wmo':core_index.wmo,
+  'cycle':core_index.cyc,
+  'date':core_index.date,
+  'latitude':core_index.latitude,
+  'longitude':core_index.longitude,
+  'type':[bgc_type(bgc_index, wmo) if wmo in bgc_index.wmo.values else 'Core' for wmo in core_index.wmo]
+})
+
+```
+
+```{r map, include=TRUE, echo=FALSE, layout="l-page-outset shaded"}
+pal <- colorFactor(
+  c("red", "green", "blue"),
+  levels = c("Core", "BGC", "DO-only")
+)
+icons <- iconList(
+  Surface = makeIcon("images/up-long-solid.png", "images/up-long-solid.png", 16, 16)
+)
+
+leaflet() %>%
+  addTiles() %>%
+    setView(lng = -60, lat = 45, zoom = 2) %>%
+    addCircleMarkers(
+      data = py$map_info,
+      lat = py$map_info$latitude,
+      lng = py$map_info$longitude,
+      radius = 12,
+      stroke = FALSE,
+      fillColor = ~pal(py$map_info$type),
+      fillOpacity = 0.7,
+      popup = paste0(
+        "WMO: ", py$map_info$wmo,
+        "<br/>",
+        "Model: ", py$map_info$cycle,
+        "<br/>",
+        "Platform: ", py$map_info$platform,
+        "<br/>",
+        "Network: ", py$map_info$type
+      )
+    ) %>%
+    addMarkers(
+      data = py$map_info,
+      lat = py$map_info$latitude,
+      lng = py$map_info$longitude,
+      icon = icons["Surface"],
+      popup = paste0(
+        "WMO: ", py$map_info$wmo,
+        "<br/>",
+        "Model: ", py$map_info$cycle,
+        "<br/>",
+        "Platform: ", py$map_info$platform,
+        "<br/>",
+        "Network: ", py$map_info$type
+      )
+    )
+
+```
+
+```{python create plots}
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.offsetbox import AnchoredText
+
+sns.set_theme(context='paper', style='ticks')
+
+def size_figure(n, m, fig, wspace=0.5):
+  
+  # setup
+  aspect = 1
+  bottom = 0.15; left=0.05
+  top=1.-bottom; right = 1.-left
+  fisasp = (1-bottom-(1-top))/float( 1-left-(1-right) )
+  #widthspace, relative to subplot size
+  hspace=wspace/float(aspect)
+  #fix the figure height
+  figheight = 2 # inch
+  figwidth  = (m + (m-1)*wspace)/float((n+(n-1)*hspace)*aspect)*figheight*fisasp
+  
+  fig.set_size_inches(figwidth, figheight)
+
+
+# core plots
+for ix, row in core_index.iterrows():
+  data = argopy.DataFetcher().profile(row.wmo, row.cyc).to_dataframe()
+  print(data)
+  fig, axes = plt.subplots(1, 3)
+  for ax, v in zip(axes, ['TEMP', 'PSAL']):
+    leg = True if v == 'TEMP' else False
+    sns.scatterplot(
+      data=data, x=v, y='PRES', hue=f'{v}_QC', 
+      hue_order=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
+      palette=['grey', 'green', 'yellow', 'orange', 'red', 'blue', 'blue', 'blue', 'blue', 'blue'], 
+      linewidth=0.2, legend=leg, ax=ax
+    )
+    if leg:
+      ax.legend(loc=3, fontsize=5)
+    ax.set_ylim((2050, -50))
+  sns.scatterplot(data=data, x='PSAL', y='TEMP', linewidth=0.2, ax=axes[2])
+  size_figure(1, 3, fig, wspace=1)
+  fig.tight_layout()
+  
+  info = f'{row.profiler.split(" ")[0]}, {row.wmo}, Cycle {row.cyc}'
+  info = info + f'\n({row.latitude:.2f}, {row.longitude:.2f}), N = {data.shape[0]}'
+  
+  axes[0].set_title(info, loc='left')
+plt.show()
+```
