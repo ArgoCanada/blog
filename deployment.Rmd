@@ -12,7 +12,7 @@ py_install("pandas")
 
 This page is used for Canadian Argo groups to coordinate deployment planning, in addition to [OceanOps](https://www.ocean-ops.org/board?t=argo). To submit plans to the website, see instructions on the [github page](https://github.com/ArgoCanada/blog/tree/master/deployment).
 
-The map below shows completed and planned deployments for 2025, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
+The map below shows completed and planned deployments for 2026, coloured by institution. Dots with a buoy symbol are locations of completed deployments (deployment location, not most recent profile location), while dots with the loading symbol are planned deployments.
 
 ```{python data}
 import pandas as pd
@@ -71,9 +71,9 @@ model_mapper = {
 }
 
 if n_floats == 0:
-  summary_string = 'So far in 2025 we have not deployed any floats.'
+  summary_string = 'So far in 2026 we have not deployed any floats.'
 else:
-  summary_string = f'To date we have deployed {n_floats} floats in 2025: '
+  summary_string = f'To date we have deployed {n_floats} floats in 2026: '
   for flt in recent.Detail.unique():
     n = recent.loc[recent.Detail == flt].shape[0]
     if n > 0:
