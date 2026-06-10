@@ -15,5 +15,6 @@ df['MODEL'] = [serial_map.loc[s.split('-')[0], 'model'] for s in df['SERIAL NUMB
 df['PROGRAM'] = [program_map.loc[inst, 'program'] for inst in df['INSTITUTE']]
 df['SERIAL NUMBER'] = [sn if sn.split('-')[0] != 'TWR' else sn.split('-')[1] for sn in df['SERIAL NUMBER']]
 
+df = df.drop('DATE', axis=1)
 now = pd.Timestamp('now', tz='utc')
 df.to_csv(f'OceanOps/canada_recent_deployment_{now.year}-{now.month:02d}-{now.day:02d}T{now.hour:02d}{now.minute:02d}{now.second:02d}.csv', index=False, float_format='%.16g')
