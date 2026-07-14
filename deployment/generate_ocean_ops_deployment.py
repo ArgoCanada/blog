@@ -6,7 +6,7 @@ serial_map = pd.read_csv('serial_info.csv').set_index('serial_prefix')
 program_map = pd.read_csv('program_info.csv').set_index('institute')
 df['DATE'] = df['DEPLOYMENT DATE'].apply(pd.Timestamp)
 
-recent_deployment = pd.Timestamp('2026-05-01')
+recent_deployment = pd.Timestamp('2026-07-01')
 
 df = df.loc[(df.STATUS == 'OPERATIONAL') & (df.DATE > recent_deployment)]
 df['SERIAL NUMBER'] = [sn if len(sn.split('-')) > 1 else f'TWR-{sn}' for sn in df['SERIAL NUMBER']]
